@@ -24,6 +24,8 @@ class Star:SKSpriteNode {
     
     
     func starSetup() {
+        self.setScale(CGFloat(0.1))
+        
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
         

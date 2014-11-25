@@ -31,7 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         centiseconds = 0
         centisecondsPerStar = 1
         spanTime = 0.0
-        starsOnScreen = 13.0
+        starsOnScreen = 23.0
         starsPerSecond = 0.0
         starsPerCentisecond = 0.0
         
