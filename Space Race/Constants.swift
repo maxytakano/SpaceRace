@@ -27,4 +27,5 @@ class Contact {
     class var Star:UInt32               { return 1 << 1 }
     class var Asteroid:UInt32           { return 1 << 2 }
     class var Frame:UInt32              { return 1 << 2 }
+    class var Energy:UInt32             { return 1 << 3 }
 }

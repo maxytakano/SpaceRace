@@ -16,6 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    var viewSize:CGSize!
     var ship:SpaceShip!
     var stars:NSMutableArray
+    var energies:NSMutableArray
+    var contactQueue = Array<SKPhysicsContact>()
     
     var boosting = false
     var braking = false
@@ -28,6 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize) {
         stars = []
+        energies = []
         centiseconds = 0
         centisecondsPerStar = 1
         spanTime = 0.0
@@ -47,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.setupWorld()
         self.setupHUD()
         motionManager.startAccelerometerUpdates()
-        
+        physicsWorld.contactDelegate = self
         self.startGame()
     }
     
@@ -186,7 +189,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //println(centiseconds)
         
         if centiseconds % centisecondsPerStar == 0 {
-            addStar()
+//            addStar()
+            addEnergy()
         }
     }
     
@@ -204,7 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         starsPerCentisecond = starsPerSecond/100
         centisecondsPerStar = Int(1.0/starsPerCentisecond)
         
-        println(ship.forwardSpeed)
+//        println(ship.forwardSpeed)
         
         
         // starsOnScreen = spawnRate * spanTime
@@ -220,6 +224,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 star.removeFromParent()
             }
         }
+        
+        for energy in energies {
+            (energy as Energy).updateVelocity(ship.forwardSpeed)
+            if energy.position.y < viewSize.height * -0.1 {
+                energies.removeObject(energy)
+                energy.removeFromParent()
+            }
+        }
+        
+        processContactsForUpdate(currentTime)
         
     }
     
@@ -286,6 +300,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
       
     }
+    
+    /*Tim*/
+    func addEnergy() {
+        // Create sprite
+        
+        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let energy = Energy(texture: texture, color: SKColor.redColor(), size: texture.size())
+        
+        
+        // send up mini rock
+        energies.addObject(energy)
+        self.addChild(energy)
+        
+        
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact!) {
+        if contact != nil {
+            self.contactQueue.append(contact)
+        }
+        
+    }
+    
+    func handleContact(contact: SKPhysicsContact){
+        // Ensure you haven't already handled this contact and removed its nodes
+        if (contact.bodyA.node?.parent == nil || contact.bodyB.node?.parent == nil) {
+            return
+        }
+        
+        // Determine which order to collide the bodies in
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        
+        // Order the contact of the bodies
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        collisionManager(firstBody, secondBody)
+    }
+    
+    func processContactsForUpdate(currentTime: CFTimeInterval) {
+        for contact in self.contactQueue {
+            self.handleContact(contact)
+            
+            if let index = (self.contactQueue as NSArray).indexOfObject(contact) as Int? {
+                self.contactQueue.removeAtIndex(index)
+            }
+        }
+    }
+
+    
     
 }
 
