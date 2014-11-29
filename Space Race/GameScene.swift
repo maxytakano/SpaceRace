@@ -189,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //println(centiseconds)
         
         if centiseconds % centisecondsPerStar == 0 {
-//            addStar()
+            addStar()
             addEnergy()
         }
     }

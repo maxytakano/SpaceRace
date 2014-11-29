@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D251A251B4700510B15 /* CollisionManager.swift */; };
+		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
 		F25BFFC21A1535C80015106D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25BFFC11A1535C80015106D /* Constants.swift */; };
 		F25BFFCD1A153D430015106D /* SilomBol.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25BFFCA1A153D430015106D /* SilomBol.ttf */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F20D3D251A251B4700510B15 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
+		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
 		F25BFFC11A1535C80015106D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F25BFFCA1A153D430015106D /* SilomBol.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SilomBol.ttf; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 		F2639A3A1A1528F8003DD8CC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F20D3D251A251B4700510B15 /* CollisionManager.swift */,
 				F25BFFCF1A153D690015106D /* GameTextures.swift */,
 				F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */,
 				F25BFFC11A1535C80015106D /* Constants.swift */,
@@ -160,6 +165,7 @@
 				F2639A3C1A1529A6003DD8CC /* SpaceShip.swift */,
 				F2639A3E1A1529B8003DD8CC /* Star.swift */,
 				F2639A401A1529C1003DD8CC /* Asteroid.swift */,
+				F20D3D261A251B4700510B15 /* Energy.swift */,
 			);
 			name = Actors;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */,
 				F2639A3D1A1529A6003DD8CC /* SpaceShip.swift in Sources */,
 				F2C3E3D71A0BF201004A16D5 /* ParticleSystems.swift in Sources */,
 				F2C3E3AF1A0BE82F004A16D5 /* GameScene.swift in Sources */,
@@ -363,6 +370,7 @@
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,
 				F25BFFD01A153D690015106D /* GameTextures.swift in Sources */,
 				F2C3E3AB1A0BE82F004A16D5 /* AppDelegate.swift in Sources */,
+				F20D3D281A251B4700510B15 /* Energy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
