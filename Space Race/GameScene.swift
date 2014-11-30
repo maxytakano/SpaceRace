@@ -17,6 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ship:SpaceShip!
     var stars:NSMutableArray
     var energies:NSMutableArray
+    var asteroids:NSMutableArray
     var contactQueue = Array<SKPhysicsContact>()
     
     var boosting = false
@@ -31,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         stars = []
         energies = []
+        asteroids = []
         centiseconds = 0
         centisecondsPerStar = 1
         spanTime = 0.0
@@ -190,6 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if centiseconds % centisecondsPerStar == 0 {
             addStar()
+            addAsteroid()
             addEnergy()
         }
     }
@@ -230,6 +233,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if energy.position.y < viewSize.height * -0.1 {
                 energies.removeObject(energy)
                 energy.removeFromParent()
+            }
+        }
+        
+        for asteroid in asteroids {
+            (asteroid as Asteroid).updateVelocity(ship.forwardSpeed)
+            if asteroid.position.y < viewSize.height * -0.1 {
+                asteroids.removeObject(asteroid)
+                asteroid.removeFromParent()
             }
         }
         
@@ -312,6 +323,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // send up mini rock
         energies.addObject(energy)
         self.addChild(energy)
+        
+        
+    }
+    
+    func addAsteroid() {
+        // Create sprite
+        
+        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+        let asteroid = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
+        
+        
+        // send up mini rock
+        asteroids.addObject(asteroid)
+        self.addChild(asteroid)
         
         
     }

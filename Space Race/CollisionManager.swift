@@ -13,7 +13,7 @@ import SpriteKit
 
 func collisionManager(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
     energyCollision(firstBody, secondBody)
-    
+    asteroidCollision(firstBody, secondBody)
     
 }
 
@@ -24,6 +24,16 @@ func energyCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
             //done to make sure removed from array too
             secondBody.node!.position.y = viewSize.height * -0.1
             println("energy")
+    }
+    
+}
+
+func asteroidCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+    if ((firstBody.categoryBitMask & Contact.Ship != 0)
+        && (secondBody.categoryBitMask & Contact.Asteroid != 0)) {
+            //done to make sure removed from array too
+            secondBody.node!.position.y = viewSize.height * -0.1
+            println("asteroid")
     }
     
 }
