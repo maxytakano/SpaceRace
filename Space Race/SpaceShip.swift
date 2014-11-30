@@ -45,7 +45,7 @@ class SpaceShip:SKSpriteNode {
         self.physicsBody?.angularDamping = 1.0
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.categoryBitMask = Contact.Ship
-        self.physicsBody?.collisionBitMask = Contact.Asteroid | Contact.Energy
+        self.physicsBody?.collisionBitMask = Contact.Asteroid
         self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.Energy
 //        self.physicsBody?.collisionBitMask = Contact.Alien | Contact.AlienMissile | Contact.AlienTorpedo
 //        self.physicsBody?.contactTestBitMask = Contact.Alien | Contact.AlienMissile | Contact.AlienTorpedo
