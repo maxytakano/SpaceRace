@@ -13,7 +13,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let motionManager: CMMotionManager = CMMotionManager()
     
-//    var viewSize:CGSize!
     var ship:SpaceShip!
     var stars:NSMutableArray
     var energies:NSMutableArray
@@ -28,6 +27,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var starsOnScreen:Double
     var starsPerSecond:Double
     var starsPerCentisecond:Double
+    
+    var contentCreated = false
     
     override init(size: CGSize) {
         stars = []
@@ -47,72 +48,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Scene Setup and Content Creation
     override func didMoveToView(view: SKView) {
-        viewSize = self.frame.size
-        self.setupWorld()
-        self.setupHUD()
-        motionManager.startAccelerometerUpdates()
-        physicsWorld.contactDelegate = self
-        self.startGame()
-    }
-    
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        let touch:UITouch = touches.anyObject() as UITouch
-        let touchLocation = touch.locationInNode(self)
-        
-        var theNode = self.nodeAtPoint(touchLocation)
-        
-        // check if boost button touched
-        if theNode.name == "boostButtonNode" {
-            boosting = true
-        }
-        
-        // check if brake button touched
-        if theNode.name == "brakeButtonNode" {
-            braking = true
+        if(!self.contentCreated){
+            viewSize = self.frame.size
+            physicsWorld.contactDelegate = self
+            self.contentCreated = true
+            motionManager.startAccelerometerUpdates()
+            self.setupWorld()
+            self.setupHUD()
+            self.startGame()
         }
     }
-    
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        boosting = false
-        braking = false
-    }
-    
-
-    // Boost button
-    func boostButtonNode() -> SKSpriteNode {
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
-        let boostNode = SKSpriteNode(texture: texture,
-                                             color: UIColor.whiteColor(),
-                                             size: texture.size())
-        boostNode.position = CGPoint(x: viewSize.width * 0.8, y: viewSize.height * 0.1)
-        boostNode.name = "boostButtonNode"
-        boostNode.zPosition = GameLayer.Interface
-        return boostNode
-    }
-    
-    // Brake button
-    func brakeButtonNode() -> SKSpriteNode {
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
-        let brakeNode = SKSpriteNode(texture: texture,
-            color: UIColor.whiteColor(),
-            size: texture.size())
-        brakeNode.position = CGPoint(x: viewSize.width * 0.2, y: viewSize.height * 0.1)
-        brakeNode.name = "brakeButtonNode"
-        brakeNode.zPosition = GameLayer.Interface
-        return brakeNode
-    }
-    
-//    SKSpriteNode
-//    SKSpriteNode boostButtonNode()
-//    {
-//    SKSpriteNode *boostNode = [SKSpriteNode spriteNodeWithImageNamed:@"boostButton.png"];
-//    boostNode.position = CGPointMake(boostButtonX,boostButtonY);
-//    boostNode.name = @"boostButtonNode";//how the node is identified later
-//    boostNode.zPosition = 1.0;
-//    return boostNode;
-//    }
-    
     
     
     func setupHUD() {
@@ -144,51 +91,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        self.addChild(startMessage)
     }
     
-    //var centiseconds = 0
-//    var seconds = 0
-//    var minutes = 0
-    
     func startGame() {
-//        startMessage.hidden = true
-//        MotionManagerSharedInstance.startMotionManager()
-        
-//        runAction(SKAction.repeatActionForever(
-//                    SKAction.sequence([
-//                        SKAction.runBlock(addStar),
-//                        SKAction.waitForDuration(0.01, withRange: 0.0)
-//                        ])
-//                    ), withKey: "starGeneration")
-        
 //        startClockUpdates()
         var timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
     }
     
     
     func timerUpdate() {
-//         increment time
-//        centiseconds++
-//        if centiseconds == 100 {
-//            centiseconds = 0
-//            seconds++
-//            if seconds == 60 {
-//                seconds = 0
-//                minutes++
-//            }
-//        }
-        
-//        var centiseconds = 0
-//        centiseconds++
-        
-    
-        
         centiseconds++
-        
-        
-        
-        //("updating")
-        
-        //println(centisecondsPerStar)
-        //println(centiseconds)
         
         if centiseconds % centisecondsPerStar == 0 {
             addStar()
@@ -197,6 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    /*Update*/
     
     
     override func update(currentTime: CFTimeInterval) {
@@ -219,31 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //spawnRate = starsOnScreen / spanTime
         //speed = CGFloat(spawnRate)
         
-        
-        for star in stars {
-            (star as Star).updateVelocity(ship.forwardSpeed)
-            if star.position.y < viewSize.height * -0.1 {
-                stars.removeObject(star)
-                star.removeFromParent()
-            }
-        }
-        
-        for energy in energies {
-            (energy as Energy).updateVelocity(ship.forwardSpeed)
-            if energy.position.y < viewSize.height * -0.1 {
-                energies.removeObject(energy)
-                energy.removeFromParent()
-            }
-        }
-        
-        for asteroid in asteroids {
-            (asteroid as Asteroid).updateVelocity(ship.forwardSpeed)
-            if asteroid.position.y < viewSize.height * -0.1 {
-                asteroids.removeObject(asteroid)
-                asteroid.removeFromParent()
-            }
-        }
-        
+        updateGameObjects()
         processContactsForUpdate(currentTime)
         
     }
@@ -281,6 +168,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func updateGameObjects(){
+        for star in stars {
+            (star as Star).updateVelocity(ship.forwardSpeed)
+            if star.position.y < viewSize.height * -0.1 {
+                stars.removeObject(star)
+                star.removeFromParent()
+            }
+        }
+        
+        for energy in energies {
+            (energy as Energy).updateVelocity(ship.forwardSpeed)
+            if energy.position.y < viewSize.height * -0.1 {
+                energies.removeObject(energy)
+                energy.removeFromParent()
+            }
+        }
+        
+        for asteroid in asteroids {
+            (asteroid as Asteroid).updateVelocity(ship.forwardSpeed)
+            if asteroid.position.y < viewSize.height * -0.1 {
+                asteroids.removeObject(asteroid)
+                asteroid.removeFromParent()
+            }
+        }
+    }
+    
 
     func addStar() {
         // Create sprite
@@ -288,31 +201,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
         let star = Star(texture: texture, color: SKColor.redColor(), size: texture.size())
         
-//        let star = SKSpriteNode(imageNamed: "bright_block3")
-//        star.name = "star"
-        
-//        let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
-        
         // send up mini rock
         stars.addObject(star)
-        
-        
         self.addChild(star)
-        
-        //        var actualDuration = getRandom(min: CGFloat(minSpeed), CGFloat(maxSpeed))
-        
-        
-//        star.xScale = 0.3
-//        star.yScale = 0.3
-//        
-//        star.zPosition = -9
-        
-        //        let actionMoveUp = SKAction.moveTo(CGPoint(x: size.width * 0.647, y: size.height + rock.size.height/2), duration: NSTimeInterval(actualDuration/3))
         
       
     }
-    
-    /*Tim*/
+
     func addEnergy() {
         // Create sprite
         
@@ -340,6 +235,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
+    
+    /*Contact Handler*/
     
     func didBeginContact(contact: SKPhysicsContact!) {
         if contact != nil {
@@ -377,6 +274,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.contactQueue.removeAtIndex(index)
             }
         }
+    }
+    
+    /*TouchScreen*/
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        let touch:UITouch = touches.anyObject() as UITouch
+        let touchLocation = touch.locationInNode(self)
+        
+        var theNode = self.nodeAtPoint(touchLocation)
+        
+        // check if boost button touched
+        if theNode.name == "boostButtonNode" {
+            boosting = true
+        }
+        
+        // check if brake button touched
+        if theNode.name == "brakeButtonNode" {
+            braking = true
+        }
+    }
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        boosting = false
+        braking = false
+    }
+    
+    
+    // Boost button
+    func boostButtonNode() -> SKSpriteNode {
+        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+        let boostNode = SKSpriteNode(texture: texture,
+            color: UIColor.whiteColor(),
+            size: texture.size())
+        boostNode.position = CGPoint(x: viewSize.width * 0.8, y: viewSize.height * 0.1)
+        boostNode.name = "boostButtonNode"
+        boostNode.zPosition = GameLayer.Interface
+        return boostNode
+    }
+    
+    // Brake button
+    func brakeButtonNode() -> SKSpriteNode {
+        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+        let brakeNode = SKSpriteNode(texture: texture,
+            color: UIColor.whiteColor(),
+            size: texture.size())
+        brakeNode.position = CGPoint(x: viewSize.width * 0.2, y: viewSize.height * 0.1)
+        brakeNode.name = "brakeButtonNode"
+        brakeNode.zPosition = GameLayer.Interface
+        return brakeNode
     }
 
     

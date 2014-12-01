@@ -31,7 +31,6 @@ class Asteroid:SKSpriteNode {
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
         
         // Position
-        //        self.position = startPosition
         let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
         self.position = CGPoint(x: viewSize.width * randomX, y:viewSize.height * 1.1)
         self.zRotation = getRandom(min: CGFloat(0.0), CGFloat(6.28))
@@ -51,18 +50,6 @@ class Asteroid:SKSpriteNode {
         
         self.physicsBody?.collisionBitMask = Contact.Ship
         self.physicsBody?.contactTestBitMask = Contact.Ship
-        //        self.physicsBody?.collisionBitMask = Contact.Alien | Contact.AlienMissile | Contact.AlienTorpedo
-        //        self.physicsBody?.contactTestBitMask = Contact.Alien | Contact.AlienMissile | Contact.AlienTorpedo
-        
-        //        self.physicsBody?.velocity = CGVectorMake(0.0, -100.0)
-        
-        
-        
-        //        let actionMoveDown = SKAction.moveTo(CGPoint(x: size.width * randomX, y: size.height * 0.0), duration: NSTimeInterval(6.0))
-        //
-        //        let actionMoveDone = SKAction.removeFromParent()
-        //
-        //        star.runAction(SKAction.sequence([actionMoveDown, actionMoveDone]))
     }
     
     func updateVelocity(newVelocity: Int) {

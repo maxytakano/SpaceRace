@@ -29,7 +29,6 @@ class Energy:SKSpriteNode {
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
         
         // Position
-        //        self.position = startPosition
         let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
         self.position = CGPoint(x: viewSize.width * randomX, y:viewSize.height)
         self.zRotation = getRandom(min: CGFloat(0.0), CGFloat(6.28))
