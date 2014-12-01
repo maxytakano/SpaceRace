@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		227E25721A2BEE3E002280AE /* ShipBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E25711A2BEE3E002280AE /* ShipBullet.swift */; };
 		F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D251A251B4700510B15 /* CollisionManager.swift */; };
 		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		227E25711A2BEE3E002280AE /* ShipBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipBullet.swift; sourceTree = "<group>"; };
 		F20D3D251A251B4700510B15 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				F2639A3C1A1529A6003DD8CC /* SpaceShip.swift */,
 				F2639A3E1A1529B8003DD8CC /* Star.swift */,
+				227E25711A2BEE3E002280AE /* ShipBullet.swift */,
 				F2639A401A1529C1003DD8CC /* Asteroid.swift */,
 				F20D3D261A251B4700510B15 /* Energy.swift */,
 			);
@@ -362,6 +365,7 @@
 				F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */,
 				F2639A3D1A1529A6003DD8CC /* SpaceShip.swift in Sources */,
 				F2C3E3D71A0BF201004A16D5 /* ParticleSystems.swift in Sources */,
+				227E25721A2BEE3E002280AE /* ShipBullet.swift in Sources */,
 				F2C3E3AF1A0BE82F004A16D5 /* GameScene.swift in Sources */,
 				F2639A3F1A1529B8003DD8CC /* Star.swift in Sources */,
 				F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */,

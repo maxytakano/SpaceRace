@@ -12,6 +12,7 @@ import SpriteKit
 
 
 func collisionManager(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+    shipBulletAsteroidCollision(firstBody, secondBody)
     energyCollision(firstBody, secondBody)
     asteroidCollision(firstBody, secondBody)
     
@@ -34,6 +35,17 @@ func asteroidCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
             //done to make sure removed from array too
             secondBody.node!.position.y = viewSize.height * -0.1
             println("asteroid")
+    }
+    
+}
+
+func shipBulletAsteroidCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+    if ((firstBody.categoryBitMask & Contact.Asteroid != 0)
+        && (secondBody.categoryBitMask & Contact.ShipBullet != 0)) {
+            //done to make sure removed from array too
+            firstBody.node!.position.y = viewSize.height * -0.1
+            secondBody.node!.removeFromParent() //remove this and have continues bullet
+            println("hit")
     }
     
 }

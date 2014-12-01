@@ -13,6 +13,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let motionManager: CMMotionManager = CMMotionManager()
     
+    let nameShipBullet = "ShipBullet"
+    let nameShip = "NoobShip"
+    
+    var tapQueue: Array<Int> = []
+    
     var ship:SpaceShip!
     var stars:NSMutableArray
     var energies:NSMutableArray
@@ -130,6 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //spawnRate = starsOnScreen / spanTime
         //speed = CGFloat(spawnRate)
         
+        processUserTapsForUpdate(currentTime)
         updateGameObjects()
         processContactsForUpdate(currentTime)
         
@@ -167,6 +173,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
+    /*Game Objects*/
     
     func updateGameObjects(){
         for star in stars {
@@ -236,6 +244,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //Bullets Helpers
+    
+    func fireBullet(bullet: SKNode, toDestination destination:CGPoint, withDuration duration:CFTimeInterval, andSoundFileName soundName: String) {
+        
+        println("bullet")
+        let bulletAction = SKAction.sequence([SKAction.moveTo(destination, duration: duration), SKAction.waitForDuration(3.0/60.0), SKAction.removeFromParent()])
+//        let soundAction = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
+//        bullet.runAction(SKAction.group([bulletAction, soundAction]))
+        bullet.runAction(SKAction.group([bulletAction]))
+        self.addChild(bullet)
+    }
+    
+    let bulletSize = CGSizeMake(4, 8)
+    func fireShipBullets() {
+        
+        let existingBullet = self.childNodeWithName(nameShipBullet)
+        
+        if existingBullet == nil {
+            
+            if let ship = self.childNodeWithName(nameShip) {
+                let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+                let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
+                    size: texture.size())
+                bullet.position =
+                    CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2)
+                let bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2)
+                self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "ShipBullet.wav")
+                
+            }
+        }
+    }
+    
     /*Contact Handler*/
     
     func didBeginContact(contact: SKPhysicsContact!) {
@@ -293,6 +333,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if theNode.name == "brakeButtonNode" {
             braking = true
         }
+        
+        // bullet
+        if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode"){
+            if let touch : AnyObject = touches.anyObject() {
+                
+                if (touch.tapCount == 1) {
+                    
+                    // add a tap to the queue
+                    self.tapQueue.append(1)
+                }
+            }
+        }
+
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
@@ -324,8 +377,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         brakeNode.zPosition = GameLayer.Interface
         return brakeNode
     }
-
     
+
+    func processUserTapsForUpdate(currentTime: CFTimeInterval) {
+        for tapCount in self.tapQueue {
+            if tapCount == 1 {
+                self.fireShipBullets()
+            }
+            self.tapQueue.removeAtIndex(0)
+        }
+    }
     
 }
 

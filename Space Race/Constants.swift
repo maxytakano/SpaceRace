@@ -28,4 +28,6 @@ class Contact {
     class var Asteroid:UInt32           { return 1 << 2 }
     class var Frame:UInt32              { return 1 << 3 }
     class var Energy:UInt32             { return 1 << 4 }
+    class var ShipBullet:UInt32         { return 1 << 5 }
+    class var EnemyBullet:UInt32        { return 1 << 6 }
 }

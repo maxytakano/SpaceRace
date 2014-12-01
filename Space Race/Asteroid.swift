@@ -11,7 +11,7 @@ import SpriteKit
 
 class Asteroid:SKSpriteNode {
     //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
-    let nameStar = "Pretty Star"
+    let nameAsteroid = "Asteroid"
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -37,7 +37,7 @@ class Asteroid:SKSpriteNode {
         self.zPosition = GameLayer.Game
         
         // Other Properites
-        self.name = nameStar
+        self.name = nameAsteroid
         
         // Physics
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height/2)
