@@ -36,9 +36,11 @@ class ShipBullet:SKSpriteNode {
         // Other Properites
         self.name = nameShipBullet
         
+        var bulletSize = 10
+        
         // Physics
-//        self.physicsBody = SKPhysicsBody(rectangleOfSize: bulletSize)
-        self.physicsBody = SKPhysicsBody(texture: self.texture?, size: self.texture!.size())
+        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
+        //self.physicsBody = SKPhysicsBody(texture: self.texture?, size: self.texture!.size())
         self.physicsBody?.dynamic = true
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.linearDamping = 1.0

@@ -250,6 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         println("bullet")
         let bulletAction = SKAction.sequence([SKAction.moveTo(destination, duration: duration), SKAction.waitForDuration(3.0/60.0), SKAction.removeFromParent()])
+//        let bulletAction = SKAction.sequence([SKAction.moveTo(destination, duration: duration), SKAction.removeFromParent()])
 //        let soundAction = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
 //        bullet.runAction(SKAction.group([bulletAction, soundAction]))
         bullet.runAction(SKAction.group([bulletAction]))
