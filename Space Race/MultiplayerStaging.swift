@@ -9,16 +9,23 @@
 import SpriteKit
 import CoreMotion
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworkingProtocol {
     
     let motionManager: CMMotionManager = CMMotionManager()
-
+    
+    /****************/
+    var networkingEngine:MultiplayerNetworking!
+    
+    
     let nameShipBullet = "ShipBullet"
     let nameShip = "NoobShip"
     
     var tapQueue: Array<Int> = []
     
     var ship:SpaceShip!
+    /****************/
+    var enemyShip:SpaceShip?
+    /****************/
     var stars:NSMutableArray
     var energies:NSMutableArray
     var asteroids:NSMutableArray
@@ -61,13 +68,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         if(!self.contentCreated){
             viewSize = self.frame.size
-            self.beginRace()
-            
         }
     }
     
     func beginRace() {
-        
         var countdown = 4
         
         let countdownLabel = SKLabelNode()
@@ -105,6 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // count down then start the race!
         self.runAction(SKAction.sequence([waitAction, countAction, waitAction, countAction, waitAction,countAction, waitAction, countAction, waitAction, startAction]))
     }
+
     
     
     func setupHUD() {
@@ -127,6 +132,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship = SpaceShip(texture: texture, color: SKColor.whiteColor(), size: texture.size())
         self.addChild(ship)
         
+        /************/
+        enemyShip = SpaceShip(texture: texture, color: SKColor.blackColor(), size: texture.size())
+        self.addChild(enemyShip!)
+        /************/
         
         // Message
         //        startMessage.fontSize = 64.0
@@ -188,6 +197,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             updateGameObjects()
             processContactsForUpdate(currentTime)
             
+            networkingEngine.sendMove(ship.position.x, y: ship.position.y)
         }
     }
     
@@ -437,6 +447,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.tapQueue.removeAtIndex(0)
         }
+    }
+    
+    func matchEnded() {}
+    func setCurrentPlayerIndex(index : Int) {
+        println("huehue")
+        self.beginRace()
+    }
+    func movePlayerAtIndex(index : Int) {}
+    func gameOver(player1Won : Bool) {}
+    func movePlayerTo(x: CGFloat, y: CGFloat) {
+        enemyShip?.position.x = x
+        enemyShip?.position.y = y
     }
     
 }

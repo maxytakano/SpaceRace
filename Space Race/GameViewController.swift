@@ -26,10 +26,10 @@ import SpriteKit
 //}
 
 class GameViewController: UIViewController {
-   
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Configure the view.
         let scene = MenuScene2(size: view.bounds.size)
         let skView = self.view as SKView
@@ -42,13 +42,61 @@ class GameViewController: UIViewController {
             
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
-            
+        
+    
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .AspectFill
         //scene.scaleMode = .ResizeFill
         
         skView.presentScene(scene)
+    }
+    
+    override func awakeFromNib() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goToMultiplayer", name: "GoToMultiplayer", object: nil)
+    }
+    
+    /**********************************************************************/
+    let auth_name = "present_authentication_view_controller"
+    let localplayer = "local_player_authenticated"
+    /**********************************************************************/
+    
+    func goToMultiplayer() {
+        // Set up multiplayer features upon button press
         
+        /* Assign observer to check if user is logged in */
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAuthenticationViewController", name: auth_name, object: nil)
+        
+        /* Check if user is logged in */
+        GameKitHelper.SharedGameKitHelper.authenticateLocalPlayer()
+        
+        /* If authemticated, find match */
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerAuthenticated", name: localplayer, object: nil)
+    }
+    
+    func showAuthenticationViewController() {
+        let gameKitHelper = GameKitHelper.SharedGameKitHelper
+        self.presentViewController(gameKitHelper.authenticationViewController!, animated: true, completion: nil)
+    }
+    
+    func playerAuthenticated() {
+        // Prepare the multiplayer scene
+        let gameScene = MultiplayerStaging(size: self.view.bounds.size)
+        
+        // Connect the scene to the networking engine
+        let networkingEngine = MultiplayerNetworking()
+        networkingEngine.delegate = gameScene
+        gameScene.networkingEngine = networkingEngine
+        GameKitHelper.SharedGameKitHelper.findMatchWithMinPlayers(2, maxPlayers: 2, viewController: self, delegate: networkingEngine)
+        
+        println("Player authenticated, presenting multiplayer scene.")
+        
+        let myView = self.view as SKView
+        myView.presentScene(gameScene)
+    }
+    
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func shouldAutorotate() -> Bool {
