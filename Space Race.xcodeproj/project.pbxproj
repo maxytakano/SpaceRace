@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41D4BB381A2ED713003839DF /* MenuScene2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D4BB371A2ED713003839DF /* MenuScene2.swift */; };
+		41D4BB3A1A2EDC64003839DF /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D4BB391A2EDC64003839DF /* SevenSwitch.swift */; };
+		41D4BB3C1A3008D8003839DF /* OptionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D4BB3B1A3008D8003839DF /* OptionsScene.swift */; };
 		F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D251A251B4700510B15 /* CollisionManager.swift */; };
 		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41D4BB371A2ED713003839DF /* MenuScene2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene2.swift; sourceTree = "<group>"; };
+		41D4BB391A2EDC64003839DF /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
+		41D4BB3B1A3008D8003839DF /* OptionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsScene.swift; sourceTree = "<group>"; };
 		F20D3D251A251B4700510B15 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */,
+				41D4BB371A2ED713003839DF /* MenuScene2.swift */,
+				41D4BB3B1A3008D8003839DF /* OptionsScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -157,6 +165,7 @@
 				F25BFFC11A1535C80015106D /* Constants.swift */,
 				F2C3E3D51A0BF201004A16D5 /* ParticleSystems.swift */,
 				F2C3E3D61A0BF201004A16D5 /* PhysicsUtilities.swift */,
+				41D4BB391A2EDC64003839DF /* SevenSwitch.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -375,8 +384,11 @@
 				F2C3E3D81A0BF201004A16D5 /* PhysicsUtilities.swift in Sources */,
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,
 				F25BFFD01A153D690015106D /* GameTextures.swift in Sources */,
+				41D4BB3C1A3008D8003839DF /* OptionsScene.swift in Sources */,
+				41D4BB381A2ED713003839DF /* MenuScene2.swift in Sources */,
 				F2C3E3AB1A0BE82F004A16D5 /* AppDelegate.swift in Sources */,
 				F20D3D281A251B4700510B15 /* Energy.swift in Sources */,
+				41D4BB3A1A2EDC64003839DF /* SevenSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
