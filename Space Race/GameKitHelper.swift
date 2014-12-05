@@ -13,20 +13,7 @@ let LocalPlayerIsAuthenticated : NSString = "local_player_authenticated"
     
 /* For singleton pattern */
 private let _GameKitHelperSharedInstace = GameKitHelper()
-//
-//@objc class sharedGameKitHelper {
-//    class var sharedInstance : GameKitHelper {
-//        struct Static {
-//            static var onceToken : dispatch_once_t = 0
-//            static var instance : GameKitHelper? = nil
-//        }
-//        dispatch_once(&Static.onceToken) {
-//            Static.instance = GameKitHelper()
-//        }
-//
-//        return Static.instance!
-//    }
-//}
+
 
 @objc protocol GameKitHelperDelegate {
     func matchStarted()

@@ -11,7 +11,6 @@ import CoreMotion
 
 class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworkingProtocol {
     
-    
     /****************/
     var networkingEngine:MultiplayerNetworking!
     /****************/
@@ -386,7 +385,9 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             updateGameObjects()
             processContactsForUpdate(currentTime)
             
-            networkingEngine.sendMove(ship.position.x, y: ship.position.y)
+            ship.distTraveled = ship.distTraveled + (ship.forwardSpeed/100)
+            
+            networkingEngine.sendMove(UInt32(ship.position.x), distance: ship.distTraveled)
         }
     }
     
@@ -396,7 +397,9 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     func updatePosition(currentTime: CFTimeInterval) {
         if (boosting) {
             println("boosting")
-            ship.forwardSpeed += 1
+            if ship.forwardSpeed < 1000 {
+                ship.forwardSpeed += 1
+            }
         } else {
             if ship.forwardSpeed > 50 {
                 ship.forwardSpeed -= 1
@@ -740,11 +743,14 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         println("huehue")
         self.beginRace()
     }
+    
     func movePlayerAtIndex(index : Int) {}
     func gameOver(player1Won : Bool) {}
-    func movePlayerTo(x: CGFloat, y: CGFloat) {
-        enemyShip?.position.x = x
-        enemyShip?.position.y = y
+    func movePlayerTo(x: UInt32, distance: Int) {
+        enemyShip?.position.x = CGFloat(x)
+        
+        let difference = distance - ship.distTraveled
+        enemyShip?.position.y = ship.position.y + CGFloat(difference)
     }
     
     /****************/

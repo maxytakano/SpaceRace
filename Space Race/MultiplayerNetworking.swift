@@ -17,7 +17,7 @@ let randomNumberKey = "randomNumber"
     func setCurrentPlayerIndex(index : Int)
     func movePlayerAtIndex(index : Int)
     func gameOver(player1Won : Bool)
-    func movePlayerTo(x:CGFloat, y:CGFloat)
+    func movePlayerTo(x:UInt32, distance:Int)
 //    func startMatch()
 }
 
@@ -51,8 +51,8 @@ struct MessageGameBegin {
 
 struct MessageMove {
     var message: Message
-    var x : CGFloat
-    var y : CGFloat
+    var x : UInt32
+    var distance : Int
 }
 
 struct MessageGameOver {
@@ -106,9 +106,9 @@ struct MessageGameOver {
         self.sendData(data)
     }
     
-    func sendMove(x:CGFloat, y:CGFloat) {
+    func sendMove(x:UInt32, distance:Int) {
         var message = Message(messageType: MessageType.kMessageTypeMove)
-        var messageMove = MessageMove(message: message, x: x, y: y)
+        var messageMove = MessageMove(message: message, x: x, distance: distance)
         var data = NSData(bytes: &messageMove, length: sizeof(MessageMove))
         self.sendData(data)
     }
@@ -225,9 +225,9 @@ struct MessageGameOver {
             //println("Move message received")
             let messageMove = UnsafePointer<MessageMove>(data.bytes).memory
             let x = messageMove.x
-            let y = messageMove.y
+            let distance = messageMove.distance
             //self.delegate?.movePlayerAtIndex(self.indexForPlayerWithId(playerID))
-            self.delegate?.movePlayerTo(x, y: y)
+            self.delegate?.movePlayerTo(x, distance: distance)
         }
         else if(message.messageType == MessageType.kMessageTypeGameOver) {
             println("Game over message received")

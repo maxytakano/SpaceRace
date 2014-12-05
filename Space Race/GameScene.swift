@@ -380,7 +380,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func updatePosition(currentTime: CFTimeInterval) {
         if (boosting) {
             println("boosting")
-            ship.forwardSpeed += 1
+            if ship.forwardSpeed < 1000 {
+                ship.forwardSpeed += 1
+            }
         } else {
             if ship.forwardSpeed > 50 {
                 ship.forwardSpeed -= 1
