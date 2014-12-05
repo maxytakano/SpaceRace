@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2014D361A30DA9F00DA8A0F /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2014D351A30DA9F00DA8A0F /* Buttons.swift */; };
 		F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D251A251B4700510B15 /* CollisionManager.swift */; };
 		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
 		F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2014D351A30DA9F00DA8A0F /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		F20D3D251A251B4700510B15 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2014D341A30D57200DA8A0F /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				F2014D351A30DA9F00DA8A0F /* Buttons.swift */,
+			);
+			name = HUD;
+			sourceTree = "<group>";
+		};
 		F25BFFC91A153D430015106D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +136,7 @@
 				F2BD0EF31A2E5A2000AAB205 /* Networking */,
 				F2639A381A15288C003DD8CC /* View Controller */,
 				F2639A391A1528D9003DD8CC /* Scenes */,
+				F2014D341A30D57200DA8A0F /* HUD */,
 				F2639A3B1A152982003DD8CC /* Actors */,
 				F2639A3A1A1528F8003DD8CC /* Utilities */,
 			);
@@ -399,6 +410,7 @@
 				F2C3E3D81A0BF201004A16D5 /* PhysicsUtilities.swift in Sources */,
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,
 				F25BFFD01A153D690015106D /* GameTextures.swift in Sources */,
+				F2014D361A30DA9F00DA8A0F /* Buttons.swift in Sources */,
 				F2C3E3AB1A0BE82F004A16D5 /* AppDelegate.swift in Sources */,
 				F20D3D281A251B4700510B15 /* Energy.swift in Sources */,
 			);

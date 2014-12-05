@@ -15,6 +15,16 @@ class SpaceShip:SKSpriteNode {
     var turnSpeed = 100
     var forwardSpeed = 50
     
+    var canShield = true
+    
+    enum states {
+        case NORMAL
+        case SHIELDING
+        case PELLETGUN
+    }
+    
+    var shipState = states.NORMAL
+    
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
         
@@ -23,6 +33,15 @@ class SpaceShip:SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func shield() {
+        shipState = states.SHIELDING
+    }
+    
+    func unShield() {
+        shipState = states.NORMAL
     }
     
     
@@ -49,4 +68,5 @@ class SpaceShip:SKSpriteNode {
         self.physicsBody?.collisionBitMask = Contact.Frame
         self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.Energy
     }
+ 
 }
