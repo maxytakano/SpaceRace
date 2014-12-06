@@ -35,7 +35,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var contentCreated = false
     
-    // play state:
+    ////// time keeping //////
+    var minutes = 0
+    var seconds = 0
+    // should be 30
+    var timeLeft = 10
+    var scoreLabel = SKLabelNode()
+    var countdownLabel = SKLabelNode()
+    
+    ////// check point stuff ///////
+    var nextCheckpointLabel = SKLabelNode()
+    var checkpointDistance:Double = 400.0
+    let checkpointBase = 400.0
+    var checkpointIncrement = 100.0
+    
+    /////// play state //////
     // 0 equals staging, 1 equals playing, 2 = ???
     var playState = 0
     
@@ -77,6 +91,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Scene Setup and Content Creation
     override func didMoveToView(view: SKView) {
+        // initialize high score for first run
+        if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
+            //println("first Score")
+            var firstScore:[Int] = [0, 0]
+            var firstScoreAsNSArray = NSArray(array: firstScore)
+            
+            NSUserDefaults.standardUserDefaults().setObject(firstScoreAsNSArray, forKey:"HighScore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
         if(!self.contentCreated){
             viewSize = self.frame.size
             self.userInteractionEnabled = false
@@ -156,13 +180,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(boostButtonNode())
         self.addChild(brakeButtonNode())
         
-        // Initialize up long press gesture
-        //recognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleTap:"))
-        //recognizer.minimumPressDuration = 0.0
-        //recognizer.cancelsTouchesInView = false
-        //recognizer.delaysTouchesEnded = false
+        // Initialize High Score Label
+        var currentHighScore = NSUserDefaults.standardUserDefaults().objectForKey("HighScore") as NSArray
         
-        //self.view?.addGestureRecognizer(recognizer)
+        var highScoreLabel = SKLabelNode()
+        highScoreLabel.position = CGPoint(x: size.width * 0.2, y: size.height * 0.935)
+        highScoreLabel.fontColor = UIColor.whiteColor()
+        highScoreLabel.fontSize = 15
+        highScoreLabel.fontName = "Optima-ExtraBlack"
+        highScoreLabel.text = "Best: \(currentHighScore[0])m:\(currentHighScore[1])s"
+        addChild(highScoreLabel)
+        
+        // Initialize score timer label
+        scoreLabel.position = CGPoint(x: size.width * 0.2, y: size.height * 0.88)
+        scoreLabel.fontColor = UIColor.whiteColor()
+        scoreLabel.fontSize = 15
+        scoreLabel.fontName = "Optima-ExtraBlack"
+        scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
+        addChild(scoreLabel)
+        
+        // Initialize countdown timer label
+        countdownLabel.position = CGPoint(x: size.width * 0.67, y: size.height * 0.88)
+        countdownLabel.fontColor = UIColor.whiteColor()
+        countdownLabel.fontSize = 20
+        countdownLabel.fontName = "Optima-ExtraBlack"
+        countdownLabel.text = "\(self.timeLeft)"
+        addChild(countdownLabel)
+        
+        // nextCheckpointLabel next checkpoint label
+        nextCheckpointLabel.position = CGPoint(x: size.width * 0.67, y: size.height * 0.935)
+        nextCheckpointLabel.fontColor = UIColor.whiteColor()
+        nextCheckpointLabel.fontSize = 15
+        nextCheckpointLabel.fontName = "Optima-ExtraBlack"
+        nextCheckpointLabel.text = "Next Checkpoint: \(self.checkpointDistance)"
+        addChild(nextCheckpointLabel)
+        
+        // start the clock
+        var actionwait = SKAction.waitForDuration(1.0)
+        var actionrun = SKAction.runBlock({
+            self.minutes++
+            self.seconds++
+            self.timeLeft--
+            
+            self.countdownLabel.text = "\(self.timeLeft)"
+            
+            if self.timeLeft <= 0 {
+                self.endGame()
+            }
+            
+            // increment the level after x seconds
+//            if self.seconds % 15 == 0 {
+//                self.incrementLevel()
+//            }
+            if self.seconds == 60 {self.seconds = 0}
+            self.scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
+        })
+        scoreLabel.runAction(SKAction.repeatActionForever(SKAction.sequence([actionwait,actionrun])))
+        
         
         // initialize stamina bar boarder
         staminaBarBoarder.color = UIColor.blackColor()
@@ -330,7 +404,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /* -------- Updates -------- */
     
-    var seconds = 0
     func timerUpdate() {
         if playState == 0 {
             
@@ -388,6 +461,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             updateGameObjects()
             processContactsForUpdate(currentTime)
             
+            ship.distTraveled = ship.distTraveled + (Double(ship.forwardSpeed)/100.0)
+            
+            if checkpointDistance - ship.distTraveled <= 0 {
+                checkpointDistance = checkpointBase + checkpointIncrement
+                checkpointIncrement += 1000
+                timeLeft += 10
+            }
+            
+            nextCheckpointLabel.text = "Next Checkpoint: \(Int(self.checkpointDistance - ship.distTraveled))"
         }
     }
     
@@ -687,7 +769,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             runAction(SKAction.playSoundFileNamed("smush.wav", waitForCompletion: false))
             if ship.forwardSpeed > 100 {
                 ship.forwardSpeed -= 100
+
             }
+            let rockSplat = newRockSplat()
+            rockSplat.position = rock.position
+            rockSplat.position.y -= rock.size.height * 0.1
+            addChild(rockSplat)
             
             // Show that the player was damaged by blinking
             //            let blinkAction = SKAction.sequence([SKAction.fadeOutWithDuration(0.1), SKAction.fadeInWithDuration(0.1)])
@@ -739,6 +826,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        rock.removeFromParent()
     }
     
+    func endGame() {
+        println("you llose lol")
+    }
 
 }
 

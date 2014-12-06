@@ -17,7 +17,7 @@ let randomNumberKey = "randomNumber"
     func setCurrentPlayerIndex(index : Int)
     func movePlayerAtIndex(index : Int)
     func gameOver(player1Won : Bool)
-    func movePlayerTo(x:UInt32, distance:Int)
+    func movePlayerTo(x:UInt32, distance:Double)
 //    func startMatch()
 }
 
@@ -52,7 +52,7 @@ struct MessageGameBegin {
 struct MessageMove {
     var message: Message
     var x : UInt32
-    var distance : Int
+    var distance : Double
 }
 
 struct MessageGameOver {
@@ -106,7 +106,7 @@ struct MessageGameOver {
         self.sendData(data)
     }
     
-    func sendMove(x:UInt32, distance:Int) {
+    func sendMove(x:UInt32, distance:Double) {
         var message = Message(messageType: MessageType.kMessageTypeMove)
         var messageMove = MessageMove(message: message, x: x, distance: distance)
         var data = NSData(bytes: &messageMove, length: sizeof(MessageMove))

@@ -11,7 +11,7 @@ import SpriteKit
 class SpaceShip:SKSpriteNode {
     let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
     let nameShip = "NoobShip"
-    var distTraveled = 0
+    var distTraveled:Double = 0.0
     
     var turnSpeed = 100
     var forwardSpeed = 50

@@ -18,15 +18,15 @@ class MainMenu: SKScene {
     let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
     
     override func didMoveToView(view: SKView) {
-//        // initialize high score for first run
-//        if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
-//            //println("first Score")
-//            var firstScore:[Int] = [0, 0]
-//            var firstScoreAsNSArray = NSArray(array: firstScore)
-//            
-//            NSUserDefaults.standardUserDefaults().setObject(firstScoreAsNSArray, forKey:"HighScore")
-//            NSUserDefaults.standardUserDefaults().synchronize()
-//        }
+        // initialize high score for first run
+        if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
+            //println("first Score")
+            var firstScore:[Int] = [0, 0]
+            var firstScoreAsNSArray = NSArray(array: firstScore)
+            
+            NSUserDefaults.standardUserDefaults().setObject(firstScoreAsNSArray, forKey:"HighScore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
         
         background.anchorPoint = CGPoint(x: 0, y: 0)
         background.size = self.size

@@ -45,7 +45,12 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     var contentCreated = false
     
-    // play state:
+    ////// time keeping //////
+    var minutes = 0
+    var seconds = 0
+    var scoreLabel = SKLabelNode()
+    
+    /////// play state //////
     // 0 equals staging, 1 equals playing, 2 = ???
     var playState = 0
     
@@ -174,13 +179,30 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         self.addChild(boostButtonNode())
         self.addChild(brakeButtonNode())
         
-        // Initialize up long press gesture
-        //recognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleTap:"))
-        //recognizer.minimumPressDuration = 0.0
-        //recognizer.cancelsTouchesInView = false
-        //recognizer.delaysTouchesEnded = false
         
-        //self.view?.addGestureRecognizer(recognizer)
+        // Initialize score timer label
+        scoreLabel.position = CGPoint(x: size.width * 0.47, y: size.height * 0.935)
+        scoreLabel.fontColor = UIColor.whiteColor()
+        scoreLabel.fontSize = 20
+        scoreLabel.fontName = "Optima-ExtraBlack"
+        scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
+        
+        addChild(scoreLabel)
+        
+        // start the clock
+        var actionwait = SKAction.waitForDuration(1.0)
+        var actionrun = SKAction.runBlock({
+            self.minutes++
+            self.seconds++
+            // increment the level after x seconds
+//            if self.seconds % 15 == 0 {
+//                self.incrementLevel()
+//            }
+            if self.seconds == 60 {self.seconds = 0}
+            self.scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
+        })
+        scoreLabel.runAction(SKAction.repeatActionForever(SKAction.sequence([actionwait,actionrun])))
+        
         
         // initialize stamina bar boarder
         staminaBarBoarder.color = UIColor.blackColor()
@@ -348,7 +370,6 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     /* -------- Updates -------- */
     
-    var seconds = 0
     func timerUpdate() {
         if playState == 0 {
             
@@ -406,7 +427,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             updateGameObjects()
             processContactsForUpdate(currentTime)
             
-            ship.distTraveled = ship.distTraveled + (ship.forwardSpeed/100)
+//            ship.distTraveled = ship.distTraveled + (ship.forwardSpeed/100)
+            ship.distTraveled = ship.distTraveled + (Double(ship.forwardSpeed)/100.0)
             
             networkingEngine.sendMove(UInt32(ship.position.x), distance: ship.distTraveled)
         }
@@ -771,7 +793,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func movePlayerAtIndex(index : Int) {}
     func gameOver(player1Won : Bool) {}
-    func movePlayerTo(x: UInt32, distance: Int) {
+    func movePlayerTo(x: UInt32, distance: Double) {
         enemyShip.position.x = CGFloat(x)
         
         let difference = distance - ship.distTraveled
