@@ -60,8 +60,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
 
     func authenticatePlayer() {
         
-        println("Attempting to authenticate...")
-        
         localPlayer.authenticateHandler = {(viewController , error  ) -> Void in
             
             //handle authentication
@@ -87,7 +85,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
                 
             }
         }
-
     }
     
     func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!)
@@ -97,21 +94,28 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     
     func goToMultiplayer() {
         println("going to multiplayer")
-        // Set up multiplayer features upon button press
-        
-        /* Assign observer to check if user is logged in */
         
         if(localPlayer.authenticated) {
             playerAuthenticated()
         } else {
-            // Otherwise Try to authenticate the player
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAuthenticationViewController", name: auth_name, object: nil)
+            println("trying to auth again")
             
-            /* Check if user is logged in */
-            GameKitHelper.SharedGameKitHelper.authenticateLocalPlayer()
+            // Display the "must log in message"
+            var alert: UIAlertView = UIAlertView()
+            alert.title = "Multiplayer requires that you are logged into Game Center. Please open the Game Center app and login."
+            alert.addButtonWithTitle("OK")
+            alert.show()
             
-            /* If authemticated, find match */
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerAuthenticated", name: localplayer, object: nil)
+            
+            // NOTE: reauthentication does not work, login once at start instead
+//            NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAuthenticationViewController", name: auth_name, object: nil)
+//            
+//            /* Check if user is logged in */
+//            GameKitHelper.SharedGameKitHelper.reAuthenticateLocalPlayer()
+//            
+//            /* If authemticated, find match */
+//            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerAuthenticated", name: localplayer, object: nil)
+
         }
     }
     

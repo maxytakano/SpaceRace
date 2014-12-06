@@ -37,15 +37,6 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
         return _GameKitHelperSharedInstace
     }
     
-    /*
-    class var PresentAuthenticationViewController:NSString {
-        return _PresentAuthenticationViewController
-    }
-    
-    class var LocalPlayerIsAuthenticated:NSString {
-        return _LocalPlayerIsAuthenticated
-    }
-    */
     override init() {
         self._enableGameCenter = true
         self._matchStarted = false
@@ -53,7 +44,6 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
     }
     
     func authenticateLocalPlayer() {
-
         var localPlayer = GKLocalPlayer.localPlayer()
 
         if(localPlayer.authenticated) {
@@ -61,13 +51,10 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
             return
         }
         
-        
         localPlayer.authenticateHandler = {(viewController : UIViewController! , error : NSError!) in
-
             if(error != nil) {
                 self.setLastError(error)
             }
-            
             if(viewController != nil) {
                 println("1")
 
@@ -84,9 +71,8 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
 
                 self._enableGameCenter = false
             }
-            
         }
-
+        
     }
     
     func setAuthenticationViewController(authViewController:UIViewController!) {
