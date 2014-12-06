@@ -13,6 +13,7 @@
 		F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */; };
 		F216DE021A2E608A0014A7FA /* MultiplayerStaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
+		F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F252C0A41A32C305006C6B83 /* Crashlytics.framework */; };
 		F25BFFC21A1535C80015106D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25BFFC11A1535C80015106D /* Constants.swift */; };
 		F25BFFCD1A153D430015106D /* SilomBol.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25BFFCA1A153D430015106D /* SilomBol.ttf */; };
 		F25BFFCE1A153D430015106D /* artwork.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F25BFFCC1A153D430015106D /* artwork.atlas */; };
@@ -57,6 +58,7 @@
 		F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerStaging.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
+		F252C0A41A32C305006C6B83 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F25BFFC11A1535C80015106D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F25BFFCA1A153D430015106D /* SilomBol.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SilomBol.ttf; sourceTree = "<group>"; };
 		F25BFFCC1A153D430015106D /* artwork.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = artwork.atlas; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +210,7 @@
 		F2C3E39C1A0BE82F004A16D5 = {
 			isa = PBXGroup;
 			children = (
+				F252C0A41A32C305006C6B83 /* Crashlytics.framework */,
 				F2C3E3A71A0BE82F004A16D5 /* Space Race */,
 				F2C3E3C11A0BE82F004A16D5 /* Space RaceTests */,
 				F2C3E3A61A0BE82F004A16D5 /* Products */,
@@ -294,6 +298,7 @@
 				F2C3E3A11A0BE82F004A16D5 /* Sources */,
 				F2C3E3A21A0BE82F004A16D5 /* Frameworks */,
 				F2C3E3A31A0BE82F004A16D5 /* Resources */,
+				F252C0A31A32C2D9006C6B83 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -388,6 +393,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F252C0A31A32C2D9006C6B83 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run fdd3ba23b93d18d5a5ab50bf7be9b6153d511509 9489dff4cd8d5f5a62516496d173563f1b37f5e3ae4c1acd710f8a8e8fc4857c";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F2C3E3A11A0BE82F004A16D5 /* Sources */ = {
@@ -530,6 +551,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Space Race/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -546,6 +571,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Space Race/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

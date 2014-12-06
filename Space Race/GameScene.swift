@@ -349,7 +349,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 var ratio = CGFloat(shipEnergy / maxEnergy)
-                
+                if (self.shipEnergy > 100) {
+                    ratio = CGFloat(100.0)
+                }
                 staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
                 
                 if (!chipFlag) {

@@ -16,7 +16,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     /****************/
     
     /****************/
-    var enemyShip:SpaceShip?
+    var enemyShip:SpaceShip!
+    let enemyCursor = SKSpriteNode(imageNamed: "bouldini.png")
     /****************/
 
 
@@ -61,7 +62,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     var shipEnergy = Double()
     
     // Energy drain amount
-    var drainAmount = 0.85
+    var drainAmount = 2.0
     var chipFlag = false
     
     /* -------- Initialization --------  */
@@ -89,6 +90,9 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         if(!self.contentCreated){
             viewSize = self.frame.size
             self.userInteractionEnabled = false
+            
+            enemyCursor.hidden = true
+            self.addChild(enemyCursor)
             //self.beginRace()
         }
     }
@@ -154,7 +158,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         
         /************/
         enemyShip = SpaceShip(texture: texture, color: SKColor.blackColor(), size: texture.size())
-        self.addChild(enemyShip!)
+        self.addChild(enemyShip)
         /************/
         
         // Message
@@ -344,6 +348,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     /* -------- Updates -------- */
     
+    var seconds = 0
     func timerUpdate() {
         if playState == 0 {
             
@@ -354,6 +359,22 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 addStar()
                 addAsteroid()
                 addEnergy()
+            }
+            
+            if centiseconds % 100 == 0 {
+                if shipEnergy < 97 {
+                    shipEnergy += 3
+                }
+                
+                var ratio = CGFloat(shipEnergy / maxEnergy)
+                if (self.shipEnergy > 100) {
+                    ratio = CGFloat(100.0)
+                }
+                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
+                
+                if (!chipFlag) {
+                    staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
+                }
             }
         }
     }
@@ -686,6 +707,10 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             // play smush sound
             runAction(SKAction.playSoundFileNamed("smush.wav", waitForCompletion: false))
             
+            if ship.forwardSpeed > 100 {
+                ship.forwardSpeed -= 100
+            }
+            
             // Show that the player was damaged by blinking
             //            let blinkAction = SKAction.sequence([SKAction.fadeOutWithDuration(0.1), SKAction.fadeInWithDuration(0.1)])
             //            let blinkForTime = SKAction.repeatAction(blinkAction, count: 2)
@@ -695,7 +720,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             //            player.runAction(SKAction.sequence([squishAction]))
             
             
-            chipFlag = true
+            /*chipFlag = true
             staminaChip.color = UIColor.redColor()
             var chipReduce = SKAction.runBlock() {
                 //self.staminaChip.color = UIColor.redColor()
@@ -725,7 +750,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             }
             self.staminaBar.size.height = self.maxStaminaBarHeight * CGFloat(ratio)
             
-            runAction(chipReduceAction)
+            runAction(chipReduceAction)*/
             
         }
         
@@ -747,11 +772,27 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     func movePlayerAtIndex(index : Int) {}
     func gameOver(player1Won : Bool) {}
     func movePlayerTo(x: UInt32, distance: Int) {
-        enemyShip?.position.x = CGFloat(x)
+        enemyShip.position.x = CGFloat(x)
         
         let difference = distance - ship.distTraveled
-        enemyShip?.position.y = ship.position.y + CGFloat(difference)
+        enemyShip.position.y = ship.position.y + CGFloat(difference)
+        
+        if(enemyShip.position.y > viewSize.height) {
+            enemyCursor.position.x = enemyShip.position.x
+            enemyCursor.position.y = viewSize.height
+            enemyCursor.hidden = false
+        }
+        else if(enemyShip.position.y < 0) {
+            enemyCursor.position.x = enemyShip.position.x
+            enemyCursor.position.y = 0
+            enemyCursor.hidden = false
+        }
+        else {
+            enemyCursor.hidden = true
+        }
     }
+    
+    
     
     /****************/
     
