@@ -22,6 +22,7 @@
 		F2639A3D1A1529A6003DD8CC /* SpaceShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2639A3C1A1529A6003DD8CC /* SpaceShip.swift */; };
 		F2639A3F1A1529B8003DD8CC /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2639A3E1A1529B8003DD8CC /* Star.swift */; };
 		F2639A411A1529C1003DD8CC /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2639A401A1529C1003DD8CC /* Asteroid.swift */; };
+		F2A6DF2F1A33BABA00284B81 /* OptionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */; };
 		F2BD0EF21A2E574E00AAB205 /* ShipBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */; };
 		F2BD0EF61A2E5A2D00AAB205 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */; };
 		F2BD0EF71A2E5A2D00AAB205 /* MultiplayerNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF51A2E5A2D00AAB205 /* MultiplayerNetworking.swift */; };
@@ -70,6 +71,7 @@
 		F2639A3C1A1529A6003DD8CC /* SpaceShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceShip.swift; sourceTree = "<group>"; };
 		F2639A3E1A1529B8003DD8CC /* Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Star.swift; sourceTree = "<group>"; };
 		F2639A401A1529C1003DD8CC /* Asteroid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
+		F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsScene.swift; sourceTree = "<group>"; };
 		F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipBullet.swift; sourceTree = "<group>"; };
 		F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		F2BD0EF51A2E5A2D00AAB205 /* MultiplayerNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerNetworking.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */,
+				F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */,
 				F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */,
 				F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */,
 				F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */,
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */,
+				F2A6DF2F1A33BABA00284B81 /* OptionsScene.swift in Sources */,
 				F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */,
 				F2BD0EF61A2E5A2D00AAB205 /* GameKitHelper.swift in Sources */,
 				F2639A3D1A1529A6003DD8CC /* SpaceShip.swift in Sources */,

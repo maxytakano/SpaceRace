@@ -17,6 +17,7 @@ class MainMenu: SKScene {
     let _playButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
     let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
     let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "leaderboardButton1")
+    let _optionsButton: SKSpriteNode = SKSpriteNode(imageNamed: "againButton")
     
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
@@ -51,6 +52,11 @@ class MainMenu: SKScene {
         _leaderButton.setScale(1.2)
         self.addChild(_leaderButton)
         
+        // options button unpressed
+        _optionsButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.6)
+        _optionsButton.setScale(1.2)
+        self.addChild(_optionsButton)
+        
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -66,6 +72,10 @@ class MainMenu: SKScene {
             if CGRectContainsPoint(_leaderButton.frame, touch.locationInNode(self)) {
                 _leaderButton.color = UIColor.redColor()
                 _leaderButton.colorBlendFactor = 1.0
+            }
+            if CGRectContainsPoint(_optionsButton.frame, touch.locationInNode(self)) {
+                _optionsButton.color = UIColor.redColor()
+                _optionsButton.colorBlendFactor = 1.0
             }
         }
     }
@@ -87,11 +97,18 @@ class MainMenu: SKScene {
                 let scene = ScoresScene(size: self.scene!.size)
                 self.view?.presentScene(scene, transition: transition)
             }
+            if CGRectContainsPoint(_optionsButton.frame, touch.locationInNode(self)) {
+                // Show the score scene
+                let transition = SKTransition.fadeWithDuration(1)
+                let scene = OptionsScene(size: self.scene!.size)
+                self.view?.presentScene(scene, transition: transition)
+            }
         
             
             _playButton.colorBlendFactor = 0.0
             _menuButton.colorBlendFactor = 0.0
             _leaderButton.colorBlendFactor = 0.0
+            _optionsButton.colorBlendFactor = 0.0
         }
     }
     
