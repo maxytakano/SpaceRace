@@ -52,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shipEnergy = Double()
     
     // Energy drain amount
-    var drainAmount = 0.85
+    var drainAmount = 2.0
     var chipFlag = false
     
     /* -------- Initialization --------  */
@@ -330,6 +330,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /* -------- Updates -------- */
     
+    var seconds = 0
     func timerUpdate() {
         if playState == 0 {
             
@@ -340,6 +341,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addStar()
                 addAsteroid()
                 addEnergy()
+            }
+            
+            if centiseconds % 100 == 0 {
+                if shipEnergy < 97 {
+                    shipEnergy += 3
+                }
+                
+                var ratio = CGFloat(shipEnergy / maxEnergy)
+                
+                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
+                
+                if (!chipFlag) {
+                    staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
+                }
             }
         }
     }
@@ -570,7 +585,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    /*Contact Handler*/
+    /* ------ Contact Handler ------ */
 
     func didBeginContact(contact: SKPhysicsContact!) {
         if contact != nil {
@@ -610,7 +625,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    /* contact management */
+    /*  ------ contact management ------ */
     
     func collisionManager(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
         shipBulletAsteroidCollision(firstBody, secondBody: secondBody)
@@ -668,6 +683,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             // play smush sound
             runAction(SKAction.playSoundFileNamed("smush.wav", waitForCompletion: false))
+            if ship.forwardSpeed > 100 {
+                ship.forwardSpeed -= 100
+            }
             
             // Show that the player was damaged by blinking
             //            let blinkAction = SKAction.sequence([SKAction.fadeOutWithDuration(0.1), SKAction.fadeInWithDuration(0.1)])
@@ -677,8 +695,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //            let squishAction = SKAction.sequence([SKAction.scaleYTo(0.0, duration: 0.1), SKAction.scaleYTo(1.0, duration: 0.3)])
             //            player.runAction(SKAction.sequence([squishAction]))
             
-            
-            chipFlag = true
+            // drain energy on hit old
+            /*chipFlag = true
             staminaChip.color = UIColor.redColor()
             var chipReduce = SKAction.runBlock() {
                 //self.staminaChip.color = UIColor.redColor()
@@ -708,7 +726,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.staminaBar.size.height = self.maxStaminaBarHeight * CGFloat(ratio)
             
-            runAction(chipReduceAction)
+            runAction(chipReduceAction)*/
             
         }
         
