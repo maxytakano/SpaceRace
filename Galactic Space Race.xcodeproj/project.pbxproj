@@ -616,7 +616,7 @@
 				INFOPLIST_FILE = "Space RaceTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Galactic Space RaceTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Race.app/Space Race";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Galactic Space Race.app/Galactic Space Race";
 			};
 			name = Debug;
 		};
@@ -631,7 +631,7 @@
 				INFOPLIST_FILE = "Space RaceTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "Galactic Space RaceTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Race.app/Space Race";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Galactic Space Race.app/Galactic Space Race";
 			};
 			name = Release;
 		};
