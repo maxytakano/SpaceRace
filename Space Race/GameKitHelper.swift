@@ -7,6 +7,8 @@
 //
 
 import GameKit
+import SpriteKit
+
 import Foundation
 let PresentAuthenticationViewController : NSString = "present_authentication_view_controller"
 let LocalPlayerIsAuthenticated : NSString = "local_player_authenticated"
@@ -104,7 +106,6 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
         }
 
     }
-
     
     func findMatchWithMinPlayers(minPlayers:Int, maxPlayers:Int, viewController:UIViewController, delegate:GameKitHelperDelegate) {
 
@@ -152,17 +153,15 @@ private let _GameKitHelperSharedInstace = GameKitHelper()
     
     /* For protocol GKMatchmakerViewControllerDelegate */
     func matchmakerViewControllerWasCancelled(viewController:GKMatchmakerViewController) {
-
         viewController.dismissViewControllerAnimated(true, completion: nil)
-
+        println("cancling multiplayer view")
+        _delegate?.matchEnded()
     }
     
     
     func matchmakerViewController(viewController: GKMatchmakerViewController!, didFailWithError error:NSError!) {
-
         viewController.dismissViewControllerAnimated(true, completion: nil)
         NSLog("Error finding match: %@", error.localizedDescription)
-
     }
     
     func matchmakerViewController(viewController: GKMatchmakerViewController!,

@@ -16,6 +16,7 @@ class MainMenu: SKScene {
     let background = SKSpriteNode(imageNamed: "background2")
     let _playButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
     let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
+    let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "leaderboardButton1")
     
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
@@ -40,10 +41,15 @@ class MainMenu: SKScene {
         
         self.addChild(_playButton)
         
-        // leaderboard button unpressed
+        // multiplayer button unpressed
         _menuButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.18)
         _menuButton.setScale(1.2)
         self.addChild(_menuButton)
+        
+        // leader button unpressed
+        _leaderButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.8)
+        _leaderButton.setScale(1.2)
+        self.addChild(_leaderButton)
         
     }
     
@@ -56,6 +62,10 @@ class MainMenu: SKScene {
             if CGRectContainsPoint(_menuButton.frame, touch.locationInNode(self)) {
                 _menuButton.color = UIColor.redColor()
                 _menuButton.colorBlendFactor = 1.0
+            }
+            if CGRectContainsPoint(_leaderButton.frame, touch.locationInNode(self)) {
+                _leaderButton.color = UIColor.redColor()
+                _leaderButton.colorBlendFactor = 1.0
             }
         }
     }
@@ -70,12 +80,18 @@ class MainMenu: SKScene {
             if CGRectContainsPoint(_menuButton.frame, touch.locationInNode(self)) {
                 // tell the view controller to switch to the multiplayer view.
                 NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)
-//                let transition = SKTransition.fadeWithDuration(1)
-//                let scene = MultiplayerStaging(size: self.scene!.size)
-//                self.view?.presentScene(scene, transition: transition)
             }
+            if CGRectContainsPoint(_leaderButton.frame, touch.locationInNode(self)) {
+                // Show the score scene
+                let transition = SKTransition.fadeWithDuration(1)
+                let scene = ScoresScene(size: self.scene!.size)
+                self.view?.presentScene(scene, transition: transition)
+            }
+        
+            
             _playButton.colorBlendFactor = 0.0
             _menuButton.colorBlendFactor = 0.0
+            _leaderButton.colorBlendFactor = 0.0
         }
     }
     

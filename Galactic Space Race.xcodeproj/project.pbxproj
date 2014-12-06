@@ -14,6 +14,7 @@
 		F216DE021A2E608A0014A7FA /* MultiplayerStaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
 		F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F252C0A41A32C305006C6B83 /* Crashlytics.framework */; };
+		F252C0A71A32E0F6006C6B83 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */; };
 		F25BFFC21A1535C80015106D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25BFFC11A1535C80015106D /* Constants.swift */; };
 		F25BFFCD1A153D430015106D /* SilomBol.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25BFFCA1A153D430015106D /* SilomBol.ttf */; };
 		F25BFFCE1A153D430015106D /* artwork.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F25BFFCC1A153D430015106D /* artwork.atlas */; };
@@ -24,6 +25,7 @@
 		F2BD0EF21A2E574E00AAB205 /* ShipBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */; };
 		F2BD0EF61A2E5A2D00AAB205 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */; };
 		F2BD0EF71A2E5A2D00AAB205 /* MultiplayerNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF51A2E5A2D00AAB205 /* MultiplayerNetworking.swift */; };
+		F2C38D2F1A32ED2600052D8A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C38D2E1A32ED2600052D8A /* GameKit.framework */; };
 		F2C3E3AB1A0BE82F004A16D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C3E3AA1A0BE82F004A16D5 /* AppDelegate.swift */; };
 		F2C3E3AF1A0BE82F004A16D5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */; };
 		F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C3E3B01A0BE82F004A16D5 /* GameViewController.swift */; };
@@ -39,6 +41,7 @@
 		F2C3E3E61A0BF20E004A16D5 /* rockcrumb.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3DF1A0BF20E004A16D5 /* rockcrumb.wav */; };
 		F2C3E3E71A0BF20E004A16D5 /* smush.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3E01A0BF20E004A16D5 /* smush.wav */; };
 		F2C3E3E81A0BF20E004A16D5 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3E11A0BF20E004A16D5 /* sprites.atlas */; };
+		F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,7 @@
 		F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerStaging.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
 		F252C0A41A32C305006C6B83 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		F25BFFC11A1535C80015106D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F25BFFCA1A153D430015106D /* SilomBol.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SilomBol.ttf; sourceTree = "<group>"; };
 		F25BFFCC1A153D430015106D /* artwork.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = artwork.atlas; sourceTree = "<group>"; };
@@ -69,14 +73,15 @@
 		F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipBullet.swift; sourceTree = "<group>"; };
 		F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		F2BD0EF51A2E5A2D00AAB205 /* MultiplayerNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerNetworking.swift; sourceTree = "<group>"; };
-		F2C3E3A51A0BE82F004A16D5 /* Space Race.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Race.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C38D2E1A32ED2600052D8A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		F2C3E3A51A0BE82F004A16D5 /* Galactic Space Race.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Galactic Space Race.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C3E3A91A0BE82F004A16D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2C3E3AA1A0BE82F004A16D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F2C3E3B01A0BE82F004A16D5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F2C3E3B31A0BE82F004A16D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2C3E3B51A0BE82F004A16D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F2C3E3BE1A0BE82F004A16D5 /* Space RaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Space RaceTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C3E3BE1A0BE82F004A16D5 /* Galactic Space RaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Galactic Space RaceTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C3E3C31A0BE82F004A16D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2C3E3C41A0BE82F004A16D5 /* Space_RaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space_RaceTests.swift; sourceTree = "<group>"; };
 		F2C3E3D51A0BF201004A16D5 /* ParticleSystems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSystems.swift; sourceTree = "<group>"; };
@@ -88,6 +93,7 @@
 		F2C3E3DF1A0BF20E004A16D5 /* rockcrumb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rockcrumb.wav; sourceTree = "<group>"; };
 		F2C3E3E01A0BF20E004A16D5 /* smush.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = smush.wav; sourceTree = "<group>"; };
 		F2C3E3E11A0BF20E004A16D5 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */,
+				F2C38D2F1A32ED2600052D8A /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +174,9 @@
 			isa = PBXGroup;
 			children = (
 				F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */,
+				F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */,
 				F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */,
+				F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */,
 				F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */,
 			);
 			name = Scenes;
@@ -210,6 +219,7 @@
 		F2C3E39C1A0BE82F004A16D5 = {
 			isa = PBXGroup;
 			children = (
+				F2C38D2E1A32ED2600052D8A /* GameKit.framework */,
 				F252C0A41A32C305006C6B83 /* Crashlytics.framework */,
 				F2C3E3A71A0BE82F004A16D5 /* Space Race */,
 				F2C3E3C11A0BE82F004A16D5 /* Space RaceTests */,
@@ -220,8 +230,8 @@
 		F2C3E3A61A0BE82F004A16D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2C3E3A51A0BE82F004A16D5 /* Space Race.app */,
-				F2C3E3BE1A0BE82F004A16D5 /* Space RaceTests.xctest */,
+				F2C3E3A51A0BE82F004A16D5 /* Galactic Space Race.app */,
+				F2C3E3BE1A0BE82F004A16D5 /* Galactic Space RaceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -291,9 +301,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F2C3E3A41A0BE82F004A16D5 /* Space Race */ = {
+		F2C3E3A41A0BE82F004A16D5 /* Galactic Space Race */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2C3E3C81A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Space Race" */;
+			buildConfigurationList = F2C3E3C81A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Galactic Space Race" */;
 			buildPhases = (
 				F2C3E3A11A0BE82F004A16D5 /* Sources */,
 				F2C3E3A21A0BE82F004A16D5 /* Frameworks */,
@@ -304,14 +314,14 @@
 			);
 			dependencies = (
 			);
-			name = "Space Race";
+			name = "Galactic Space Race";
 			productName = "Space Race";
-			productReference = F2C3E3A51A0BE82F004A16D5 /* Space Race.app */;
+			productReference = F2C3E3A51A0BE82F004A16D5 /* Galactic Space Race.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F2C3E3BD1A0BE82F004A16D5 /* Space RaceTests */ = {
+		F2C3E3BD1A0BE82F004A16D5 /* Galactic Space RaceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2C3E3CB1A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Space RaceTests" */;
+			buildConfigurationList = F2C3E3CB1A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Galactic Space RaceTests" */;
 			buildPhases = (
 				F2C3E3BA1A0BE82F004A16D5 /* Sources */,
 				F2C3E3BB1A0BE82F004A16D5 /* Frameworks */,
@@ -322,9 +332,9 @@
 			dependencies = (
 				F2C3E3C01A0BE82F004A16D5 /* PBXTargetDependency */,
 			);
-			name = "Space RaceTests";
+			name = "Galactic Space RaceTests";
 			productName = "Space RaceTests";
-			productReference = F2C3E3BE1A0BE82F004A16D5 /* Space RaceTests.xctest */;
+			productReference = F2C3E3BE1A0BE82F004A16D5 /* Galactic Space RaceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -339,6 +349,11 @@
 					F2C3E3A41A0BE82F004A16D5 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 76HHQKX8RX;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					F2C3E3BD1A0BE82F004A16D5 = {
 						CreatedOnToolsVersion = 6.1;
@@ -347,7 +362,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F2C3E3A01A0BE82F004A16D5 /* Build configuration list for PBXProject "Space Race" */;
+			buildConfigurationList = F2C3E3A01A0BE82F004A16D5 /* Build configuration list for PBXProject "Galactic Space Race" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -360,8 +375,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F2C3E3A41A0BE82F004A16D5 /* Space Race */,
-				F2C3E3BD1A0BE82F004A16D5 /* Space RaceTests */,
+				F2C3E3A41A0BE82F004A16D5 /* Galactic Space Race */,
+				F2C3E3BD1A0BE82F004A16D5 /* Galactic Space RaceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -425,10 +440,12 @@
 				F2C3E3AF1A0BE82F004A16D5 /* GameScene.swift in Sources */,
 				F2BD0EF71A2E5A2D00AAB205 /* MultiplayerNetworking.swift in Sources */,
 				F2639A3F1A1529B8003DD8CC /* Star.swift in Sources */,
+				F252C0A71A32E0F6006C6B83 /* GameOverScene.swift in Sources */,
 				F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */,
 				F25BFFC21A1535C80015106D /* Constants.swift in Sources */,
 				F2639A411A1529C1003DD8CC /* Asteroid.swift in Sources */,
 				F2C3E3D81A0BF201004A16D5 /* PhysicsUtilities.swift in Sources */,
+				F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */,
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,
 				F25BFFD01A153D690015106D /* GameTextures.swift in Sources */,
 				F2014D361A30DA9F00DA8A0F /* Buttons.swift in Sources */,
@@ -450,7 +467,7 @@
 /* Begin PBXTargetDependency section */
 		F2C3E3C01A0BE82F004A16D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F2C3E3A41A0BE82F004A16D5 /* Space Race */;
+			target = F2C3E3A41A0BE82F004A16D5 /* Galactic Space Race */;
 			targetProxy = F2C3E3BF1A0BE82F004A16D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -558,7 +575,7 @@
 				INFOPLIST_FILE = "Space Race/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Galactic Space Race";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -578,7 +595,7 @@
 				INFOPLIST_FILE = "Space Race/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Galactic Space Race";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -598,7 +615,7 @@
 				);
 				INFOPLIST_FILE = "Space RaceTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Galactic Space RaceTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Race.app/Space Race";
 			};
 			name = Debug;
@@ -613,7 +630,7 @@
 				);
 				INFOPLIST_FILE = "Space RaceTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Galactic Space RaceTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Race.app/Space Race";
 			};
 			name = Release;
@@ -621,7 +638,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F2C3E3A01A0BE82F004A16D5 /* Build configuration list for PBXProject "Space Race" */ = {
+		F2C3E3A01A0BE82F004A16D5 /* Build configuration list for PBXProject "Galactic Space Race" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F2C3E3C61A0BE82F004A16D5 /* Debug */,
@@ -630,7 +647,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2C3E3C81A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Space Race" */ = {
+		F2C3E3C81A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Galactic Space Race" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F2C3E3C91A0BE82F004A16D5 /* Debug */,
@@ -639,7 +656,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2C3E3CB1A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Space RaceTests" */ = {
+		F2C3E3CB1A0BE82F004A16D5 /* Build configuration list for PBXNativeTarget "Galactic Space RaceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F2C3E3CC1A0BE82F004A16D5 /* Debug */,

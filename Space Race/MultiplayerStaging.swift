@@ -785,9 +785,14 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     /****************/
     
-    func matchEnded() {}
+    func matchEnded() {
+        println("Ending the match")
+        let transition = SKTransition.fadeWithDuration(1)
+        let scene = MainMenu(size: self.scene!.size)
+        self.view?.presentScene(scene, transition: transition)
+    }
     func setCurrentPlayerIndex(index : Int) {
-        println("huehue")
+        println("Starting Race")
         self.beginRace()
     }
     

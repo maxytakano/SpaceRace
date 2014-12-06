@@ -827,7 +827,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func endGame() {
-        println("you llose lol")
+        
+        /* high score stuff */
+        
+        var score:[Int] = [minutes/60, seconds]
+        var scoreAsNSArray = NSArray(array: score)
+        
+        // get the current high score
+        var currentHighScore = NSUserDefaults.standardUserDefaults().objectForKey("HighScore") as NSArray
+        
+        var newScore = score[0] * 60 + score[1]
+        var oldScore = Int(currentHighScore[0] as NSNumber) * 60 + Int(currentHighScore[1] as NSNumber)
+        
+        /* switch to game over scene */
+        
+        // Check if the ending score is higher than the high score, if it is update it
+        if ( newScore > oldScore ) {
+            // Save high score
+            // Score must be typcasted as an NSArray to work with UserDefaults
+            // Gotcha: you can't save in arrays, only Ints, typecasting to as NSArray does not work
+            NSUserDefaults.standardUserDefaults().setObject(scoreAsNSArray, forKey:"HighScore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            // switch to win screen
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let gameOverScene = GameOverScene(size: self.size,
+                won: true,
+                seconds:self.seconds,
+                minutes:self.minutes)
+            self.view?.presentScene(gameOverScene, transition: reveal)
+        } else {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let gameOverScene = GameOverScene(size: self.size,
+                won: false,
+                seconds:self.seconds,
+                minutes:self.minutes)
+            self.view?.presentScene(gameOverScene, transition: reveal)
+            
+        }
+        
+        
+        
     }
 
 }

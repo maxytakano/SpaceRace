@@ -8,12 +8,18 @@
 
 import UIKit
 import SpriteKit
+import GameKit
 
+var myLeaderboardIdentifier = ""
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GKGameCenterControllerDelegate {
+//    class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // auth player
+        self.authenticatePlayer()
         
         // Configure the view.
         let scene = MainMenu(size: view.bounds.size)
@@ -37,7 +43,11 @@ class GameViewController: UIViewController {
     }
     
     override func awakeFromNib() {
+        // go to multiplayer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goToMultiplayer", name: "GoToMultiplayer", object: nil)
+        
+        // nib for switching into authing leaderboard
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "authenticatePlayer", name: "GoToLeaderboard", object: nil)
     }
     
     /**********************************************************************/
@@ -45,17 +55,64 @@ class GameViewController: UIViewController {
     let localplayer = "local_player_authenticated"
     /**********************************************************************/
     
+    var gameCenterEnabled = false
+    var localPlayer = GKLocalPlayer.localPlayer()
+
+    func authenticatePlayer() {
+        
+        println("Attempting to authenticate...")
+        
+        localPlayer.authenticateHandler = {(viewController , error  ) -> Void in
+            
+            //handle authentication
+            if (viewController != nil) {
+                self.presentViewController(viewController, animated: true, completion: nil)
+            } else {
+                if(self.localPlayer.authenticated) {
+                    self.gameCenterEnabled = true
+                    
+                    println("Authentication Success")
+                    self.localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler( {(leaderboardIdentifier : String!, error : NSError!) -> Void in
+                        if (error != nil) {
+                            print(error.localizedDescription)
+                        } else {
+                            myLeaderboardIdentifier = leaderboardIdentifier
+                        }
+                        
+                    })
+                } else {
+                    println("Authentication Failure")
+                    self.gameCenterEnabled = false
+                }
+                
+            }
+        }
+
+    }
+    
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!)
+    {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func goToMultiplayer() {
+        println("going to multiplayer")
         // Set up multiplayer features upon button press
         
         /* Assign observer to check if user is logged in */
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAuthenticationViewController", name: auth_name, object: nil)
         
-        /* Check if user is logged in */
-        GameKitHelper.SharedGameKitHelper.authenticateLocalPlayer()
-        
-        /* If authemticated, find match */
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerAuthenticated", name: localplayer, object: nil)
+        if(localPlayer.authenticated) {
+            playerAuthenticated()
+        } else {
+            // Otherwise Try to authenticate the player
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAuthenticationViewController", name: auth_name, object: nil)
+            
+            /* Check if user is logged in */
+            GameKitHelper.SharedGameKitHelper.authenticateLocalPlayer()
+            
+            /* If authemticated, find match */
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerAuthenticated", name: localplayer, object: nil)
+        }
     }
     
     func showAuthenticationViewController() {
@@ -64,6 +121,8 @@ class GameViewController: UIViewController {
     }
     
     func playerAuthenticated() {
+        println("authed")
+    
         // Prepare the multiplayer scene
         let gameScene = MultiplayerStaging(size: self.view.bounds.size)
         
