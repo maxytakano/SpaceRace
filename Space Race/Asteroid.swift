@@ -12,8 +12,10 @@ import SpriteKit
 class Asteroid:SKSpriteNode {
     //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
     let nameAsteroid = "Asteroid"
+    let rotationSpeed:CGFloat
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
+        rotationSpeed = getRandom(min: CGFloat(-0.04), CGFloat(0.04))
         super.init(texture: texture, color: color, size: size)
         
         self.asteroidSetup()
@@ -25,7 +27,7 @@ class Asteroid:SKSpriteNode {
     
     
     func asteroidSetup() {
-        self.setScale(CGFloat(0.8))
+        self.setScale(CGFloat(0.5))
         
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
@@ -40,7 +42,7 @@ class Asteroid:SKSpriteNode {
         self.name = nameAsteroid
         
         // Physics
-        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height/2)
+        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height/3)
         self.physicsBody?.dynamic = true
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.linearDamping = 1.0
@@ -57,7 +59,7 @@ class Asteroid:SKSpriteNode {
         self.physicsBody?.velocity = CGVectorMake(0.0, -1.0 * CGFloat(newVelocity) )
     }
     
-//    func rotateAsteroid() {
-//        self.zRotation = 0.1
-//    }
+    func rotateAsteroid() {
+        self.zRotation += rotationSpeed
+    }
 }

@@ -440,7 +440,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var starCounter = 0
     var asteroidCounter = 0
 //    var secondCounter = 0
-//    var deciSecondCounter = 0
+    var deciSecondCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
@@ -449,6 +449,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             centiseconds++
             starCounter++
             asteroidCounter++
+            
+            deciSecondCounter++
+        
 //            secondCounter++
             
             if starCounter > centisecondsPerStar {
@@ -462,12 +465,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
 
 //            
-//            if deciSecondCounter > 10 {
-//                deciSecondCounter = 0
-//                for asteroid in asteroids {
-//                    (asteroid as Asteroid).rotateAsteroid()
-//                }
-//            }
+            if deciSecondCounter > 10 {
+                deciSecondCounter = 0
+                for asteroid in asteroids {
+                    (asteroid as Asteroid).rotateAsteroid()
+                }
+            }
 
             if centiseconds % 100 == 0 {
                 if shipEnergy < 97 {
