@@ -98,7 +98,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             enemyCursor.hidden = true
             self.addChild(enemyCursor)
-            //self.beginRace()
+//            self.beginRace()
         }
     }
     
@@ -157,7 +157,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         self.backgroundColor = SKColor.blackColor()
         
         // Ship
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: "Ship1")
         ship = SpaceShip(texture: texture, color: SKColor.whiteColor(), size: texture.size())
         self.addChild(ship)
         
@@ -470,7 +470,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func updateGameObjects(){
         for star in stars {
-            (star as Star).updateVelocity(ship.forwardSpeed)
+            (star as Star).updateVelocity(Double(ship.forwardSpeed))
             if star.position.y < viewSize.height * -0.1 {
                 stars.removeObject(star)
                 star.removeFromParent()
@@ -533,7 +533,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             staminaBar.color = UIColor.greenColor()
             
             ship.unShield()
-            ship.texture = SKTexture(imageNamed: "Ship")
+            ship.texture = SKTexture(imageNamed: "Ship1")
             
             //player.texture = SKTexture(imageNamed: "bouldini")
             
@@ -572,7 +572,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func addStar() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: "Ship1")
         let star = Star(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         // send up mini rock
@@ -582,7 +582,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func addEnergy() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: "Ship1")
         let energy = Energy(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -593,7 +593,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func addAsteroid() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+        let texture = SKTexture(imageNamed: "basicRock")
         let asteroid = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -619,7 +619,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         
         if existingBullet == nil {
             if let ship = self.childNodeWithName(nameShip) {
-                let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+                let texture = SKTexture(imageNamed: "basicRock")
                 let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
                     size: texture.size())
                 bullet.position =

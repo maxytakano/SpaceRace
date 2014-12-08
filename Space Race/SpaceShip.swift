@@ -57,8 +57,10 @@ class SpaceShip:SKSpriteNode {
         // Other Properites
         self.name = nameShip
         
+        self.setScale(0.35)
+        
         // Physics
-        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
+        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2.2)
         self.physicsBody?.dynamic = true
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.linearDamping = 1.0

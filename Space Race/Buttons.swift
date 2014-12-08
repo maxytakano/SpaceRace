@@ -9,7 +9,7 @@
 import SpriteKit
 
 func boostButtonNode() -> SKSpriteNode {
-    let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+    let texture = SKTexture(imageNamed: "basicRock")
     let boostNode = SKSpriteNode(texture: texture,
         color: UIColor.whiteColor(),
         size: texture.size())
@@ -22,7 +22,7 @@ func boostButtonNode() -> SKSpriteNode {
 
 // Brake button
 func brakeButtonNode() -> SKSpriteNode {
-    let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+    let texture = SKTexture(imageNamed: "basicRock")
     let brakeNode = SKSpriteNode(texture: texture,
         color: UIColor.whiteColor(),
         size: texture.size())

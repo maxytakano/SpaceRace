@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var tapQueue: Array<Int> = []
     
     var ship:SpaceShip!
+    var shipTexture:String
     var stars:NSMutableArray
     var energies:NSMutableArray
     var asteroids:NSMutableArray
@@ -27,11 +28,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var boosting = false
     var braking = false
     var centiseconds:Int
+    // star generation
     var centisecondsPerStar:Int
-    var spanTime:Double
+    var starSpanTime:Double
     var starsOnScreen:Double
     var starsPerSecond:Double
     var starsPerCentisecond:Double
+    // aseteroid generation
+    var centisecondsPerAsteroid:Int
+    var asteroidSpanTime:Double
+    var asteroidsOnScreen:Double
+    var asteroidsPerSecond:Double
+    var asteroidsPerCentisecond:Double
+    
     
     var contentCreated = false
     
@@ -71,16 +80,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /* -------- Initialization --------  */
     
+    func setShipTexture(name:String) {
+        shipTexture = name
+    }
+    
     override init(size: CGSize) {
         stars = []
         energies = []
         asteroids = []
         centiseconds = 0
-        centisecondsPerStar = 1
-        spanTime = 0.0
-        starsOnScreen = 23.0
+        centisecondsPerStar = 999999
+        starSpanTime = 0.0
+        starsOnScreen = 120.0
         starsPerSecond = 0.0
         starsPerCentisecond = 0.0
+        
+        centisecondsPerAsteroid = 999999
+        asteroidSpanTime = 0.0
+        asteroidsOnScreen = 4.0
+        asteroidsPerSecond = 0.0
+        asteroidsPerCentisecond = 0.0
+        shipTexture = "Ship1"
         
         super.init(size: size)
     }
@@ -93,7 +113,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
         if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
-            //println("first Score")
             var firstScore:[Int] = [0, 0]
             var firstScoreAsNSArray = NSArray(array: firstScore)
             
@@ -161,9 +180,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Background
         self.backgroundColor = SKColor.blackColor()
-        
         // Ship
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: shipTexture)
         ship = SpaceShip(texture: texture, color: SKColor.whiteColor(), size: texture.size())
         self.addChild(ship)
         
@@ -237,7 +255,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
         scoreLabel.runAction(SKAction.repeatActionForever(SKAction.sequence([actionwait,actionrun])))
         
-        
+
         // initialize stamina bar boarder
         staminaBarBoarder.color = UIColor.blackColor()
         staminaBarBoarder.size = CGSize(width: size.width * 0.089, height: size.height * 0.752)
@@ -245,6 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         staminaBarBoarder.anchorPoint = CGPointMake(0.0, 0.0)
         
         addChild(staminaBarBoarder)
+        staminaBarBoarder.hidden = true
         
         // initialize stamina chip bar
         staminaChip.color = UIColor.yellowColor()
@@ -253,6 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         staminaChip.anchorPoint = CGPointMake(0.0, 0.0)
         
         addChild(staminaChip)
+        staminaChip.hidden = true
         
         // initialize stamina bar
         staminaBar.color = UIColor.greenColor()
@@ -261,6 +281,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         staminaBar.anchorPoint = CGPointMake(0.0, 0.0)
         
         addChild(staminaBar)
+        staminaBar.hidden = true
         
         // init player stamina
         shipEnergy = maxEnergy
@@ -290,8 +311,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touchLocation = touch.locationInNode(self)
         
         var theNode = self.nodeAtPoint(touchLocation)
-        
-        //println(event)
         
         // check if boost button touched
         if theNode.name == "boostButtonNode" {
@@ -403,18 +422,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     /* -------- Updates -------- */
+    var starCounter = 0
+    var asteroidCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
             
         } else if playState == 1 {
             centiseconds++
+            starCounter++
+            asteroidCounter++
             
-            if centiseconds % centisecondsPerStar == 0 {
+            if starCounter > centisecondsPerStar {
+                starCounter = 0
                 addStar()
-                addAsteroid()
-                addEnergy()
             }
+            
+            if asteroidCounter > centisecondsPerAsteroid {
+                asteroidCounter = 0
+                addAsteroid()
+            }
+//            if centiseconds % centisecondsPerStar == 0 {
+//                addStar()
+//                //addAsteroid()
+//                //addEnergy()
+//            }
+//            
+//            
+//            if centiseconds % centisecondsPerAsteroid == 0 {
+//                println(centisecondsPerAsteroid)
+//                addAsteroid()
+//            }
             
             if centiseconds % 100 == 0 {
                 if shipEnergy < 97 {
@@ -441,19 +479,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // update ships position
             updatePosition(currentTime)
             
-            
             // modify action speed to align with shipSpeed T = D / V
-            spanTime = 520.0 / Double(ship.forwardSpeed)
-            starsPerSecond = starsOnScreen / spanTime
-            
-            starsPerCentisecond = starsPerSecond/100
+            starSpanTime = 520.0 / (Double(ship.forwardSpeed)/3.0)
+            starsPerSecond = starsOnScreen / starSpanTime
+            starsPerCentisecond = starsPerSecond/100.0
             centisecondsPerStar = Int(1.0/starsPerCentisecond)
+            
+            asteroidSpanTime = 520.0 / Double(ship.forwardSpeed)
+            asteroidsPerSecond = asteroidsOnScreen / asteroidSpanTime
+            asteroidsPerCentisecond = asteroidsPerSecond/100.0
+            centisecondsPerAsteroid = Int(1.0/asteroidsPerCentisecond)
             
             //        println(ship.forwardSpeed)
             
-            
             // starsOnScreen = spawnRate * spanTime
-            // spawnRate = starsOnScreen/spanTime
+            // spawnRate = starsOnScreen/starSpanTime
             //spawnRate = starsOnScreen / spanTime
             //speed = CGFloat(spawnRate)
             
@@ -476,9 +516,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // !! CAREFUL !! speed is a variable already used
     //    var shipSpeed  = 100
     var accel = 0.0
+    var averageAmount = 6.0
+    var averageTilt = 0.0
+    var averageCounter = 0.0
+    var average = 0.0
+    var currentTexture = SKTexture()
+//    var currentTexture = SKTexture(imageNamed: String(textureName + "TiltLeft1"))
+    
+    ////
+    var animationList = [-0.2, -0.1, 0.0, 0.1, 0.2]
+    func getClosest(xData: Double) -> Double {
+        var closest = 0.0
+        var distance = 999.0
+        for number in animationList {
+            if fabs(number - xData) < distance {
+                distance = fabs(number - xData)
+                closest = number
+            }
+        }
+        if distance < 0.03 {
+            return closest
+        } else {
+            return -42.0
+        }
+    
+    }
+    
+    ////
     func updatePosition(currentTime: CFTimeInterval) {
         if (boosting) {
-            println("boosting")
+//            println("boosting")
             if ship.forwardSpeed < 1000 {
                 ship.forwardSpeed += 1
             }
@@ -489,27 +556,77 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if (braking) {
-            println("braking")
+//            println("braking")
             if ship.forwardSpeed > 50 {
-                ship.forwardSpeed -= 1
+                ship.forwardSpeed -= 5
             }
         }
         
+        
         if let data = motionManager.accelerometerData {
-            
             if (fabs(data.acceleration.x) > 0.01) {
-                
                 ship.physicsBody!.applyForce(CGVectorMake(0.0, 0.0))
                 accel = data.acceleration.x * Double(ship.turnSpeed)
                 ship.physicsBody!.applyForce(CGVectorMake(CGFloat(accel), 0))
-                
             }
+            
+            // !! Dont delete old method of animation
+//            if averageCounter < averageAmount {
+//                averageTilt += data.acceleration.x
+//                averageCounter += 1
+//            } else {
+//                averageCounter = 0.0
+//                average = averageTilt / averageAmount
+//                averageTilt = 0.0
+//                
+//                println(average)
+//                if(average < -0.085) {
+//                    ship.texture = SKTexture(imageNamed: "Ship1TiltLeft2")
+//                    currentTexture = SKTexture(imageNamed: "Ship1TiltLeft2")
+//                    
+//                } else if (average < -0.04) {
+//                    ship.texture = SKTexture(imageNamed: "Ship1TiltLeft1")
+//                    currentTexture = SKTexture(imageNamed: "Ship1TiltLeft1")
+//                } else if(average > 0.085) {
+//                    ship.texture = SKTexture(imageNamed: "Ship1TiltRight2")
+//                    currentTexture = SKTexture(imageNamed: "Ship1TiltRight2")
+//                } else if(average > 0.04) {
+//                    ship.texture = SKTexture(imageNamed: "Ship1TiltRight1")
+//                    currentTexture = SKTexture(imageNamed: "Ship1TiltRight1")
+//                } else {
+//                    ship.texture = SKTexture(imageNamed: "Ship1")
+//                    currentTexture = SKTexture(imageNamed: "Ship1")
+//                }
+//
+//            }
+          
+            var closest = getClosest(data.acceleration.x)
+            if closest != -42.0 {
+                if closest == animationList[0] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
+                } else if closest == animationList[1] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
+                } else if closest == animationList[2] {
+                    ship.texture = SKTexture(imageNamed: shipTexture)
+                    currentTexture = SKTexture(imageNamed: shipTexture)
+                } else if closest == animationList[3] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
+                } else if closest == animationList[4] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
+                }
+            }
+        
         }
     }
     
     func updateGameObjects(){
         for star in stars {
-            (star as Star).updateVelocity(ship.forwardSpeed)
+            var halfSpeed = Double(ship.forwardSpeed) / 3.0
+            (star as Star).updateVelocity(halfSpeed)
             if star.position.y < viewSize.height * -0.1 {
                 stars.removeObject(star)
                 star.removeFromParent()
@@ -572,7 +689,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             staminaBar.color = UIColor.greenColor()
             
             ship.unShield()
-            ship.texture = SKTexture(imageNamed: "Ship")
+            ship.texture = currentTexture
 
             //player.texture = SKTexture(imageNamed: "bouldini")
             
@@ -611,7 +728,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addStar() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: "staru")
+        ("staru")
         let star = Star(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         // send up mini rock
@@ -621,7 +739,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addEnergy() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("Ship")
+        let texture = SKTexture(imageNamed: "Ship")
         let energy = Energy(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -632,7 +750,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addAsteroid() {
         // Create sprite
-        let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+        let texture = SKTexture(imageNamed: "basicRock")
         let asteroid = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -658,7 +776,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if existingBullet == nil {
             if let ship = self.childNodeWithName(nameShip) {
-                let texture = GameTexturesSharedInstance.textureAtlas.textureNamed("basicRock")
+                let texture = SKTexture(imageNamed: "basicRock")
                 let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
                     size: texture.size())
                 bullet.position =
@@ -854,14 +972,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let gameOverScene = GameOverScene(size: self.size,
                 won: true,
                 seconds:self.seconds,
-                minutes:self.minutes)
+                minutes:self.minutes,
+                shipTexture:shipTexture)
             self.view?.presentScene(gameOverScene, transition: reveal)
         } else {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
             let gameOverScene = GameOverScene(size: self.size,
                 won: false,
                 seconds:self.seconds,
-                minutes:self.minutes)
+                minutes:self.minutes,
+                shipTexture:shipTexture)
             self.view?.presentScene(gameOverScene, transition: reveal)
             
         }

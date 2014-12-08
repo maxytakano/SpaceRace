@@ -24,7 +24,7 @@ class Star:SKSpriteNode {
     
     
     func starSetup() {
-        self.setScale(CGFloat(0.1))
+        self.setScale(CGFloat(0.15))
         
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
@@ -50,7 +50,7 @@ class Star:SKSpriteNode {
         self.physicsBody?.collisionBitMask = Contact.Star
     }
     
-    func updateVelocity(newVelocity: Int) {
+    func updateVelocity(newVelocity: Double) {
         self.physicsBody?.velocity = CGVectorMake(0.0, -1.0 * CGFloat(newVelocity) )
     }
 

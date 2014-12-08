@@ -18,10 +18,12 @@ class GameOverScene: SKScene {
     
     // init score report
     var score:Int64 = 0
+    var shipName:String = "Ship1"
     
-    init(size: CGSize, won:Bool, seconds:Int, minutes:Int) {
+    init(size: CGSize, won:Bool, seconds:Int, minutes:Int, shipTexture:String) {
         super.init(size: size)
         
+        shipName = shipTexture
         // init background
         background.anchorPoint = CGPoint(x: 0, y: 0)
         background.size = self.size
@@ -115,6 +117,7 @@ class GameOverScene: SKScene {
             if CGRectContainsPoint(_againButton.frame, touch.locationInNode(self))  {
                 let transition = SKTransition.fadeWithDuration(1)
                 let scene = GameScene(size: self.scene!.size)
+                scene.setShipTexture(shipName)
                 self.view?.presentScene(scene, transition: transition)
             }
             if CGRectContainsPoint(_menuButton.frame, touch.locationInNode(self)) {
