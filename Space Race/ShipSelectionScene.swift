@@ -85,9 +85,11 @@ class ShipSelectionScene: SKScene {
         
         // setup default for button colors
         for button in buttons {
-            button.color = UIColorFromRGB(0x5687c8)
+            button.color = UIColor.blueColor()
+            //button.colorBlendFactor = 0.3
+//            button.color = UIColorFromRGB(0x5687c8)
         }
-        buttons[0].colorBlendFactor = 1.0
+        buttons[0].colorBlendFactor = 0.3
         
         // construct build with given location
         buildButton(buttons[0], icon: icons[0], point: CGPoint(x: buttonCenter, y: buttonTop))
@@ -132,19 +134,22 @@ class ShipSelectionScene: SKScene {
                 pointer = 5
             }
             if CGRectContainsPoint(_back.frame, touch.locationInNode(self)) {
-                _back.color = UIColor.blackColor()
-                _back.colorBlendFactor = 0.7
+//                _back.color = UIColor.blackColor()
+//                _back.colorBlendFactor = 0.7
+                _back.color = UIColor.blueColor()
+                _back.colorBlendFactor = 0.3
             }
             if CGRectContainsPoint(_confirm.frame, touch.locationInNode(self)) {
-                _confirm.color = UIColorFromRGB(0x87A96B)
-                _confirm.colorBlendFactor = 1.0
+                _confirm.color = UIColor.blueColor()
+//                _confirm.color = UIColorFromRGB(0x87A96B)
+                _confirm.colorBlendFactor = 0.3
             }
             // if a ship icon has been touched apply color and texture
             if pointer > -1 {
                 for button in buttons{
                     button.colorBlendFactor = 0.0
                 }
-                buttons[pointer].colorBlendFactor = 1.0
+                buttons[pointer].colorBlendFactor = 0.3
                 shipName = textures[pointer]
                 _currShip.texture = SKTexture(imageNamed: textures[pointer])
             }

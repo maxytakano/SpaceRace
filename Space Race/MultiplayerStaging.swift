@@ -109,7 +109,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         countdownLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         countdownLabel.fontColor = UIColor.whiteColor()
         countdownLabel.fontSize = 30
-        countdownLabel.fontName = "Optima-ExtraBlack"
+        countdownLabel.fontName = "Transformers Movie"
         countdownLabel.text = "Get Ready..."
         countdownLabel.zPosition = -1
         addChild(countdownLabel)
@@ -184,7 +184,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         scoreLabel.position = CGPoint(x: size.width * 0.47, y: size.height * 0.935)
         scoreLabel.fontColor = UIColor.whiteColor()
         scoreLabel.fontSize = 20
-        scoreLabel.fontName = "Optima-ExtraBlack"
+        scoreLabel.fontName = "Transformers Movie"
         scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
         
         addChild(scoreLabel)

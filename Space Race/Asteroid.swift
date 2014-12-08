@@ -25,7 +25,7 @@ class Asteroid:SKSpriteNode {
     
     
     func asteroidSetup() {
-        self.setScale(CGFloat(1.4))
+        self.setScale(CGFloat(0.8))
         
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest

@@ -139,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         countdownLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         countdownLabel.fontColor = UIColor.whiteColor()
         countdownLabel.fontSize = 30
-        countdownLabel.fontName = "Optima-ExtraBlack"
+        countdownLabel.fontName = "Transformers Movie"
         countdownLabel.text = "Get Ready..."
         countdownLabel.zPosition = -1
         addChild(countdownLabel)
@@ -210,7 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highScoreLabel.position = CGPoint(x: size.width * 0.2, y: size.height * 0.935)
         highScoreLabel.fontColor = UIColor.whiteColor()
         highScoreLabel.fontSize = 15
-        highScoreLabel.fontName = "Optima-ExtraBlack"
+        highScoreLabel.fontName = "Transformers Movie"
         highScoreLabel.text = "Best: \(currentHighScore[0])m:\(currentHighScore[1])s"
         addChild(highScoreLabel)
         
@@ -218,7 +218,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: size.width * 0.2, y: size.height * 0.88)
         scoreLabel.fontColor = UIColor.whiteColor()
         scoreLabel.fontSize = 15
-        scoreLabel.fontName = "Optima-ExtraBlack"
+        scoreLabel.fontName = "Transformers Movie"
+
         scoreLabel.text = "Time: \(self.minutes/60)m:\(self.seconds)s"
         addChild(scoreLabel)
         
@@ -226,7 +227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         countdownLabel.position = CGPoint(x: size.width * 0.67, y: size.height * 0.88)
         countdownLabel.fontColor = UIColor.whiteColor()
         countdownLabel.fontSize = 20
-        countdownLabel.fontName = "Optima-ExtraBlack"
+        countdownLabel.fontName = "Transformers Movie"
         countdownLabel.text = "\(self.timeLeft)"
         addChild(countdownLabel)
         
@@ -234,7 +235,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         nextCheckpointLabel.position = CGPoint(x: size.width * 0.67, y: size.height * 0.935)
         nextCheckpointLabel.fontColor = UIColor.whiteColor()
         nextCheckpointLabel.fontSize = 15
-        nextCheckpointLabel.fontName = "Optima-ExtraBlack"
+        nextCheckpointLabel.fontName = "Transformers Movie"
         nextCheckpointLabel.text = "Next Checkpoint: \(self.checkpointDistance)"
         addChild(nextCheckpointLabel)
         
@@ -350,7 +351,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         // get a set of everything currently touched
-        println("touchesMoved")
         var thingsTouched = NSMutableSet()
         for theTouch in event.allTouches() as NSSet! {
             let touch = theTouch as UITouch
@@ -378,12 +378,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if thingsTouched.containsObject("shield") == false {
             if ship.shipState == SpaceShip.states.SHIELDING {
-                println("shipis Shielding")
                 updatePlayerState(3)
             }
         } else {
             if ship.shipState != SpaceShip.states.SHIELDING {
-                println("shipis not Shielding")
                 updatePlayerState(1)
             }
         }
@@ -409,7 +407,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if anything was untouched, turn it off
         if thingsTouched.containsObject("boostButtonNode") == false {
             boosting = false
-            println("stopped boosting")
         }
         
         if thingsTouched.containsObject("brakeButtonNode") == false {
@@ -574,33 +571,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     ////
     func updatePosition(currentTime: CFTimeInterval) {
         if (boosting) {
-            println("boosting")
             if ship.forwardSpeed < 1000 {
                 ship.forwardSpeed += 1
             }
         } else {
-            println("not boosting")
             if ship.forwardSpeed > 50 {
                 ship.forwardSpeed -= 1
             }
         }
         
         if (braking) {
-//            println("braking")
             if ship.forwardSpeed > 50 {
                 ship.forwardSpeed -= 5
             }
         }
         
-        println("boosting3")
         if let data = motionManager.accelerometerData {
-            println("boosting3.5")
             if (fabs(data.acceleration.x) > 0.01) {
                 ship.physicsBody!.applyForce(CGVectorMake(0.0, 0.0))
                 accel = data.acceleration.x * Double(ship.turnSpeed)
                 ship.physicsBody!.applyForce(CGVectorMake(CGFloat(accel), 0))
             }
-            println("boosting3.7")
         
             
             // !! Dont delete old method of animation
@@ -634,37 +625,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            }
             
             
-            println("inside1")
             var closest = getClosest(data.acceleration.x)
-            println("inside1.5")
             if closest != -42.0 {
                 if closest == animationList[0] {
-                    println("inside2")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                 } else if closest == animationList[1] {
-                    println("inside3")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                 } else if closest == animationList[2] {
-                    println("inside4")
                     ship.texture = SKTexture(imageNamed: shipTexture)
                     currentTexture = SKTexture(imageNamed: shipTexture)
                 } else if closest == animationList[3] {
-                    println("inside5")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                 } else if closest == animationList[4] {
-                    println("inside6")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                 }
             }
-            
-            println("boosting4")
-
         }
-            println("asdfasdf")
+        
+        
     }
     
     
@@ -698,9 +680,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /* ------Energy Bar------ */
     
     func updatePlayerState(currentState: Int) {
-        println("updatePlaystate1")
         if (currentState == 1) {
-            println("updatePlaystate12")
             if shipEnergy > 0 {
                 // sound stuff
                 //            fadingIn = true
@@ -722,13 +702,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         SKAction.waitForDuration(0.1)
                         ])
                 )
-                println(" running Drain action")
 //                runAction(drainAction, withKey: "drainAction1")
             }
 
         }
         else if (currentState == 3) {
-            println("updatePlaystate3")
             // sound stuff
             //            fadingOut = true
             //            fadingIn = false
@@ -746,7 +724,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // return to normal color
             //player.colorBlendFactor = 0.0
             
-            println("removeDraingAction")
             //removeActionForKey("drainAction1")
 //            removeActionForKey("defenseSound")
             
@@ -803,7 +780,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addAsteroid() {
         // Create sprite
-        let texture = SKTexture(imageNamed: "basicRock")
+        let texture = SKTexture(imageNamed: "Asteroid1")
         let asteroid = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -829,7 +806,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if existingBullet == nil {
             if let ship = self.childNodeWithName(nameShip) {
-                let texture = SKTexture(imageNamed: "basicRock")
+                let texture = SKTexture(imageNamed: "Asteroid1")
                 let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
                     size: texture.size())
                 bullet.position =
@@ -897,7 +874,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                secondBody.node?.removeFromParent()
                 
                 secondBody.node!.position.y = viewSize.height * -0.1
-//                println("energy")
         }
     }
     
@@ -909,7 +885,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 rockDidCollideWithPlayer(firstBody.node as SKSpriteNode, rock: secondBody.node as SKSpriteNode)
                 
 //                secondBody.node!.position.y = viewSize.height * -0.1
-//                println("asteroid")
         }
     }
     
@@ -920,7 +895,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //done to make sure removed from array too
                 firstBody.node!.position.y = viewSize.height * -0.1
                 secondBody.node!.removeFromParent() //remove this and have continues bullet
-//                println("hit")
         }
         
     }

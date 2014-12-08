@@ -48,6 +48,19 @@
 		F2705D8F1A3527D900AB6D92 /* Ship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2705D751A3527D900AB6D92 /* Ship@2x.png */; };
 		F2705D901A3527D900AB6D92 /* startButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2705D761A3527D900AB6D92 /* startButton1@2x.png */; };
 		F2705D911A3527D900AB6D92 /* staru@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2705D771A3527D900AB6D92 /* staru@2x.png */; };
+		F27BE4621A357DAC00E404A2 /* Asteroid1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4611A357DAC00E404A2 /* Asteroid1@2x.png */; };
+		F27BE46F1A357FFC00E404A2 /* credits.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4641A357FFC00E404A2 /* credits.png */; };
+		F27BE4701A357FFC00E404A2 /* Leaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4651A357FFC00E404A2 /* Leaderboard.png */; };
+		F27BE4711A357FFC00E404A2 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4661A357FFC00E404A2 /* menu.png */; };
+		F27BE4721A357FFC00E404A2 /* MultiPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4671A357FFC00E404A2 /* MultiPlayer.png */; };
+		F27BE4731A357FFC00E404A2 /* Options.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4681A357FFC00E404A2 /* Options.png */; };
+		F27BE4741A357FFC00E404A2 /* retry.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE4691A357FFC00E404A2 /* retry.png */; };
+		F27BE4751A357FFC00E404A2 /* SinglePlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE46A1A357FFC00E404A2 /* SinglePlayer.png */; };
+		F27BE4761A357FFC00E404A2 /* SwitchOff.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE46B1A357FFC00E404A2 /* SwitchOff.png */; };
+		F27BE4771A357FFC00E404A2 /* SwitchOn.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE46C1A357FFC00E404A2 /* SwitchOn.png */; };
+		F27BE4781A357FFC00E404A2 /* TitleBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE46D1A357FFC00E404A2 /* TitleBanner.png */; };
+		F27BE4791A357FFC00E404A2 /* Tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = F27BE46E1A357FFC00E404A2 /* Tutorial.png */; };
+		F29F393D1A3576330014C7CA /* Transformers Movie.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F29F393C1A3575F60014C7CA /* Transformers Movie.ttf */; };
 		F2A6DF2F1A33BABA00284B81 /* OptionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */; };
 		F2BD0EF21A2E574E00AAB205 /* ShipBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */; };
 		F2BD0EF61A2E5A2D00AAB205 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */; };
@@ -145,6 +158,19 @@
 		F2705D751A3527D900AB6D92 /* Ship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ship@2x.png"; sourceTree = "<group>"; };
 		F2705D761A3527D900AB6D92 /* startButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startButton1@2x.png"; sourceTree = "<group>"; };
 		F2705D771A3527D900AB6D92 /* staru@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "staru@2x.png"; sourceTree = "<group>"; };
+		F27BE4611A357DAC00E404A2 /* Asteroid1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Asteroid1@2x.png"; sourceTree = "<group>"; };
+		F27BE4641A357FFC00E404A2 /* credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = credits.png; sourceTree = "<group>"; };
+		F27BE4651A357FFC00E404A2 /* Leaderboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaderboard.png; sourceTree = "<group>"; };
+		F27BE4661A357FFC00E404A2 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		F27BE4671A357FFC00E404A2 /* MultiPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MultiPlayer.png; sourceTree = "<group>"; };
+		F27BE4681A357FFC00E404A2 /* Options.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Options.png; sourceTree = "<group>"; };
+		F27BE4691A357FFC00E404A2 /* retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retry.png; sourceTree = "<group>"; };
+		F27BE46A1A357FFC00E404A2 /* SinglePlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SinglePlayer.png; sourceTree = "<group>"; };
+		F27BE46B1A357FFC00E404A2 /* SwitchOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwitchOff.png; sourceTree = "<group>"; };
+		F27BE46C1A357FFC00E404A2 /* SwitchOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwitchOn.png; sourceTree = "<group>"; };
+		F27BE46D1A357FFC00E404A2 /* TitleBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBanner.png; sourceTree = "<group>"; };
+		F27BE46E1A357FFC00E404A2 /* Tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tutorial.png; sourceTree = "<group>"; };
+		F29F393C1A3575F60014C7CA /* Transformers Movie.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Transformers Movie.ttf"; sourceTree = "<group>"; };
 		F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsScene.swift; sourceTree = "<group>"; };
 		F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipBullet.swift; sourceTree = "<group>"; };
 		F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
@@ -226,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				F25BFFCA1A153D430015106D /* SilomBol.ttf */,
+				F29F393C1A3575F60014C7CA /* Transformers Movie.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -309,6 +336,7 @@
 		F2705D5D1A3527D900AB6D92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F27BE4631A357FFC00E404A2 /* newMenuStuff */,
 				F2F8A18A1A353B7F00E129BA /* MenuButtons */,
 				F2F8A1891A353B7400E129BA /* Backgrounds */,
 				F2F8A18B1A353B9500E129BA /* Game Elements */,
@@ -317,6 +345,24 @@
 			name = Images;
 			path = "Space Race/SpriteKitSimpleGameResources/Images";
 			sourceTree = SOURCE_ROOT;
+		};
+		F27BE4631A357FFC00E404A2 /* newMenuStuff */ = {
+			isa = PBXGroup;
+			children = (
+				F27BE4641A357FFC00E404A2 /* credits.png */,
+				F27BE4651A357FFC00E404A2 /* Leaderboard.png */,
+				F27BE4661A357FFC00E404A2 /* menu.png */,
+				F27BE4671A357FFC00E404A2 /* MultiPlayer.png */,
+				F27BE4681A357FFC00E404A2 /* Options.png */,
+				F27BE4691A357FFC00E404A2 /* retry.png */,
+				F27BE46A1A357FFC00E404A2 /* SinglePlayer.png */,
+				F27BE46B1A357FFC00E404A2 /* SwitchOff.png */,
+				F27BE46C1A357FFC00E404A2 /* SwitchOn.png */,
+				F27BE46D1A357FFC00E404A2 /* TitleBanner.png */,
+				F27BE46E1A357FFC00E404A2 /* Tutorial.png */,
+			);
+			path = newMenuStuff;
+			sourceTree = "<group>";
 		};
 		F2BD0EF31A2E5A2000AAB205 /* Networking */ = {
 			isa = PBXGroup;
@@ -439,6 +485,7 @@
 		F2F8A18B1A353B9500E129BA /* Game Elements */ = {
 			isa = PBXGroup;
 			children = (
+				F27BE4611A357DAC00E404A2 /* Asteroid1@2x.png */,
 				F2705D751A3527D900AB6D92 /* Ship@2x.png */,
 				F2705D631A3527D900AB6D92 /* basicRock@2x.png */,
 				F2705D641A3527D900AB6D92 /* bouldini@2x.png */,
@@ -574,15 +621,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29F393D1A3576330014C7CA /* Transformers Movie.ttf in Resources */,
 				F2F8A19B1A353BFB00E129BA /* Ship4TiltRight1@2x.png in Resources */,
+				F27BE4751A357FFC00E404A2 /* SinglePlayer.png in Resources */,
+				F27BE4791A357FFC00E404A2 /* Tutorial.png in Resources */,
+				F27BE4701A357FFC00E404A2 /* Leaderboard.png in Resources */,
 				F2705D811A3527D900AB6D92 /* gameback3@2x.png in Resources */,
 				F2705D7E1A3527D900AB6D92 /* bouldini@2x.png in Resources */,
 				F2F8A1841A3538B200E129BA /* Ship2TiltLeft2@2x.png in Resources */,
 				F2C3E3E81A0BF20E004A16D5 /* sprites.atlas in Resources */,
 				F2F8A1991A353BFB00E129BA /* Ship4TiltLeft1@2x.png in Resources */,
+				F27BE4721A357FFC00E404A2 /* MultiPlayer.png in Resources */,
 				F2705D7B1A3527D900AB6D92 /* backgroundSelection@2x.png in Resources */,
 				F2C3E3E41A0BF20E004A16D5 /* hit3.wav in Resources */,
 				F2705D7C1A3527D900AB6D92 /* BasicHex@2x.png in Resources */,
+				F27BE4781A357FFC00E404A2 /* TitleBanner.png in Resources */,
 				F2C3E3E71A0BF20E004A16D5 /* smush.wav in Resources */,
 				F2F8A1A31A353C0500E129BA /* Ship5TiltRight1@2x.png in Resources */,
 				F2705D901A3527D900AB6D92 /* startButton1@2x.png in Resources */,
@@ -591,18 +644,22 @@
 				F2F8A1AE1A353C1100E129BA /* Ship6TiltRight2@2x.png in Resources */,
 				F2F8A1A11A353C0500E129BA /* Ship5TiltLeft1@2x.png in Resources */,
 				F2F8A1881A353B4D00E129BA /* shieldtest@2x.png in Resources */,
+				F27BE4731A357FFC00E404A2 /* Options.png in Resources */,
 				F2C3E3E21A0BF20E004A16D5 /* energyfields2.wav in Resources */,
 				F25BFFCD1A153D430015106D /* SilomBol.ttf in Resources */,
 				F2705D8D1A3527D900AB6D92 /* Ship4@2x.png in Resources */,
 				F2705D8E1A3527D900AB6D92 /* Ship5@2x.png in Resources */,
 				F2705D8A1A3527D900AB6D92 /* Ship1TiltRight2@2x.png in Resources */,
 				F2F8A1941A353BF200E129BA /* Ship3TiltRight2@2x.png in Resources */,
+				F27BE4771A357FFC00E404A2 /* SwitchOn.png in Resources */,
 				F2705D831A3527D900AB6D92 /* gameOver1@2x.png in Resources */,
+				F27BE4761A357FFC00E404A2 /* SwitchOff.png in Resources */,
 				F2705D891A3527D900AB6D92 /* Ship1TiltRight1@2x.png in Resources */,
 				F2705D801A3527D900AB6D92 /* Confirm@2x.png in Resources */,
 				F2C3E3E51A0BF20E004A16D5 /* lvlup2.wav in Resources */,
 				F2F8A1851A3538B200E129BA /* Ship2TiltRight1@2x.png in Resources */,
 				F2705D8C1A3527D900AB6D92 /* Ship3@2x.png in Resources */,
+				F27BE46F1A357FFC00E404A2 /* credits.png in Resources */,
 				F2705D8B1A3527D900AB6D92 /* Ship2@2x.png in Resources */,
 				F2705D791A3527D900AB6D92 /* Back@2x.png in Resources */,
 				F2F8A1911A353BF200E129BA /* Ship3TiltLeft1@2x.png in Resources */,
@@ -610,6 +667,7 @@
 				F2705D861A3527D900AB6D92 /* Ship1@2x.png in Resources */,
 				F2705D7A1A3527D900AB6D92 /* background2@2x.png in Resources */,
 				F2F8A1A21A353C0500E129BA /* Ship5TiltLeft2@2x.png in Resources */,
+				F27BE4621A357DAC00E404A2 /* Asteroid1@2x.png in Resources */,
 				F2705D821A3527D900AB6D92 /* gameback3i5@2x.png in Resources */,
 				F2705D7D1A3527D900AB6D92 /* basicRock@2x.png in Resources */,
 				F2F8A1AB1A353C1100E129BA /* Ship6TiltLeft1@2x.png in Resources */,
@@ -618,10 +676,12 @@
 				F2C3E3B61A0BE82F004A16D5 /* Images.xcassets in Resources */,
 				F2F8A1831A3538B200E129BA /* Ship2TiltLeft1@2x.png in Resources */,
 				F2F8A19A1A353BFB00E129BA /* Ship4TiltLeft2@2x.png in Resources */,
+				F27BE4711A357FFC00E404A2 /* menu.png in Resources */,
 				F2705D8F1A3527D900AB6D92 /* Ship@2x.png in Resources */,
 				F2F8A1921A353BF200E129BA /* Ship3TiltLeft2@2x.png in Resources */,
 				F2F8A19C1A353BFB00E129BA /* Ship4TiltRight2@2x.png in Resources */,
 				F2F8A1861A3538B200E129BA /* Ship2TiltRight2@2x.png in Resources */,
+				F27BE4741A357FFC00E404A2 /* retry.png in Resources */,
 				F2F8A1AC1A353C1100E129BA /* Ship6TiltLeft2@2x.png in Resources */,
 				F2705D851A3527D900AB6D92 /* menuButton1@2x.png in Resources */,
 				F2705D911A3527D900AB6D92 /* staru@2x.png in Resources */,

@@ -13,11 +13,12 @@ import UIKit
 
 class MainMenu: SKScene {
     
-    let background = SKSpriteNode(imageNamed: "background2")
-    let _playButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
-    let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "startButton1")
-    let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "leaderboardButton1")
-    let _optionsButton: SKSpriteNode = SKSpriteNode(imageNamed: "againButton")
+    //    let background = SKSpriteNode(imageNamed: "background2")
+    let _title:SKSpriteNode = SKSpriteNode(imageNamed:"TitleBanner")
+    let _singlePlayerButton: SKSpriteNode = SKSpriteNode(imageNamed: "SinglePlayer")
+    let _multiPlayerButton: SKSpriteNode = SKSpriteNode(imageNamed: "MultiPlayer")
+    let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "Leaderboard")
+    let _optionsButton: SKSpriteNode = SKSpriteNode(imageNamed: "Options")
     
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
@@ -30,64 +31,69 @@ class MainMenu: SKScene {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        background.anchorPoint = CGPoint(x: 0, y: 0)
-        background.size = self.size
-        background.zPosition = -2
-        self.addChild(background)
+        //        background.anchorPoint = CGPoint(x: 0, y: 0)
+        //        background.size = self.size
+        //        background.zPosition = -2
+        //        self.addChild(background)
+        self.backgroundColor = UIColor.blackColor()
         
+        //title banner
+        _title.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.8)
+        _title.setScale(0.75)
+        self.addChild(_title)
         
         // start button unpressed
-        _playButton.position = CGPoint(x: self.size.width/2 , y:self.size.height * 0.38)
-        _playButton.setScale(1.2)
-        
-        self.addChild(_playButton)
+        _singlePlayerButton.position = CGPoint(x: self.size.width * 0.5 , y:self.size.height * 0.52)
+        _singlePlayerButton.setScale(1.2)
+        self.addChild(_singlePlayerButton)
         
         // multiplayer button unpressed
-        _menuButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.18)
-        _menuButton.setScale(1.2)
-        self.addChild(_menuButton)
+        _multiPlayerButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.33)
+        _multiPlayerButton.setScale(1.2)
+        self.addChild(_multiPlayerButton)
         
         // leader button unpressed
-        _leaderButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.8)
-        _leaderButton.setScale(1.2)
+        _leaderButton.position = CGPoint(x: self.size.width * 0.26, y: self.size.height * 0.15)
+        _leaderButton.setScale(0.7)
         self.addChild(_leaderButton)
         
         // options button unpressed
-        _optionsButton.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.6)
-        _optionsButton.setScale(1.2)
+        _optionsButton.position = CGPoint(x: self.size.width * 0.74, y: self.size.height * 0.15)
+        _optionsButton.setScale(0.7)
         self.addChild(_optionsButton)
         
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         for touch: AnyObject in touches {
-            if CGRectContainsPoint(_playButton.frame, touch.locationInNode(self)) {
-                _playButton.color = UIColor.redColor()
-                _playButton.colorBlendFactor = 1.0
+            if CGRectContainsPoint(_singlePlayerButton.frame, touch.locationInNode(self)) {
+                _singlePlayerButton.color = UIColor.blueColor()
+                _singlePlayerButton.colorBlendFactor = 0.3
             }
-            if CGRectContainsPoint(_menuButton.frame, touch.locationInNode(self)) {
-                _menuButton.color = UIColor.redColor()
-                _menuButton.colorBlendFactor = 1.0
+            if CGRectContainsPoint(_multiPlayerButton.frame, touch.locationInNode(self)) {
+                _multiPlayerButton.color = UIColor.blueColor()
+                _multiPlayerButton.colorBlendFactor = 0.3
             }
             if CGRectContainsPoint(_leaderButton.frame, touch.locationInNode(self)) {
-                _leaderButton.color = UIColor.redColor()
-                _leaderButton.colorBlendFactor = 1.0
+                _leaderButton.color = UIColor.blueColor()
+                _leaderButton.colorBlendFactor = 0.3
             }
             if CGRectContainsPoint(_optionsButton.frame, touch.locationInNode(self)) {
-                _optionsButton.color = UIColor.redColor()
-                _optionsButton.colorBlendFactor = 1.0
+                _optionsButton.color = UIColor.blueColor()
+                _optionsButton.colorBlendFactor = 0.3
             }
         }
     }
-    
+
+
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         for touch: AnyObject in touches {
-            if CGRectContainsPoint(_playButton.frame, touch.locationInNode(self))  {
+            if CGRectContainsPoint(_singlePlayerButton.frame, touch.locationInNode(self))  {
                 let transition = SKTransition.fadeWithDuration(1)
                 let scene = ShipSelectionScene(size: self.scene!.size)
                 self.view?.presentScene(scene, transition: transition)
             }
-            if CGRectContainsPoint(_menuButton.frame, touch.locationInNode(self)) {
+            if CGRectContainsPoint(_multiPlayerButton.frame, touch.locationInNode(self)) {
                 // tell the view controller to switch to the multiplayer view.
 //                NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)
                 
@@ -109,8 +115,8 @@ class MainMenu: SKScene {
             }
         
             
-            _playButton.colorBlendFactor = 0.0
-            _menuButton.colorBlendFactor = 0.0
+            _singlePlayerButton.colorBlendFactor = 0.0
+            _multiPlayerButton.colorBlendFactor = 0.0
             _leaderButton.colorBlendFactor = 0.0
             _optionsButton.colorBlendFactor = 0.0
         }
