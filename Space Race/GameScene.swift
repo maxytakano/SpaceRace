@@ -577,7 +577,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    var currentTexture = SKTexture(imageNamed: String(textureName + "TiltLeft1"))
     
     ////
-    var animationList = [-0.2, -0.1, 0.0, 0.1, 0.2]
+//    var animationList = [-0.2, -0.1, 0.0, 0.1, 0.2]
+    var animationList = [-0.25, -0.14, -0.07, 0.0, 0.07, 0.14, 0.25]
     func getClosest(xData: Double) -> Double {
         var closest = 0.0
         var distance = 999.0
@@ -654,22 +655,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             var closest = getClosest(data.acceleration.x)
             if closest != -42.0 {
+//                if closest == animationList[0] {
+//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
+//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
+//                } else if closest == animationList[1] {
+//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
+//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
+//                } else if closest == animationList[2] {
+//                    ship.texture = SKTexture(imageNamed: shipTexture)
+//                    currentTexture = SKTexture(imageNamed: shipTexture)
+//                } else if closest == animationList[3] {
+//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
+//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
+//                } else if closest == animationList[4] {
+//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
+//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
+//                }
+                
                 if closest == animationList[0] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft3")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft3")
+                } else if closest == animationList[1] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
-                } else if closest == animationList[1] {
+                } else if closest == animationList[2] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
-                } else if closest == animationList[2] {
+                } else if closest == animationList[3] {
                     ship.texture = SKTexture(imageNamed: shipTexture)
                     currentTexture = SKTexture(imageNamed: shipTexture)
-                } else if closest == animationList[3] {
+                } else if closest == animationList[4] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
-                } else if closest == animationList[4] {
+                } else if closest == animationList[5] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
+                } else if closest == animationList[6] {
+                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight3")
+                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight3")
                 }
+
             }
         }
         
