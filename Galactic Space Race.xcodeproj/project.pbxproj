@@ -111,6 +111,8 @@
 		F2F8A1AE1A353C1100E129BA /* Ship6TiltRight2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2F8A1A91A353C1100E129BA /* Ship6TiltRight2@2x.png */; };
 		F2FB78491A35ADE60061738F /* Boost4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB78471A35ADE60061738F /* Boost4@2x.png */; };
 		F2FB784A1A35ADE60061738F /* Brake3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB78481A35ADE60061738F /* Brake3@2x.png */; };
+		F2FB784D1A3649AF0061738F /* Boost4Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB784B1A3649AF0061738F /* Boost4Pressed@2x.png */; };
+		F2FB784E1A3649AF0061738F /* Brake3Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB784C1A3649AF0061738F /* Brake3Pressed@2x.png */; };
 		F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -233,6 +235,8 @@
 		F2F8A1A91A353C1100E129BA /* Ship6TiltRight2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ship6TiltRight2@2x.png"; sourceTree = "<group>"; };
 		F2FB78471A35ADE60061738F /* Boost4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Boost4@2x.png"; sourceTree = "<group>"; };
 		F2FB78481A35ADE60061738F /* Brake3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brake3@2x.png"; sourceTree = "<group>"; };
+		F2FB784B1A3649AF0061738F /* Boost4Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Boost4Pressed@2x.png"; sourceTree = "<group>"; };
+		F2FB784C1A3649AF0061738F /* Brake3Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brake3Pressed@2x.png"; sourceTree = "<group>"; };
 		F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -524,6 +528,8 @@
 				F2F8A1871A353B4D00E129BA /* shieldtest@2x.png */,
 				F2FB78471A35ADE60061738F /* Boost4@2x.png */,
 				F2FB78481A35ADE60061738F /* Brake3@2x.png */,
+				F2FB784B1A3649AF0061738F /* Boost4Pressed@2x.png */,
+				F2FB784C1A3649AF0061738F /* Brake3Pressed@2x.png */,
 			);
 			name = "Game Elements";
 			sourceTree = "<group>";
@@ -703,6 +709,7 @@
 				F2D570991A35964800FFB0CC /* MultiPlayer@2x.png in Resources */,
 				F2D570951A35964800FFB0CC /* Back@2x.png in Resources */,
 				F27BE4621A357DAC00E404A2 /* Asteroid1@2x.png in Resources */,
+				F2FB784E1A3649AF0061738F /* Brake3Pressed@2x.png in Resources */,
 				F2D5709E1A35964800FFB0CC /* SwitchOn@2x.png in Resources */,
 				F2D570961A35964800FFB0CC /* credits@2x.png in Resources */,
 				F2705D821A3527D900AB6D92 /* gameback3i5@2x.png in Resources */,
@@ -719,6 +726,7 @@
 				F2F8A1921A353BF200E129BA /* Ship3TiltLeft2@2x.png in Resources */,
 				F2D570AF1A35A7E100FFB0CC /* Space Battle.wav in Resources */,
 				F2F8A19C1A353BFB00E129BA /* Ship4TiltRight2@2x.png in Resources */,
+				F2FB784D1A3649AF0061738F /* Boost4Pressed@2x.png in Resources */,
 				F2F8A1861A3538B200E129BA /* Ship2TiltRight2@2x.png in Resources */,
 				F2F8A1AC1A353C1100E129BA /* Ship6TiltLeft2@2x.png in Resources */,
 				F2FB78491A35ADE60061738F /* Boost4@2x.png in Resources */,

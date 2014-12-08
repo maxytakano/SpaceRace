@@ -326,11 +326,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // check if boost button touched
         if theNode.name == "boostButtonNode" {
+            var theButton = theNode as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Boost4Pressed")
+            
             boosting = true
         }
         
         // check if brake button touched
         if theNode.name == "brakeButtonNode" {
+            var theButton = theNode as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Brake3Pressed")
+            
             braking = true
         }
         
@@ -368,17 +374,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 thingsTouched.addObject(theNode.name!)
             }
         }
-        
+                
         // Turn off stuff not touched and turn stuff touched on
         if thingsTouched.containsObject("boostButtonNode") == false {
+            var theButton = self.childNodeWithName("boostButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Boost4")
             boosting = false
         } else {
+            var theButton = self.childNodeWithName("boostButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Boost4Pressed")
             boosting = true
         }
         
         if thingsTouched.containsObject("brakeButtonNode") == false {
+            var theButton = self.childNodeWithName("brakeButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Brake3")
             braking = false
         } else {
+            var theButton = self.childNodeWithName("brakeButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Brake3Pressed")
             braking = true
         }
         
@@ -412,10 +426,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // if anything was untouched, turn it off
         if thingsTouched.containsObject("boostButtonNode") == false {
+            var theButton = self.childNodeWithName("boostButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Boost4")
             boosting = false
         }
         
         if thingsTouched.containsObject("brakeButtonNode") == false {
+            var theButton = self.childNodeWithName("brakeButtonNode") as SKSpriteNode
+            theButton.texture = SKTexture(imageNamed: "Brake3")
             braking = false
         }
         
