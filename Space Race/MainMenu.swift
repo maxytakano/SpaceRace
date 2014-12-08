@@ -57,7 +57,7 @@ class MainMenu: SKScene {
         
         if currentTrack != "Keep Running.wav" {
             playBackgroundMusic("Keep Running.wav")
-            setCurrentTrack("Keep Running.wav")
+//            setCurrentTrack("Keep Running.wav")
         }
         
         //        background.anchorPoint = CGPoint(x: 0, y: 0)

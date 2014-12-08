@@ -8,11 +8,27 @@
 
 import Foundation
 import AVFoundation
+import SpriteKit
 
 var backgroundMusicPlayer: AVAudioPlayer!
+var userDefaults = NSUserDefaults.standardUserDefaults()
 var currentTrack = "none"
 
 func playBackgroundMusic(filename: String) {
+    
+    if let musicIsOn = userDefaults.valueForKey("music") as? Bool {
+        if (musicIsOn) {
+        }
+        else {
+            return
+        }
+    }
+    else { //musicIsOn = nil
+//        setOn(_musicSwitchOn)
+    }
+    
+    setCurrentTrack(filename)
+    
     let url = NSBundle.mainBundle().URLForResource(
         filename, withExtension: nil)
     if (url == nil) {

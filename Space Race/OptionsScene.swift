@@ -29,7 +29,7 @@ class OptionsScene: SKScene {
         _optionsLabel.text = "OPTIONS"
         self.addChild(_optionsLabel)
         
-        let BACK_POSITION = CGPoint(x: _backButton.size.width/2, y: self.size.height-(_backButton.size.height)/3)
+        let BACK_POSITION = CGPoint(x: _backButton.size.width/2, y: self.size.height-(_backButton.size.height)/2.1)
         _backButton.position = BACK_POSITION
         _backButton.setScale(0.8)
         self.addChild(_backButton)
@@ -176,14 +176,14 @@ class OptionsScene: SKScene {
             }
             if CGRectContainsPoint(_tutorialButton.frame, touch.locationInNode(self)) &&
                 firstTouched == "tutorial" {
-                    let transition = SKTransition.fadeWithDuration(1)
+//                    let transition = SKTransition.fadeWithDuration(1)
                     //                    let scene = TutorialScene(size: self.scene!.size)
-                    self.view?.presentScene(scene, transition: transition)
+//                    self.view?.presentScene(scene, transition: transition)
             }
             if CGRectContainsPoint(_creditsButton.frame, touch.locationInNode(self)) &&
                 firstTouched == "credits" {
                     let transition = SKTransition.fadeWithDuration(1)
-                    //                    let scene = CreditsScene(size: self.scene!.size)
+                    let scene = CreditsScene(size: self.scene!.size)
                     self.view?.presentScene(scene, transition: transition)
             }
         }
@@ -211,7 +211,15 @@ class OptionsScene: SKScene {
             _musicSwitchOn.hidden = false
             _musicSwitchOff.hidden = true
             saveSwitchResults("music", switchedTo: !isHidden(_musicSwitchOn))
+            
             println("music on")
+            if backgroundMusicPlayer == nil {
+                playBackgroundMusic("Keep Running.wav")
+            } else {
+                if !backgroundMusicPlayer.playing {
+                    playBackgroundMusic("Keep Running.wav")
+                }
+            }
         }
         else {
             _soundSwitchOn.hidden = false
@@ -226,6 +234,13 @@ class OptionsScene: SKScene {
             _musicSwitchOn.hidden = true
             _musicSwitchOff.hidden = false
             saveSwitchResults("music", switchedTo: !isHidden(_musicSwitchOn))
+            
+            if backgroundMusicPlayer != nil {
+                if backgroundMusicPlayer.playing {
+                    backgroundMusicPlayer.stop()
+                    setCurrentTrack("none")
+                }
+            }
             println("music off")
         }
         else {

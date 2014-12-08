@@ -119,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if currentTrack != "Space Battle.wav" {
             playBackgroundMusic("Space Battle.wav")
-            setCurrentTrack("Space Battle.wav")
+//            setCurrentTrack("Space Battle.wav")
         }
         
         // initialize high score for first run

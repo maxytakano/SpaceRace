@@ -12,6 +12,7 @@
 		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
 		F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */; };
 		F216DE021A2E608A0014A7FA /* MultiplayerStaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */; };
+		F21E81AB1A365DA300F5895A /* CreditsPage2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
 		F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F252C0A41A32C305006C6B83 /* Crashlytics.framework */; };
 		F252C0A71A32E0F6006C6B83 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */; };
@@ -113,6 +114,8 @@
 		F2FB784A1A35ADE60061738F /* Brake3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB78481A35ADE60061738F /* Brake3@2x.png */; };
 		F2FB784D1A3649AF0061738F /* Boost4Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB784B1A3649AF0061738F /* Boost4Pressed@2x.png */; };
 		F2FB784E1A3649AF0061738F /* Brake3Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB784C1A3649AF0061738F /* Brake3Pressed@2x.png */; };
+		F2FB78501A3659B20061738F /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FB784F1A3659B20061738F /* CreditsScene.swift */; };
+		F2FB78531A365A330061738F /* CreditsPage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2FB78521A365A330061738F /* CreditsPage@2x.png */; };
 		F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +135,7 @@
 		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerStaging.swift; sourceTree = "<group>"; };
+		F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CreditsPage2@2x.png"; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
 		F252C0A41A32C305006C6B83 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 		F2FB78481A35ADE60061738F /* Brake3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brake3@2x.png"; sourceTree = "<group>"; };
 		F2FB784B1A3649AF0061738F /* Boost4Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Boost4Pressed@2x.png"; sourceTree = "<group>"; };
 		F2FB784C1A3649AF0061738F /* Brake3Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brake3Pressed@2x.png"; sourceTree = "<group>"; };
+		F2FB784F1A3659B20061738F /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
+		F2FB78521A365A330061738F /* CreditsPage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CreditsPage@2x.png"; sourceTree = "<group>"; };
 		F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -320,6 +326,7 @@
 			children = (
 				F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */,
 				F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */,
+				F2FB784F1A3659B20061738F /* CreditsScene.swift */,
 				F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */,
 				F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */,
 				F2C3E3AE1A0BE82F004A16D5 /* GameScene.swift */,
@@ -358,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				F27BE4631A357FFC00E404A2 /* newMenuStuff */,
+				F2FB78511A365A330061738F /* creditsandTutorial */,
 				F2F8A18A1A353B7F00E129BA /* MenuButtons */,
 				F2F8A1891A353B7400E129BA /* Backgrounds */,
 				F2F8A18B1A353B9500E129BA /* Game Elements */,
@@ -571,6 +579,15 @@
 			name = ships;
 			sourceTree = "<group>";
 		};
+		F2FB78511A365A330061738F /* creditsandTutorial */ = {
+			isa = PBXGroup;
+			children = (
+				F2FB78521A365A330061738F /* CreditsPage@2x.png */,
+				F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */,
+			);
+			path = creditsandTutorial;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -661,12 +678,14 @@
 			files = (
 				F29F393D1A3576330014C7CA /* Transformers Movie.ttf in Resources */,
 				F2F8A19B1A353BFB00E129BA /* Ship4TiltRight1@2x.png in Resources */,
+				F21E81AB1A365DA300F5895A /* CreditsPage2@2x.png in Resources */,
 				F2D570981A35964800FFB0CC /* menu@2x.png in Resources */,
 				F2705D811A3527D900AB6D92 /* gameback3@2x.png in Resources */,
 				F2705D7E1A3527D900AB6D92 /* bouldini@2x.png in Resources */,
 				F2D570971A35964800FFB0CC /* Leaderboard@2x.png in Resources */,
 				F2F8A1841A3538B200E129BA /* Ship2TiltLeft2@2x.png in Resources */,
 				F2C3E3E81A0BF20E004A16D5 /* sprites.atlas in Resources */,
+				F2FB78531A365A330061738F /* CreditsPage@2x.png in Resources */,
 				F2FB784A1A35ADE60061738F /* Brake3@2x.png in Resources */,
 				F2F8A1991A353BFB00E129BA /* Ship4TiltLeft1@2x.png in Resources */,
 				F2705D7B1A3527D900AB6D92 /* backgroundSelection@2x.png in Resources */,
@@ -790,6 +809,7 @@
 				F25BFFC21A1535C80015106D /* Constants.swift in Sources */,
 				F2705D5C1A351F3700AB6D92 /* ShipSelectionScene.swift in Sources */,
 				F2639A411A1529C1003DD8CC /* Asteroid.swift in Sources */,
+				F2FB78501A3659B20061738F /* CreditsScene.swift in Sources */,
 				F2C3E3D81A0BF201004A16D5 /* PhysicsUtilities.swift in Sources */,
 				F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */,
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,

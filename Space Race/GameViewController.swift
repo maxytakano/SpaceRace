@@ -23,7 +23,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         
         // Configure the view.
 //        let scene = MainMenu(size: view.bounds.size)
-        let scene = GameScene(size: view.bounds.size)
+//        let scene = GameScene(size: view.bounds.size)
+        let scene = OptionsScene(size: view.bounds.size)
         
         let skView = self.view as SKView
         skView.showsFPS = true

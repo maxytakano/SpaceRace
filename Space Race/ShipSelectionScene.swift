@@ -68,7 +68,7 @@ class ShipSelectionScene: SKScene {
         
         if currentTrack != "Space Fighter Loop.mp3" {
             playBackgroundMusic("Space Fighter Loop.mp3")
-            setCurrentTrack("Space Fighter Loop.mp3")
+//            setCurrentTrack("Space Fighter Loop.mp3")
         }
         
         // pivot for buttons
@@ -106,7 +106,7 @@ class ShipSelectionScene: SKScene {
         buildButton(buttons[5], icon: icons[5], point: CGPoint(x: buttonCenter, y: buttonTop-buttonHeight/0.345))
         
         // back button
-        _back.position = CGPoint(x: _back.size.width/2, y: self.size.height-(_back.size.height)/3)
+        _back.position = CGPoint(x: _back.size.width/2, y: self.size.height-(_back.size.height)/2.1)
         _back.setScale(0.8)
         addChild(_back)
         
