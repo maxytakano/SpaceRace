@@ -116,6 +116,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Scene Setup and Content Creation
     override func didMoveToView(view: SKView) {
+        
+        if currentTrack != "Space Battle.wav" {
+            playBackgroundMusic("Space Battle.wav")
+            setCurrentTrack("Space Battle.wav")
+        }
+        
         // initialize high score for first run
         if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
             var firstScore:[Int] = [0, 0]

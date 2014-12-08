@@ -13,12 +13,13 @@ import GameKit
 class GameOverScene: SKScene {
     
     let background = SKSpriteNode(imageNamed: "gameOver1.png")
-    let _againButton: SKSpriteNode = SKSpriteNode(imageNamed: "againButton.png")
-    let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "menuButton1.png")
+    let _againButton: SKSpriteNode = SKSpriteNode(imageNamed: "retry")
+    let _menuButton: SKSpriteNode = SKSpriteNode(imageNamed: "menu.png")
     
     // init score report
     var score:Int64 = 0
     var shipName:String = "Ship1"
+    
     
     init(size: CGSize, won:Bool, seconds:Int, minutes:Int, shipTexture:String) {
         super.init(size: size)
@@ -31,53 +32,72 @@ class GameOverScene: SKScene {
         self.addChild(background)
         
         // Again button
-        _againButton.position = CGPoint(x: self.size.width * 0.5 , y: self.size.height * 0.25)
-        //_againButton.setScale(1.0)
+        _againButton.position = CGPoint(x: self.size.width * 0.74 , y: self.size.height * 0.15)
+        _againButton.setScale(1.4)
         self.addChild(_againButton)
         
         // Menu button
-        _menuButton.position = CGPoint(x: self.size.width * 0.5 , y: self.size.height * 0.45)
-        //_menuButton.setScale(1.0)
+        _menuButton.position = CGPoint(x: self.size.width * 0.26 , y: self.size.height * 0.15)
+        _menuButton.setScale(1.4)
         self.addChild(_menuButton)
+    
         
-        if (won) {
-            let winlabel = SKLabelNode(fontNamed: "Transformers Movie")
-            winlabel.text = "Beat Your"
-            winlabel.fontSize = 40
-            winlabel.fontColor = SKColor.whiteColor()
-            winlabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.9)
-            addChild(winlabel)
-            let label2 = SKLabelNode(fontNamed: "Transformers Movie")
-            label2.text = "Best Time!"
-            label2.fontSize = 40
-            label2.fontColor = SKColor.whiteColor()
-            label2.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
-            addChild(label2)
+        let winlabel = SKLabelNode(fontNamed: "Transformers Movie")
+        winlabel.text = "GAME OVER"
+        winlabel.fontSize = 45
+        winlabel.fontColor = SKColor.whiteColor()
+        winlabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.87)
+        addChild(winlabel)
+        
+        if won {
+            let scoreLabel = SKLabelNode(fontNamed: "Transformers Movie")
+            scoreLabel.text = "NEW RECORD!"
+            scoreLabel.fontSize = 40
+            scoreLabel.fontColor = SKColor.whiteColor()
+            scoreLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.73)
+            addChild(scoreLabel)
         } else {
-            let loselabel = SKLabelNode(fontNamed: "Transformers Movie")
-            loselabel.text = "You Lost!"
-            loselabel.fontSize = 40
-            loselabel.fontColor = SKColor.whiteColor()
-            loselabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.85)
-            addChild(loselabel)
+            let scoreLabel = SKLabelNode(fontNamed: "Transformers Movie")
+            scoreLabel.text = "TIME LASTED"
+            scoreLabel.fontSize = 40
+            scoreLabel.fontColor = SKColor.whiteColor()
+            scoreLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.73)
+            addChild(scoreLabel)
         }
-        
-        
-        // 3
-        let scoreLabel = SKLabelNode(fontNamed: "Transformers Movie")
-        scoreLabel.text = "Time Lasted:"
-        scoreLabel.fontSize = 40
-        scoreLabel.fontColor = SKColor.whiteColor()
-        scoreLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.7)
-        addChild(scoreLabel)
         
         let timeLabel = SKLabelNode(fontNamed: "Transformers Movie")
         timeLabel.text = "\(minutes/60)M : \(seconds)S"
         timeLabel.fontSize = 40
         timeLabel.fontColor = SKColor.whiteColor()
-        timeLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
+        timeLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.63)
         addChild(timeLabel)
         
+        
+        if (won) {
+            let bestLabel = SKLabelNode(fontNamed: "Transformers Movie")
+            bestLabel.text = "PREVIOUS BEST"
+            bestLabel.fontSize = 40
+            bestLabel.fontColor = SKColor.whiteColor()
+            bestLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.47)
+            addChild(bestLabel)
+        } else {
+            let bestLabel = SKLabelNode(fontNamed: "Transformers Movie")
+            bestLabel.text = "BEST TIME"
+            bestLabel.fontSize = 40
+            bestLabel.fontColor = SKColor.whiteColor()
+            bestLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.47)
+            addChild(bestLabel)
+        }
+        
+        
+        var currentHighScore = NSUserDefaults.standardUserDefaults().objectForKey("HighScore") as NSArray
+        
+        let highScoreLabel = SKLabelNode(fontNamed: "Transformers Movie")
+        highScoreLabel.text = "\(currentHighScore[0])m:\(currentHighScore[1])s"
+        highScoreLabel.fontSize = 40
+        highScoreLabel.fontColor = SKColor.whiteColor()
+        highScoreLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.37)
+        addChild(highScoreLabel)
         
         // set the score to be sent to game center
         score = Int64(minutes)

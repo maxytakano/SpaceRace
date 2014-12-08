@@ -18,7 +18,7 @@ class OptionsScene: SKScene {
     let _musicSwitchOff: SKSpriteNode = SKSpriteNode(imageNamed: "SwitchOff")
     let _soundSwitchOn: SKSpriteNode = SKSpriteNode(imageNamed: "SwitchOn")
     let _soundSwitchOff: SKSpriteNode = SKSpriteNode(imageNamed: "SwitchOff")
-    let _backButton: SKSpriteNode = SKSpriteNode(imageNamed: "menu")
+    let _backButton: SKSpriteNode = SKSpriteNode(imageNamed: "Back")
     let _creditsButton: SKSpriteNode = SKSpriteNode(imageNamed: "credits")
     let _tutorialButton: SKSpriteNode = SKSpriteNode(imageNamed: "Tutorial")
     
@@ -29,18 +29,18 @@ class OptionsScene: SKScene {
         _optionsLabel.text = "OPTIONS"
         self.addChild(_optionsLabel)
         
-        let BACK_POSITION = CGPoint(x: self.size.width * 0.20, y: self.size.height * 0.93)
+        let BACK_POSITION = CGPoint(x: _backButton.size.width/2, y: self.size.height-(_backButton.size.height)/3)
         _backButton.position = BACK_POSITION
-        _backButton.setScale(0.5)
+        _backButton.setScale(0.8)
         self.addChild(_backButton)
         
         let MUSIC_POSITION = CGPoint(x: self.size.width * 0.75, y: self.size.height * 0.70)
         _musicSwitchOff.position = MUSIC_POSITION
-        _musicSwitchOff.setScale(0.4)
+        _musicSwitchOff.setScale(0.8)
         self.addChild(_musicSwitchOff)
         
         _musicSwitchOn.position = MUSIC_POSITION
-        _musicSwitchOn.setScale(0.4)
+        _musicSwitchOn.setScale(0.8)
         self.addChild(_musicSwitchOn)
         
         let _musicLabel = SKLabelNode(fontNamed: "Transformers Movie")
@@ -51,11 +51,11 @@ class OptionsScene: SKScene {
         
         let SOUND_POSITION = CGPoint(x: self.size.width * 0.75, y: self.size.height * 0.59)
         _soundSwitchOff.position = SOUND_POSITION
-        _soundSwitchOff.setScale(0.4)
+        _soundSwitchOff.setScale(0.8)
         self.addChild(_soundSwitchOff)
         
         _soundSwitchOn.position = SOUND_POSITION
-        _soundSwitchOn.setScale(0.4)
+        _soundSwitchOn.setScale(0.8)
         self.addChild(_soundSwitchOn)
         
         let _soundLabel = SKLabelNode(fontNamed: "Transformers Movie")
@@ -92,11 +92,11 @@ class OptionsScene: SKScene {
         }
         
         _tutorialButton.position = CGPoint(x: self.size.width * 0.25, y: self.size.height * 0.44)
-        _tutorialButton.setScale(0.7)
+        _tutorialButton.setScale(1.4)
         self.addChild(_tutorialButton)
         
         _creditsButton.position = CGPoint(x: self.size.width * 0.75, y:self.size.height * 0.44)
-        _creditsButton.setScale(0.7)
+        _creditsButton.setScale(1.4)
         self.addChild(_creditsButton)
         
         //

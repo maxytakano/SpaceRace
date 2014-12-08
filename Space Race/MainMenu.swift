@@ -20,6 +20,30 @@ class MainMenu: SKScene {
     let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "Leaderboard")
     let _optionsButton: SKSpriteNode = SKSpriteNode(imageNamed: "Options")
     
+//    var backgroundMusicPlayer: AVAudioPlayer!
+//    
+//    func playBackgroundMusic(filename: String) {
+//        let url = NSBundle.mainBundle().URLForResource(
+//            filename, withExtension: nil)
+//        if (url == nil) {
+//            println("Could not find file: \(filename)")
+//            return
+//        }
+//        
+//        var error: NSError? = nil
+//        backgroundMusicPlayer =
+//            AVAudioPlayer(contentsOfURL: url, error: &error)
+//        if backgroundMusicPlayer == nil {
+//            println("Could not create audio player: \(error!)")
+//            return
+//        }
+//        
+//        backgroundMusicPlayer.numberOfLoops = -1
+//        backgroundMusicPlayer.prepareToPlay()
+//        //backgroundMusicPlayer.volume = 0
+//        backgroundMusicPlayer.play()
+//    }
+    
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
         if (NSUserDefaults.standardUserDefaults().objectForKey("HighScore") == nil) {
@@ -31,6 +55,11 @@ class MainMenu: SKScene {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
+        if currentTrack != "Keep Running.wav" {
+            playBackgroundMusic("Keep Running.wav")
+            setCurrentTrack("Keep Running.wav")
+        }
+        
         //        background.anchorPoint = CGPoint(x: 0, y: 0)
         //        background.size = self.size
         //        background.zPosition = -2
@@ -39,27 +68,27 @@ class MainMenu: SKScene {
         
         //title banner
         _title.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.8)
-        _title.setScale(0.75)
+        _title.setScale(1.5)
         self.addChild(_title)
         
         // start button unpressed
-        _singlePlayerButton.position = CGPoint(x: self.size.width * 0.5 , y:self.size.height * 0.52)
-        _singlePlayerButton.setScale(1.2)
+        _singlePlayerButton.position = CGPoint(x: self.size.width * 0.5 , y:self.size.height * 0.57)
+        _singlePlayerButton.setScale(2.4)
         self.addChild(_singlePlayerButton)
         
         // multiplayer button unpressed
-        _multiPlayerButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.33)
-        _multiPlayerButton.setScale(1.2)
+        _multiPlayerButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.35)
+        _multiPlayerButton.setScale(2.4)
         self.addChild(_multiPlayerButton)
         
         // leader button unpressed
         _leaderButton.position = CGPoint(x: self.size.width * 0.26, y: self.size.height * 0.15)
-        _leaderButton.setScale(0.7)
+        _leaderButton.setScale(1.4)
         self.addChild(_leaderButton)
         
         // options button unpressed
         _optionsButton.position = CGPoint(x: self.size.width * 0.74, y: self.size.height * 0.15)
-        _optionsButton.setScale(0.7)
+        _optionsButton.setScale(1.4)
         self.addChild(_optionsButton)
         
     }
