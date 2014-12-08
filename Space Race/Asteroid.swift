@@ -50,10 +50,14 @@ class Asteroid:SKSpriteNode {
         
         self.physicsBody?.collisionBitMask = Contact.Ship
         self.physicsBody?.contactTestBitMask = Contact.Ship
+        
     }
     
     func updateVelocity(newVelocity: Int) {
         self.physicsBody?.velocity = CGVectorMake(0.0, -1.0 * CGFloat(newVelocity) )
     }
     
+//    func rotateAsteroid() {
+//        self.zRotation = 0.1
+//    }
 }

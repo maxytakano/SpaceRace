@@ -78,10 +78,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var drainAmount = 2.0
     var chipFlag = false
     
+    ////// Texture Stuff //////
+    var currentTexture = SKTexture()
+    
     /* -------- Initialization --------  */
     
     func setShipTexture(name:String) {
         shipTexture = name
+        currentTexture = SKTexture(imageNamed: name)
     }
     
     override init(size: CGSize) {
@@ -101,6 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         asteroidsPerSecond = 0.0
         asteroidsPerCentisecond = 0.0
         shipTexture = "Ship1"
+        currentTexture = SKTexture(imageNamed: "Ship1")
         
         super.init(size: size)
     }
@@ -340,10 +345,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        
     }
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         // get a set of everything currently touched
+        println("touchesMoved")
         var thingsTouched = NSMutableSet()
         for theTouch in event.allTouches() as NSSet! {
             let touch = theTouch as UITouch
@@ -370,17 +377,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if thingsTouched.containsObject("shield") == false {
-            updatePlayerState(3)
+            if ship.shipState == SpaceShip.states.SHIELDING {
+                println("shipis Shielding")
+                updatePlayerState(3)
+            }
         } else {
             if ship.shipState != SpaceShip.states.SHIELDING {
+                println("shipis not Shielding")
                 updatePlayerState(1)
             }
-            
         }
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-    
         // get a set of everything that is still being touched
         var thingsTouched = NSMutableSet()
         for theTouch in event.allTouches() as NSSet! {
@@ -400,6 +409,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if anything was untouched, turn it off
         if thingsTouched.containsObject("boostButtonNode") == false {
             boosting = false
+            println("stopped boosting")
         }
         
         if thingsTouched.containsObject("brakeButtonNode") == false {
@@ -407,7 +417,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if thingsTouched.containsObject("shield") == false {
-            updatePlayerState(3)
+            if ship.shipState == SpaceShip.states.SHIELDING {
+                updatePlayerState(3)
+            }
         }
         
     }
@@ -424,6 +436,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /* -------- Updates -------- */
     var starCounter = 0
     var asteroidCounter = 0
+//    var secondCounter = 0
+//    var deciSecondCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
@@ -432,6 +446,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             centiseconds++
             starCounter++
             asteroidCounter++
+//            secondCounter++
             
             if starCounter > centisecondsPerStar {
                 starCounter = 0
@@ -442,18 +457,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 asteroidCounter = 0
                 addAsteroid()
             }
-//            if centiseconds % centisecondsPerStar == 0 {
-//                addStar()
-//                //addAsteroid()
-//                //addEnergy()
-//            }
+
 //            
-//            
-//            if centiseconds % centisecondsPerAsteroid == 0 {
-//                println(centisecondsPerAsteroid)
-//                addAsteroid()
+//            if deciSecondCounter > 10 {
+//                deciSecondCounter = 0
+//                for asteroid in asteroids {
+//                    (asteroid as Asteroid).rotateAsteroid()
+//                }
 //            }
-            
+
             if centiseconds % 100 == 0 {
                 if shipEnergy < 97 {
                     shipEnergy += 3
@@ -469,6 +481,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
                 }
             }
+//            if secondCounter > 100 {
+//                secondCounter = 0
+//                if shipEnergy < 97 {
+//                    shipEnergy += 3
+//                }
+//                
+//                var ratio = CGFloat(shipEnergy / maxEnergy)
+//                if (self.shipEnergy > 100) {
+//                    ratio = CGFloat(100.0)
+//                }
+//                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
+//                
+//                if (!chipFlag) {
+//                    staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
+//                }
+//            }
         }
     }
     
@@ -510,6 +538,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             nextCheckpointLabel.text = "Next Checkpoint: \(Int(self.checkpointDistance - ship.distTraveled))"
+            
         }
     }
     
@@ -520,7 +549,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var averageTilt = 0.0
     var averageCounter = 0.0
     var average = 0.0
-    var currentTexture = SKTexture()
+    
 //    var currentTexture = SKTexture(imageNamed: String(textureName + "TiltLeft1"))
     
     ////
@@ -545,11 +574,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     ////
     func updatePosition(currentTime: CFTimeInterval) {
         if (boosting) {
-//            println("boosting")
+            println("boosting")
             if ship.forwardSpeed < 1000 {
                 ship.forwardSpeed += 1
             }
         } else {
+            println("not boosting")
             if ship.forwardSpeed > 50 {
                 ship.forwardSpeed -= 1
             }
@@ -562,13 +592,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        
+        println("boosting3")
         if let data = motionManager.accelerometerData {
+            println("boosting3.5")
             if (fabs(data.acceleration.x) > 0.01) {
                 ship.physicsBody!.applyForce(CGVectorMake(0.0, 0.0))
                 accel = data.acceleration.x * Double(ship.turnSpeed)
                 ship.physicsBody!.applyForce(CGVectorMake(CGFloat(accel), 0))
             }
+            println("boosting3.7")
+        
             
             // !! Dont delete old method of animation
 //            if averageCounter < averageAmount {
@@ -599,29 +632,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                }
 //
 //            }
-          
+            
+            
+            println("inside1")
             var closest = getClosest(data.acceleration.x)
+            println("inside1.5")
             if closest != -42.0 {
                 if closest == animationList[0] {
+                    println("inside2")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                 } else if closest == animationList[1] {
+                    println("inside3")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                 } else if closest == animationList[2] {
+                    println("inside4")
                     ship.texture = SKTexture(imageNamed: shipTexture)
                     currentTexture = SKTexture(imageNamed: shipTexture)
                 } else if closest == animationList[3] {
+                    println("inside5")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                 } else if closest == animationList[4] {
+                    println("inside6")
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                     currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                 }
             }
-        
+            
+            println("boosting4")
+
         }
+            println("asdfasdf")
     }
+    
     
     func updateGameObjects(){
         for star in stars {
@@ -653,8 +698,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /* ------Energy Bar------ */
     
     func updatePlayerState(currentState: Int) {
+        println("updatePlaystate1")
         if (currentState == 1) {
-            
+            println("updatePlaystate12")
             if shipEnergy > 0 {
                 // sound stuff
                 //            fadingIn = true
@@ -676,15 +722,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         SKAction.waitForDuration(0.1)
                         ])
                 )
-                runAction(drainAction, withKey: "drainAction1")
+                println(" running Drain action")
+//                runAction(drainAction, withKey: "drainAction1")
             }
 
         }
         else if (currentState == 3) {
+            println("updatePlaystate3")
             // sound stuff
             //            fadingOut = true
             //            fadingIn = false
             //            doVolumeFadeOut()
+            
+        
             
             staminaBar.color = UIColor.greenColor()
             
@@ -695,8 +745,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // return to normal color
             //player.colorBlendFactor = 0.0
-            removeActionForKey("drainAction1")
-            removeActionForKey("defenseSound")
+            
+            println("removeDraingAction")
+            //removeActionForKey("drainAction1")
+//            removeActionForKey("defenseSound")
+            
             
         }
     }
