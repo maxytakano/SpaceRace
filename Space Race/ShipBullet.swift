@@ -25,7 +25,7 @@ class ShipBullet:SKSpriteNode {
     
     
     func makeShipBullet(){
-        self.setScale(CGFloat(0.2))
+        self.setScale(CGFloat(1.3))
         
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest

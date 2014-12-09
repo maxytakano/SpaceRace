@@ -1119,7 +1119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        }
         
         if let ship = self.childNodeWithName(nameShip) {
-            let texture = SKTexture(imageNamed: "Asteroid1")
+            let texture = SKTexture(imageNamed: "LaserBolt")
             let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
                 size: texture.size())
             bullet.position =
