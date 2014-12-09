@@ -476,7 +476,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if starCounter > centisecondsPerStar {
                 starCounter = 0
-                addStar()
+//                addStar()
             }
             
             if asteroidCounter > centisecondsPerAsteroid {
@@ -484,7 +484,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addAsteroid()
             }
 
-//            
             if deciSecondCounter > 10 {
                 deciSecondCounter = 0
                 for asteroid in asteroids {
@@ -828,7 +827,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // how long the belt is
 //        var layerLimit = Int(getRandom(min: 15.0, 25.0))
-        var layerLimit = 40
+//        var layerLimit = 40
+        var layerLimit = 1
         
         // Constant change for uniform zig zags
         let change = getRandom(min: 0, 1.0)
@@ -871,8 +871,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // Zig zag generation
 //            scale = scale + getRandom(min: 0.01, 0.05)
-            println(texture.size().height)
-            scale = scale + ((texture.size().height/1.5) / viewSize.height)
+//            println(texture.size().height)
+            scale = scale + ((texture.size().height/1.0 * scalePic) / viewSize.height)
+//            scale = scale + ((texture.size().height/1.5) / viewSize.height)
+//            scale = scale + 0.1
             layer++
             coord = -1
             
