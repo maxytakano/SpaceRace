@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stars:NSMutableArray
     var energies:NSMutableArray
     var pelletGunPowerups:NSMutableArray
+    var laserPowerups:NSMutableArray
     var asteroids:NSMutableArray
     var contactQueue = Array<SKPhysicsContact>()
     
@@ -85,8 +86,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Powerup timers
     var pelletGunTimer: Int
     //var invincibleTimer: Int
-    //var laserTimer: Int
-    //var laser: LaserBullet!
+    var laserTimer: Int
+    var laser: LaserBullet!
+    var laserPressed = false
     
     /* -------- Initialization --------  */
     
@@ -100,6 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         energies = []
         asteroids = []
         pelletGunPowerups = []
+        laserPowerups = []
         centiseconds = 0
         centisecondsPerStar = 999999
         starSpanTime = 0.0
@@ -117,6 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // powerup timer inits
         pelletGunTimer = 0
+        laserTimer = 0
         
         super.init(size: size)
     }
@@ -206,6 +210,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let texture = SKTexture(imageNamed: shipTexture)
         ship = SpaceShip(texture: texture, color: SKColor.whiteColor(), size: texture.size())
         self.addChild(ship)
+        
+        // laser image
+        let texture2 = SKTexture(imageNamed: "blueLaser")
+        
+//        laser = LaserBullet(texture: texture2, color: SKColor.whiteColor(), size:
+//            CGSizeMake(texture2.size().width, (viewSize.height * 0.8) * 2.0))
+        laser = LaserBullet(texture: texture2, color: SKColor.whiteColor(), size:
+            CGSizeMake(texture2.size().width, viewSize.height * 0.74 ))
+        laser.makeLaserBullet(ship)
+        
         
         // Message
         //        startMessage.fontSize = 64.0
@@ -351,12 +365,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             braking = true
         }
         
+        println(ship.getLaserActive())
+        
+        if ship.shipState == SpaceShip.states.SHIELDING {
+            println("touch began: state is shielding")
+        }
+        
         // check the ships state
         if (ship.shipState == SpaceShip.states.NORMAL) {
-            if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode"){
-               updatePlayerState(1)
+            println("touch began: state is normal")
+            if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode") {
+                // enter shielding state
+                updatePlayerState(1)
             }
         } else if (ship.shipState == SpaceShip.states.PELLETGUN) {
+            println("touch began: state is pellet")
             // bullet
             if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode"){
 //                if let touch : AnyObject = touches.anyObject() {
@@ -367,7 +390,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    
 //                    }
 //                }
+                // fire bullet
                 fireShipBullets()
+            }
+        } else if (ship.shipState == SpaceShip.states.LASER) {
+            println("touch began: state is laser")
+            // bullet
+            if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode"){
+                println("START LASER")
+                if(!ship.getLaserActive()){
+                    laserTimer = self.minutes
+                    println("laser 1111: \(laserTimer)")
+                    ship.activeLaser(laser)
+                    println(laser)
+                    laserPressed = true
+                    self.addChild(laser)
+                }
             }
         }
         
@@ -468,6 +506,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if thingsTouched.containsObject("shield") == false {
             if ship.shipState == SpaceShip.states.SHIELDING {
+                println("touched endeed: changing to shield state")
                 updatePlayerState(3)
             } // !! why do we have to goto pellet
             else if ship.shipState == SpaceShip.states.PELLETGUN {
@@ -494,6 +533,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var beltCounter = 0
     var energyCounter = 0
     var pelletCounter = 0
+    var laserCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
@@ -507,6 +547,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             beltCounter++
             energyCounter++
             pelletCounter++
+            laserCounter++
+            
+            if ship.getLaserActive() {
+                //                ship.childNodeWithName("LaserBullet")?.position.x = ship.position.x
+                laser.position.x = ship.position.x
+            }
         
 //            secondCounter++
             
@@ -523,6 +569,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if pelletCounter > 300 {
                 pelletCounter = 0
                 addPelletPowerup()
+            }
+            
+            if laserCounter > 100 {
+                laserCounter = 0
+                addLaserPowerup()
             }
             
             if asteroidCounter > centisecondsPerAsteroid {
@@ -583,6 +634,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // update ships position
             updatePosition(currentTime)
             
+//            if ship.getLaserActive() {
+////                ship.childNodeWithName("LaserBullet")?.position.x = ship.position.x
+//                laser.position.x = ship.position.x
+//            }
+            
             // modify action speed to align with shipSpeed T = D / V
             starSpanTime = 520.0 / (Double(ship.forwardSpeed)/3.0)
             starsPerSecond = starsOnScreen / starSpanTime
@@ -604,6 +660,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            processUserTapsForUpdate(currentTime)
             updateGameObjects()
             processContactsForUpdate(currentTime)
+            updatePowerups()
             
             ship.distTraveled = ship.distTraveled + (Double(ship.forwardSpeed)/100.0)
             
@@ -732,6 +789,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        for powerup in laserPowerups {
+            (powerup as LaserPowerup).updateVelocity(ship.forwardSpeed)
+            if powerup.position.y < viewSize.height * -0.1 {
+                laserPowerups.removeObject(powerup)
+                powerup.removeFromParent()
+            }
+        }
+        
         for asteroid in asteroids {
             (asteroid as Asteroid).updateVelocity(ship.forwardSpeed)
             if asteroid.position.y < viewSize.height * -0.1 {
@@ -739,6 +804,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 asteroid.removeFromParent()
             }
         }
+    }
+    
+    func updatePowerups(){
+        if(ship.shipState == SpaceShip.states.LASER){
+            println("laser timey 2: \(laserTimer)")
+            
+            if laserPressed {
+                if(self.minutes - laserTimer >= 5){
+                    laserPressed = false
+                    updatePlayerState(3)
+                    println("BACK TO SHIELD")
+                }
+            }
+            
+            
+        } /*else if(ship.shipState == SpaceShip.states.INVINCIBLE){
+            if(self.minutes - invincibleTimer <= 5){
+                println("invincible")
+                updatePlayerState(4)
+                if(self.minutes - invincibleTimer == 0 && ship.forwardSpeed < 1000){
+                    ship.forwardSpeed += 250
+                }
+                
+            }else{
+                updatePlayerState(3)
+            }
+            
+        }*/
     }
     
     /* ------Energy Bar------ */
@@ -785,6 +878,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             ship.unShield()
             ship.texture = currentTexture
+            
+            if ship.getLaserActive() {
+                ship.deactiveLaser(laser)
+                laser.removeFromParent()
+            }
 
             //player.texture = SKTexture(imageNamed: "bouldini")
             
@@ -865,6 +963,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // send up mini rock
         pelletGunPowerups.addObject(powerup)
+        self.addChild(powerup)
+    }
+    
+    func addLaserPowerup(){
+        // Create sprite
+        let texture = SKTexture(imageNamed: "Laser")
+        let powerup = LaserPowerup(texture: texture, color: SKColor.redColor(), size: texture.size())
+        
+        // send up mini rock
+        laserPowerups.addObject(powerup)
         self.addChild(powerup)
     }
     
@@ -1065,8 +1173,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func collisionManager(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
         shipBulletAsteroidCollision(firstBody, secondBody: secondBody)
+        shipLaserBulletAsteroidCollision(firstBody, secondBody: secondBody)
         pelletGunPowerupCollision(firstBody, secondBody: secondBody)
         energyCollision(firstBody, secondBody: secondBody)
+        laserPowerupCollision(firstBody, secondBody: secondBody)
         asteroidCollision(firstBody, secondBody: secondBody)
         
     }
@@ -1109,6 +1219,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func laserPowerupCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+        if ((firstBody.categoryBitMask & Contact.Ship != 0)
+            && (secondBody.categoryBitMask & Contact.LaserPowerup != 0)) {
+                //done to make sure removed from array too
+                //                energies.removeObject(secondBody.node!)
+                //                secondBody.node?.removeFromParent()
+                
+                if(ship.shipState == SpaceShip.states.SHIELDING){
+                    updatePlayerState(3)
+                }
+                ship.laser()
+                println("ship set to laser!")
+//                laserTimer = self.minutes
+                secondBody.node!.position.y = viewSize.height * -0.1
+                                println("energy")
+        }
+    }
+    
     func asteroidCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
         if ((firstBody.categoryBitMask & Contact.Ship != 0)
             && (secondBody.categoryBitMask & Contact.Asteroid != 0)) {
@@ -1127,6 +1255,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //done to make sure removed from array too
                 firstBody.node!.position.y = viewSize.height * -0.1
                 secondBody.node!.removeFromParent() //remove this and have continues bullet
+        }
+        
+    }
+    
+    func shipLaserBulletAsteroidCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+        if ((firstBody.categoryBitMask & Contact.Asteroid != 0)
+            && (secondBody.categoryBitMask & Contact.Laser != 0)) {
+                //done to make sure removed from array too
+                println("COLLIDE")
+                firstBody.node!.position.y = viewSize.height * -0.1
+                //                println("hit")
         }
         
     }

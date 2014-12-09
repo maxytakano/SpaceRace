@@ -18,10 +18,13 @@ class SpaceShip:SKSpriteNode {
     
     var canShield = true
     
+    var laserActive = false
+    
     enum states {
         case NORMAL
         case SHIELDING
         case PELLETGUN
+        case LASER
     }
     
     var shipState = states.NORMAL
@@ -46,10 +49,27 @@ class SpaceShip:SKSpriteNode {
     }
     
     // pellet gun stuff
-    func pelletGun(){
+    func pelletGun() {
         shipState = states.PELLETGUN
     }
     
+    func laser() {
+        shipState = states.LASER
+    }
+    
+    func getLaserActive() -> Bool {
+        return laserActive
+    }
+    
+    func activeLaser(laserBullet: LaserBullet) {
+        //self.addChild(laserBullet)
+        laserActive = true
+    }
+    
+    func deactiveLaser(laserBullet: LaserBullet) {
+        //laserBullet.removeFromParent()
+        laserActive = false
+    }
     
     func shipSetup() {
         // Texture Properties
@@ -76,7 +96,7 @@ class SpaceShip:SKSpriteNode {
         self.physicsBody?.categoryBitMask = Contact.Ship
         
         self.physicsBody?.collisionBitMask = Contact.Frame
-        self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.PelletGunPowerup | Contact.Energy
+        self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.PelletGunPowerup | Contact.Energy | Contact.LaserPowerup
     }
  
 }
