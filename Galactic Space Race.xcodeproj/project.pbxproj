@@ -16,6 +16,8 @@
 		F2143A451A368E4B00926E06 /* LaserBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2143A431A368E4B00926E06 /* LaserBullet.swift */; };
 		F2143A461A368E4B00926E06 /* LaserPowerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2143A441A368E4B00926E06 /* LaserPowerup.swift */; };
 		F2143A481A368FB800926E06 /* Laser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2143A471A368FB800926E06 /* Laser@2x.png */; };
+		F2143A4A1A36B62F00926E06 /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2143A491A36B62F00926E06 /* TutorialScene.swift */; };
+		F2143A4C1A36B68000926E06 /* TutorialScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2143A4B1A36B68000926E06 /* TutorialScreen@2x.png */; };
 		F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */; };
 		F216DE021A2E608A0014A7FA /* MultiplayerStaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */; };
 		F21E81AB1A365DA300F5895A /* CreditsPage2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */; };
@@ -158,6 +160,8 @@
 		F2143A431A368E4B00926E06 /* LaserBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaserBullet.swift; sourceTree = "<group>"; };
 		F2143A441A368E4B00926E06 /* LaserPowerup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaserPowerup.swift; sourceTree = "<group>"; };
 		F2143A471A368FB800926E06 /* Laser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Laser@2x.png"; sourceTree = "<group>"; };
+		F2143A491A36B62F00926E06 /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		F2143A4B1A36B68000926E06 /* TutorialScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialScreen@2x.png"; sourceTree = "<group>"; };
 		F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerStaging.swift; sourceTree = "<group>"; };
 		F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CreditsPage2@2x.png"; sourceTree = "<group>"; };
@@ -457,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */,
+				F2143A491A36B62F00926E06 /* TutorialScene.swift */,
 				F2A6DF2E1A33BABA00284B81 /* OptionsScene.swift */,
 				F2FB784F1A3659B20061738F /* CreditsScene.swift */,
 				F2FF22A31A32FEA800F0A5A7 /* ScoreScene.swift */,
@@ -643,6 +648,7 @@
 				F2705D601A3527D900AB6D92 /* background2@2x.png */,
 				F2705D611A3527D900AB6D92 /* backgroundSelection@2x.png */,
 				F2705D691A3527D900AB6D92 /* gameOver1@2x.png */,
+				F2143A4B1A36B68000926E06 /* TutorialScreen@2x.png */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -807,6 +813,7 @@
 				F2705D7B1A3527D900AB6D92 /* backgroundSelection@2x.png in Resources */,
 				F2C3E3E41A0BF20E004A16D5 /* hit3.wav in Resources */,
 				F2705D7C1A3527D900AB6D92 /* BasicHex@2x.png in Resources */,
+				F2143A4C1A36B68000926E06 /* TutorialScreen@2x.png in Resources */,
 				F21E81FC1A36681000F5895A /* Ship5TiltRight1@2x.png in Resources */,
 				F2C3E3E71A0BF20E004A16D5 /* smush.wav in Resources */,
 				F21E82051A36681000F5895A /* Ship6TiltRight3@2x.png in Resources */,
@@ -945,6 +952,7 @@
 				F2FF22A41A32FEA800F0A5A7 /* ScoreScene.swift in Sources */,
 				F2C3E3B11A0BE82F004A16D5 /* GameViewController.swift in Sources */,
 				F2014D361A30DA9F00DA8A0F /* Buttons.swift in Sources */,
+				F2143A4A1A36B62F00926E06 /* TutorialScene.swift in Sources */,
 				F2C3E3AB1A0BE82F004A16D5 /* AppDelegate.swift in Sources */,
 				F2143A461A368E4B00926E06 /* LaserPowerup.swift in Sources */,
 				F20D3D281A251B4700510B15 /* Energy.swift in Sources */,

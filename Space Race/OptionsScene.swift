@@ -176,9 +176,9 @@ class OptionsScene: SKScene {
             }
             if CGRectContainsPoint(_tutorialButton.frame, touch.locationInNode(self)) &&
                 firstTouched == "tutorial" {
-//                    let transition = SKTransition.fadeWithDuration(1)
-                    //                    let scene = TutorialScene(size: self.scene!.size)
-//                    self.view?.presentScene(scene, transition: transition)
+                    let transition = SKTransition.fadeWithDuration(1)
+                    let scene = TutorialScene(size: self.scene!.size)
+                    self.view?.presentScene(scene, transition: transition)
             }
             if CGRectContainsPoint(_creditsButton.frame, touch.locationInNode(self)) &&
                 firstTouched == "credits" {

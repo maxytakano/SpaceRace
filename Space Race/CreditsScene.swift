@@ -24,6 +24,7 @@ class CreditsScene: SKScene {
         let BACK_POSITION = CGPoint(x: _backButton.size.width/2, y: self.size.height-(_backButton.size.height)/2.1)
         _backButton.position = BACK_POSITION
         _backButton.setScale(0.8)
+        _backButton.zPosition = 10
         self.addChild(_backButton)
         
         
