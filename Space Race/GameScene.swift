@@ -134,7 +134,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if currentTrack != "Space Battle.wav" {
             playBackgroundMusic("Space Battle.wav")
-//            setCurrentTrack("Space Battle.wav")
         }
         
         // initialize high score for first run
@@ -220,14 +219,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             CGSizeMake(texture2.size().width, viewSize.height * 0.74 ))
         laser.makeLaserBullet(ship)
         
-        
-        // Message
-        //        startMessage.fontSize = 64.0
-        //        startMessage.fontColor = SKColor.whiteColor()
-        //        startMessage.text = "Tap to Start"
-        //        startMessage.position = CGPoint(x: viewSize.width / 2, y: viewSize.height / 2)
-        //        startMessage.zPosition = GameLayer.Background
-        //        self.addChild(startMessage)
+        pregenStars()
+    }
+    
+    func pregenStars() {
+        var placement:CGFloat = 0.0
+        for (var i = 0; i < Int(starsOnScreen); i++ ) {
+            
+            placement += (viewSize.height / CGFloat(starsOnScreen))
+            addStar(placement)
+        }
     }
     
     func setupHUD() {
@@ -333,15 +334,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     /* ------Touch Input------ */
-    
-//    func handleTap(recognizer: UILongPressGestureRecognizer) {
-//        
-//        ship.color = SKColor.redColor()
-//        
-//        // Pass in the press state to update the player
-//        // 1 = pressed down, 3 = released
-//        updatePlayerState(recognizer.state.rawValue)
-//    }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let touch:UITouch = touches.anyObject() as UITouch
@@ -558,7 +550,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if starCounter > centisecondsPerStar {
                 starCounter = 0
-                addStar()
+                addStar(viewSize.height * 1.1)
             }
             
             if energyCounter > 300 {
@@ -921,11 +913,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /*  -------- Game Objects  -------- */
     
-    func addStar() {
+    func addStar(starPosition:CGFloat) {
         // Create sprite
         let texture = SKTexture(imageNamed: "staru")
         ("staru")
         let star = Star(texture: texture, color: SKColor.redColor(), size: texture.size())
+        star.starSetup(starPosition)
         
         // send up mini rock
         stars.addObject(star)

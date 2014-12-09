@@ -12,10 +12,11 @@ class Star:SKSpriteNode {
 //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
     let nameStar = "Pretty Star"
     
+    
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
         
-        self.starSetup()
+        //self.starSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,7 +24,7 @@ class Star:SKSpriteNode {
     }
     
     
-    func starSetup() {
+    func starSetup(position: CGFloat) {
         self.setScale(CGFloat(0.15))
         
         // Texture Properties
@@ -31,7 +32,10 @@ class Star:SKSpriteNode {
         
         // Position
         let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
-        self.position = CGPoint(x: viewSize.width * randomX, y:viewSize.height * 1.1)
+//        self.position = CGPoint(x: viewSize.width * randomX, y:viewSize.height * 1.1)
+        self.position = CGPoint(x: viewSize.width * randomX, y:position)
+
+
         self.zRotation = getRandom(min: CGFloat(0.0), CGFloat(6.28))
         self.zPosition = GameLayer.Stars
         
