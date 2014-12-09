@@ -1087,7 +1087,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 ship.shield()
                 //            playerIsHard = true
                 
-                ship.texture = SKTexture(imageNamed: "bright_block3")
+//                ship.texture = SKTexture(imageNamed: "bright_block3")
                 //player.texture = SKTexture(imageNamed: "bright_block3")
                 
                 var drainAction = SKAction.repeatActionForever(
@@ -1114,7 +1114,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             staminaBar.color = UIColor.greenColor()
             
             ship.unShield()
-            ship.texture = currentTexture
+//            ship.texture = currentTexture
             
             if ship.getLaserActive() {
                 ship.deactiveLaser(laser)
@@ -1352,7 +1352,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         
         println("bullet")
         let bulletAction = SKAction.sequence([SKAction.moveTo(destination, duration: duration), SKAction.waitForDuration(3.0/60.0), SKAction.removeFromParent()])
-        bullet.runAction(SKAction.group([bulletAction]))
+        let sound = SKAction.playSoundFileNamed(soundName, waitForCompletion: false)
+        bullet.runAction(SKAction.group([bulletAction, sound]))
         self.addChild(bullet)
     }
     
@@ -1380,7 +1381,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             bullet.position =
                 CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2)
             let bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2)
-            self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "ShipBullet.wav")
+            self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "LaserCannon.wav")
         }
     }
     
@@ -1453,6 +1454,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 }
                 staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
                 
+                runAction(SKAction.playSoundFileNamed("Powerup.wav", waitForCompletion: false))
+                
         }
     }
     
@@ -1471,6 +1474,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 pelletGunTimer = self.minutes
                 secondBody.node!.position.y = viewSize.height * -0.1
                 //                println("energy")
+                runAction(SKAction.playSoundFileNamed("Powerup.wav", waitForCompletion: false))
         }
     }
     
@@ -1489,6 +1493,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 //                laserTimer = self.minutes
                 secondBody.node!.position.y = viewSize.height * -0.1
                 println("energy")
+                
+                runAction(SKAction.playSoundFileNamed("Powerup.wav", waitForCompletion: false))
         }
     }
     

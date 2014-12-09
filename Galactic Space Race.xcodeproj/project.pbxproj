@@ -104,6 +104,9 @@
 		F2C3E3E61A0BF20E004A16D5 /* rockcrumb.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3DF1A0BF20E004A16D5 /* rockcrumb.wav */; };
 		F2C3E3E71A0BF20E004A16D5 /* smush.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3E01A0BF20E004A16D5 /* smush.wav */; };
 		F2C3E3E81A0BF20E004A16D5 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F2C3E3E11A0BF20E004A16D5 /* sprites.atlas */; };
+		F2C4E7341A36D43900AEDD6C /* shield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2C4E7331A36D43900AEDD6C /* shield@2x.png */; };
+		F2C4E7371A36D67600AEDD6C /* LaserCannon.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C4E7351A36D67600AEDD6C /* LaserCannon.wav */; };
+		F2C4E7381A36D67600AEDD6C /* Powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C4E7361A36D67600AEDD6C /* Powerup.wav */; };
 		F2CB539B1A366ADC004AB673 /* blueLaser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2CB539A1A366ADC004AB673 /* blueLaser@2x.png */; };
 		F2D570881A35959100FFB0CC /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2D570871A35959100FFB0CC /* Back@2x.png */; };
 		F2D570951A35964800FFB0CC /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2D570891A35964800FFB0CC /* Back@2x.png */; };
@@ -245,6 +248,9 @@
 		F2C3E3DF1A0BF20E004A16D5 /* rockcrumb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rockcrumb.wav; sourceTree = "<group>"; };
 		F2C3E3E01A0BF20E004A16D5 /* smush.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = smush.wav; sourceTree = "<group>"; };
 		F2C3E3E11A0BF20E004A16D5 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		F2C4E7331A36D43900AEDD6C /* shield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield@2x.png"; sourceTree = "<group>"; };
+		F2C4E7351A36D67600AEDD6C /* LaserCannon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LaserCannon.wav; sourceTree = "<group>"; };
+		F2C4E7361A36D67600AEDD6C /* Powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Powerup.wav; sourceTree = "<group>"; };
 		F2CB539A1A366ADC004AB673 /* blueLaser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueLaser@2x.png"; sourceTree = "<group>"; };
 		F2D570871A35959100FFB0CC /* Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
 		F2D570891A35964800FFB0CC /* Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
@@ -605,6 +611,8 @@
 		F2C3E3DA1A0BF20E004A16D5 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F2C4E7351A36D67600AEDD6C /* LaserCannon.wav */,
+				F2C4E7361A36D67600AEDD6C /* Powerup.wav */,
 				F2C3E3DB1A0BF20E004A16D5 /* energyfields2.wav */,
 				F2C3E3DC1A0BF20E004A16D5 /* goingUp2.wav */,
 				F2C3E3DD1A0BF20E004A16D5 /* hit3.wav */,
@@ -649,6 +657,7 @@
 		F2F8A18B1A353B9500E129BA /* Game Elements */ = {
 			isa = PBXGroup;
 			children = (
+				F2C4E7331A36D43900AEDD6C /* shield@2x.png */,
 				F2143A4D1A36B82600926E06 /* LaserBolt@2x.png */,
 				F2CB539A1A366ADC004AB673 /* blueLaser@2x.png */,
 				F27BE4611A357DAC00E404A2 /* Asteroid1@2x.png */,
@@ -811,7 +820,9 @@
 				F2D570881A35959100FFB0CC /* Back@2x.png in Resources */,
 				F2D5709B1A35964800FFB0CC /* retry@2x.png in Resources */,
 				F25BFFCD1A153D430015106D /* SilomBol.ttf in Resources */,
+				F2C4E7371A36D67600AEDD6C /* LaserCannon.wav in Resources */,
 				F2D570A01A35964800FFB0CC /* Tutorial@2x.png in Resources */,
+				F2C4E7381A36D67600AEDD6C /* Powerup.wav in Resources */,
 				F21E81BA1A3665A400F5895A /* Ship4TiltRight3@2x.png in Resources */,
 				F2705D831A3527D900AB6D92 /* gameOver1@2x.png in Resources */,
 				F21E81E41A36681000F5895A /* Ship1TiltLeft1@2x.png in Resources */,
@@ -842,6 +853,7 @@
 				F21E81F81A36681000F5895A /* Ship5@2x.png in Resources */,
 				F2D5709C1A35964800FFB0CC /* SinglePlayer@2x.png in Resources */,
 				F2D570AB1A35A69100FFB0CC /* Keep Running.wav in Resources */,
+				F2C4E7341A36D43900AEDD6C /* shield@2x.png in Resources */,
 				F25BFFCE1A153D430015106D /* artwork.atlas in Resources */,
 				F2C3E3B61A0BE82F004A16D5 /* Images.xcassets in Resources */,
 				F2143A421A3685BE00926E06 /* Laser2@2x.png in Resources */,

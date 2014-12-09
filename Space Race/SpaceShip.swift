@@ -17,6 +17,7 @@ class SpaceShip:SKSpriteNode {
     var forwardSpeed = 50
     
     var canShield = true
+    let shieldImage = SKTexture(imageNamed: "shield")
     
     var laserActive = false
     
@@ -42,10 +43,16 @@ class SpaceShip:SKSpriteNode {
     
     func shield() {
         shipState = states.SHIELDING
+        
+        let active = SKSpriteNode(texture: shieldImage, color: SKColor.whiteColor(), size: shieldImage.size())
+        active.name = "Shield"
+        active.zPosition = GameLayer.Shield
+        self.addChild(active)
     }
     
     func unShield() {
         shipState = states.NORMAL
+        self.childNodeWithName("Shield")?.removeFromParent()
     }
     
     // pellet gun stuff

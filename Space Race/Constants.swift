@@ -14,6 +14,7 @@ var viewSize:CGSize!
 
 // MARK: Game Layers
 class GameLayer {
+    class var Shield:CGFloat    { return -1 }
     class var Background:CGFloat    { return 0 }
     class var Stars:CGFloat         { return 1 }
     class var Game:CGFloat          { return 2 }
