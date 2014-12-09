@@ -35,6 +35,7 @@ class ShipSelectionScene: SKScene {
     var _currShip : SKSpriteNode = SKSpriteNode(imageNamed: "Ship1")
     
     var shipName = "Ship1"
+    var multiplayerOn:Bool = false
     
     /* Convert a color hex value to UIColor */
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
@@ -63,6 +64,17 @@ class ShipSelectionScene: SKScene {
         self.addChild(hexagon)
         self.addChild(icon)
     }
+    
+    init(size: CGSize, multiplayer:Bool) {
+        //    init(size: CGSize, won:Bool, seconds:Int, minutes:Int, shipTexture:String) {
+        super.init(size: size)
+        multiplayerOn = multiplayer
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func didMoveToView(view: SKView) {
         
@@ -169,11 +181,20 @@ class ShipSelectionScene: SKScene {
             
             // play game when selected ship
             if CGRectContainsPoint(_confirm.frame, touch.locationInNode(self)){
-                // singleplayer
-                let transition = SKTransition.fadeWithDuration(1)
-                let scene = GameScene(size: self.size)
-                scene.setShipTexture(shipName) // send ship info to gameplay
-                self.view?.presentScene(scene, transition: transition)
+                
+                if multiplayerOn {
+//                    NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)
+                    NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self, userInfo: ["shipType":shipName])
+                    
+                    
+                } else {
+                    // singleplayer
+                    let transition = SKTransition.fadeWithDuration(1)
+                    let scene = GameScene(size: self.size)
+                    scene.setShipTexture(shipName) // send ship info to gameplay
+                    self.view?.presentScene(scene, transition: transition)
+                }
+                
              
                 // for multi
 //                 NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)

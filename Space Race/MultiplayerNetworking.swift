@@ -18,12 +18,14 @@ protocol MultiplayerNetworkingProtocol {
     func setCurrentPlayerIndex(index : Int)
     func movePlayerAtIndex(index : Int)
     func gameOver(player1Won : Bool)
-    func movePlayerTo(x:UInt32, distance:Int)
+    func movePlayerTo(x:UInt32, distance:Int, accel: Double)
     func sendSKSpriteNodes()
     func setSKSpriteNodes(arr:NSMutableArray)
     func setSyncLock(time: UInt32)
     func setWait(wait: Bool)
     func processCollision(type: Collision, index : Int)
+    
+    func setShipType(shipType: String)
 }
 
 enum MessageType : Int {
@@ -34,6 +36,7 @@ enum MessageType : Int {
     case kMessageTypeSyncLock
     case kMessageTypeCollision
     case kMessageTypeWait
+    case kMessageTypeShipType
 }
 
 enum GameState : Int {
@@ -42,6 +45,15 @@ enum GameState : Int {
     case kGameStateWaitingForStart
     case kGameStateActive
     case kGameStateDone
+}
+
+enum ShipType : Int {
+    case ship1
+    case ship2
+    case ship3
+    case ship4
+    case ship5
+    case ship6
 }
 
 enum Collision : Int {
@@ -66,7 +78,9 @@ struct MessageGameBegin {
 struct MessageMove {
     var message: Message
     var x : UInt32
+    // THIS IS ACTUALLY SPEED
     var distance : Int
+    var accel : Double
 }
 
 struct MessageSyncLock {
@@ -87,6 +101,10 @@ struct MessageWait {
 struct MessageGameOver {
     var message : Message
     var player1Won : Bool
+}
+struct MessageShipType {
+    var message : Message
+    var shipType : ShipType
 }
 
 
@@ -130,15 +148,16 @@ struct MessageGameOver {
     }
     
     func sendGameEnd(player1Won : Bool) {
+        println("SENDING END GAME!!!")
         var message = Message(messageType: MessageType.kMessageTypeGameOver)
         var messageGameOver = MessageGameOver(message: message, player1Won: player1Won)
         var data = NSData(bytes: &messageGameOver, length: sizeof(MessageGameOver))
         self.sendData(data)
     }
     
-    func sendMove(x:UInt32, distance:Int) {
+    func sendMove(x:UInt32, distance:Int, accel: Double) {
         var message = Message(messageType: MessageType.kMessageTypeMove)
-        var messageMove = MessageMove(message: message, x: x, distance: distance)
+        var messageMove = MessageMove(message: message, x: x, distance: distance, accel: accel)
         var data = NSData(bytes: &messageMove, length: sizeof(MessageMove))
         self.sendData(data)
     }
@@ -153,7 +172,6 @@ struct MessageGameOver {
         var message = Message(messageType: MessageType.kMessageTypeSyncLock)
         var messageSyncLock = MessageSyncLock(message: message, time: time)
         var data = NSData(bytes: &messageSyncLock, length: sizeof(MessageSyncLock))
-        println("Sending synclock: \(time)")
         
         self.sendData(data)
     }
@@ -169,6 +187,31 @@ struct MessageGameOver {
         var message = Message(messageType: MessageType.kMessageTypeWait)
         var messageWait = MessageWait(message: message, wait: wait)
         var data = NSData(bytes: &messageWait, length: sizeof(MessageWait))
+        self.sendData(data)
+    }
+    
+    func sendShipType(shipType: String) {
+        var message = Message(messageType: MessageType.kMessageTypeShipType)
+        
+        var name:ShipType!
+        
+        if shipType == "Ship1" {
+            name = ShipType.ship1
+        } else if shipType == "Ship2" {
+            name = ShipType.ship2
+        } else if shipType == "Ship3" {
+            name = ShipType.ship3
+        } else if shipType == "Ship4" {
+            name = ShipType.ship4
+        } else if shipType == "Ship5" {
+            name = ShipType.ship5
+        } else if shipType == "Ship6" {
+            name = ShipType.ship6
+        }
+        
+        var messageShipType = MessageShipType(message: message, shipType: name)
+        
+        var data = NSData(bytes: &messageShipType, length: sizeof(MessageShipType))
         self.sendData(data)
     }
     
@@ -220,7 +263,6 @@ struct MessageGameOver {
             _gameState = GameState.kGameStateActive
             self.delegate?.sendSKSpriteNodes()
         }
-        
     }
     
     func matchStarted() {
@@ -292,13 +334,13 @@ struct MessageGameOver {
             let messageMove = UnsafePointer<MessageMove>(data.bytes).memory
             let x = messageMove.x
             let distance = messageMove.distance
-            self.delegate?.movePlayerTo(x, distance: distance)
+            let accel = messageMove.accel
+            self.delegate?.movePlayerTo(x, distance: distance, accel: accel)
         }
         else if(message.messageType == MessageType.kMessageTypeSyncLock) {
             let messageSyncLock = UnsafePointer<MessageSyncLock>(data.bytes).memory
             var time = messageSyncLock.time
             if (time == previousTime){
-                println("IT'S FUCKING SAME!!!!!")
                 time = previousTime + 1
                 previousTime = time
             }
@@ -316,6 +358,28 @@ struct MessageGameOver {
             let messageWait = UnsafePointer<MessageWait>(data.bytes).memory
             let wait = messageWait.wait
             self.delegate?.setWait(wait)
+        }
+        else if(message.messageType == MessageType.kMessageTypeShipType) {
+            println("Ship Type message received")
+            let messageShipType = UnsafePointer<MessageShipType>(data.bytes).memory
+           
+            var shipName:String!
+            let type = messageShipType.shipType
+            if type == ShipType.ship1 {
+                shipName = "Ship1"
+            } else if type == ShipType.ship2 {
+                shipName = "Ship2"
+            } else if type == ShipType.ship3 {
+                shipName = "Ship3"
+            } else if type == ShipType.ship4 {
+                shipName = "Ship4"
+            } else if type == ShipType.ship5 {
+                shipName = "Ship5"
+            } else if type == ShipType.ship6 {
+                shipName = "Ship6"
+            }
+            
+            self.delegate?.setShipType(shipName)
         }
         else if(message.messageType == MessageType.kMessageTypeGameOver) {
             println("Game over message received")

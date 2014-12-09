@@ -553,17 +553,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addStar(viewSize.height * 1.1)
             }
             
-            if energyCounter > 300 {
+            if energyCounter > 500 {
                 energyCounter = 0
                 addEnergy()
             }
             
-            if pelletCounter > 300 {
+            if pelletCounter > 600 {
                 pelletCounter = 0
                 addPelletPowerup()
             }
             
-            if laserCounter > 100 {
+            if laserCounter > 700 {
                 laserCounter = 0
                 addLaserPowerup()
             }
@@ -1370,7 +1370,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 won: true,
                 seconds:self.seconds,
                 minutes:self.minutes,
-                shipTexture:shipTexture)
+                shipTexture:shipTexture, multiplayer: false)
             self.view?.presentScene(gameOverScene, transition: reveal)
         } else {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
@@ -1378,7 +1378,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 won: false,
                 seconds:self.seconds,
                 minutes:self.minutes,
-                shipTexture:shipTexture)
+                shipTexture:shipTexture,
+            multiplayer: false)
             self.view?.presentScene(gameOverScene, transition: reveal)
             
         }

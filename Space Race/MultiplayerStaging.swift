@@ -26,6 +26,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     var enemyShip:SpaceShip!
     let enemyCursor = SKSpriteNode(imageNamed: "Ship")
+    var enemyAccel:Double
     /****************/
     
     
@@ -39,6 +40,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     var ship:SpaceShip!
     var shipTexture:String
+    var enemyShipTexture:String
     var stars:NSMutableArray
     var energies:NSMutableArray
     var pelletGunPowerups:NSMutableArray
@@ -100,7 +102,6 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     var chipFlag = false
     
     ////// Texture Stuff //////
-    var currentTexture = SKTexture()
     
     // Powerup timers
     var pelletGunTimer: Int
@@ -113,7 +114,6 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func setShipTexture(name:String) {
         shipTexture = name
-        currentTexture = SKTexture(imageNamed: name)
     }
     
     override init(size: CGSize) {
@@ -135,11 +135,12 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         asteroidsPerSecond = 0.0
         asteroidsPerCentisecond = 0.0
         shipTexture = "Ship1"
-        currentTexture = SKTexture(imageNamed: "Ship1")
         
         // powerup timer inits
         pelletGunTimer = 0
         laserTimer = 0
+        enemyShipTexture = "Ship1"
+        enemyAccel = 0.0
         
         super.init(size: size)
     }
@@ -151,8 +152,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     // Scene Setup and Content Creation
     override func didMoveToView(view: SKView) {
         
-        if currentTrack != "Space Battle.wav" {
-            playBackgroundMusic("Space Battle.wav")
+        if currentTrack != "SynthR - Battalion.mp3" {
+            playBackgroundMusic("SynthR - Battalion.mp3")
         }
         
         // initialize high score for first run
@@ -172,6 +173,9 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     }
     
     func beginRace() {
+        // sending ships over
+        networkingEngine.sendShipType(shipTexture)
+        
         var countdown = 4
         let countdownLabel = SKLabelNode()
         
@@ -229,9 +233,12 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         ship = SpaceShip(texture: texture, color: SKColor.whiteColor(), size: texture.size())
         self.addChild(ship)
         
+        enemyCursor.hidden = true
+        self.addChild(enemyCursor)
         
+        let enemyTexture = SKTexture(imageNamed: enemyShipTexture)
         /************/
-        enemyShip = SpaceShip(texture: texture, color: SKColor.blackColor(), size: texture.size())
+        enemyShip = SpaceShip(texture: enemyTexture, color: SKColor.blackColor(), size: enemyTexture.size())
         self.addChild(enemyShip)
         enemyShip.physicsBody?.collisionBitMask = 0
         /************/
@@ -358,7 +365,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     func startGame() {
         //        startClockUpdates()
         // IMPORTANT: TODO: Try at 0.01
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: Selector("timerUpdate2"), userInfo: nil, repeats: true)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("timerUpdate2"), userInfo: nil, repeats: true)
         self.playState = 1
         self.userInteractionEnabled = true
     }
@@ -640,7 +647,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 addStar(viewSize.height * 1.1)
             }
             
-            if energyCounter > 300 {
+            if energyCounter > 500 {
                 energyCounter = 0
                 addEnergy()
             }
@@ -671,12 +678,12 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             
             
-            if pelletCounter > 300 {
+            if pelletCounter > 600 {
                 pelletCounter = 0
                 addPelletPowerup()
             }
             
-            if laserCounter > 100 {
+            if laserCounter > 700 {
                 laserCounter = 0
                 addLaserPowerup()
             }
@@ -743,6 +750,19 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             ship.distTraveled = ship.distTraveled + (Double(ship.forwardSpeed)/100.0)
             
+//            if ship.distTraveled > 450000 {
+//                
+//            }
+            println(" Distance travled!!! \(ship.distTraveled)")
+            if ship.distTraveled * 100 > 650000 {
+                println("ENDING GAME!!")
+                playState = 0
+                networkingEngine.sendGameEnd(true)
+                endGame(true)
+                
+            }
+            
+            
             if checkpointDistance - ship.distTraveled <= 0 {
                 checkpointDistance = checkpointBase + checkpointIncrement
                 checkpointIncrement += 1000
@@ -751,7 +771,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             nextCheckpointLabel.text = "Next Checkpoint: \(Int(self.checkpointDistance - ship.distTraveled))"
             
-            networkingEngine.sendMove(UInt32(ship.position.x), distance: ship.forwardSpeed)
+            networkingEngine.sendMove(UInt32(ship.position.x), distance: ship.forwardSpeed, accel: sendAccelData)
             
             //            if secondCounter > 100 {
             //                secondCounter = 0
@@ -772,145 +792,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         }
     }
     
-    /*func timerUpdate() {
-        if playState == 0 {
-            
-        } else if playState == 1 {
-            centiseconds++
-            starCounter++
-            asteroidCounter++
-            
-            deciSecondCounter++
-            beltCounter++
-            energyCounter++
-            pelletCounter++
-            laserCounter++
-            
-            if ship.getLaserActive() {
-                //                ship.childNodeWithName("LaserBullet")?.position.x = ship.position.x
-                laser.position.x = ship.position.x
-            }
-            
-            //            secondCounter++
-            
-            if starCounter > centisecondsPerStar {
-                starCounter = 0
-                addStar(viewSize.height * 1.1)
-            }
-            
-            if energyCounter > 300 {
-                energyCounter = 0
-                addEnergy()
-            }
-            
-            if pelletCounter > 300 {
-                pelletCounter = 0
-                addPelletPowerup()
-            }
-            
-            if laserCounter > 100 {
-                laserCounter = 0
-                addLaserPowerup()
-            }
-            
-            if asteroidCounter > centisecondsPerAsteroid {
-                asteroidCounter = 0
-                addAsteroid()
-            }
-            
-            if deciSecondCounter > 10 {
-                deciSecondCounter = 0
-                for asteroid in asteroids {
-                    (asteroid as Asteroid).rotateAsteroid()
-                }
-            }
-            
-            if beltCounter > 700 {
-                beltCounter = 0
-                addAsteroidBelt()
-            }
-            
-            if centiseconds % 100 == 0 {
-                if shipEnergy < 97 {
-                    shipEnergy += 3
-                }
-                
-                var ratio = CGFloat(shipEnergy / maxEnergy)
-                if (self.shipEnergy > 100) {
-                    ratio = CGFloat(100.0)
-                }
-                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
-                
-                if (!chipFlag) {
-                    staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
-                }
-            }
-            //            if secondCounter > 100 {
-            //                secondCounter = 0
-            //                if shipEnergy < 97 {
-            //                    shipEnergy += 3
-            //                }
-            //
-            //                var ratio = CGFloat(shipEnergy / maxEnergy)
-            //                if (self.shipEnergy > 100) {
-            //                    ratio = CGFloat(100.0)
-            //                }
-            //                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
-            //
-            //                if (!chipFlag) {
-            //                    staminaChip.size.height = maxStaminaBarHeight * CGFloat(ratio)
-            //                }
-            //            }
-        }
-    }*/
     
-    /*override func update(currentTime: CFTimeInterval) {
-        if playState == 0 {
-            
-        } else if playState == 1 {
-            // update ships position
-            updatePosition(currentTime)
-            
-            //            if ship.getLaserActive() {
-            ////                ship.childNodeWithName("LaserBullet")?.position.x = ship.position.x
-            //                laser.position.x = ship.position.x
-            //            }
-            
-            // modify action speed to align with shipSpeed T = D / V
-            starSpanTime = 520.0 / (Double(ship.forwardSpeed)/3.0)
-            starsPerSecond = starsOnScreen / starSpanTime
-            starsPerCentisecond = starsPerSecond/100.0
-            centisecondsPerStar = Int(1.0/starsPerCentisecond)
-            
-            asteroidSpanTime = 520.0 / Double(ship.forwardSpeed)
-            asteroidsPerSecond = asteroidsOnScreen / asteroidSpanTime
-            asteroidsPerCentisecond = asteroidsPerSecond/100.0
-            centisecondsPerAsteroid = Int(1.0/asteroidsPerCentisecond)
-            
-            //        println(ship.forwardSpeed)
-            
-            // starsOnScreen = spawnRate * spanTime
-            // spawnRate = starsOnScreen/starSpanTime
-            //spawnRate = starsOnScreen / spanTime
-            //speed = CGFloat(spawnRate)
-            
-            //            processUserTapsForUpdate(currentTime)
-            updateGameObjects()
-            processContactsForUpdate(currentTime)
-            updatePowerups()
-            
-            ship.distTraveled = ship.distTraveled + (Double(ship.forwardSpeed)/100.0)
-            
-            if checkpointDistance - ship.distTraveled <= 0 {
-                checkpointDistance = checkpointBase + checkpointIncrement
-                checkpointIncrement += 1000
-                timeLeft += 10
-            }
-            
-            nextCheckpointLabel.text = "Next Checkpoint: \(Int(self.checkpointDistance - ship.distTraveled))"
-            
-        }
-    }*/
     
     // !! CAREFUL !! speed is a variable already used
     //    var shipSpeed  = 100
@@ -919,8 +801,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     var averageTilt = 0.0
     var averageCounter = 0.0
     var average = 0.0
+    var sendAccelData = 0.0
     
-    //    var currentTexture = SKTexture(imageNamed: String(textureName + "TiltLeft1"))
     
     ////
     //    var animationList = [-0.2, -0.1, 0.0, 0.1, 0.2]
@@ -960,8 +842,33 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             }
         }
         
+        
+        var enemyClosest = getClosest(enemyAccel)
+        if enemyClosest != -42.0 {
+            
+            if enemyClosest == animationList[0] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltLeft3")
+            } else if enemyClosest == animationList[1] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltLeft2")
+            } else if enemyClosest == animationList[2] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltLeft1")
+            } else if enemyClosest == animationList[3] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture)
+            } else if enemyClosest == animationList[4] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltRight1")
+            } else if enemyClosest == animationList[5] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltRight2")
+            } else if enemyClosest == animationList[6] {
+                enemyShip.texture = SKTexture(imageNamed: enemyShipTexture + "TiltRight3")
+            }
+            
+        }
+        
+        
         if let data = motionManager.accelerometerData {
+            
             if (fabs(data.acceleration.x) > 0.01) {
+                sendAccelData = data.acceleration.x
                 ship.physicsBody!.applyForce(CGVectorMake(0.0, 0.0))
                 accel = data.acceleration.x * Double(ship.turnSpeed)
                 ship.physicsBody!.applyForce(CGVectorMake(CGFloat(accel), 0))
@@ -972,30 +879,22 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 
                 if closest == animationList[0] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft3")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft3")
                 } else if closest == animationList[1] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
                 } else if closest == animationList[2] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
                 } else if closest == animationList[3] {
                     ship.texture = SKTexture(imageNamed: shipTexture)
-                    currentTexture = SKTexture(imageNamed: shipTexture)
                 } else if closest == animationList[4] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
                 } else if closest == animationList[5] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
                 } else if closest == animationList[6] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight3")
-                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight3")
                 }
                 
             }
         }
-        
         
     }
     
@@ -1114,7 +1013,6 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             staminaBar.color = UIColor.greenColor()
             
             ship.unShield()
-//            ship.texture = currentTexture
             
             if ship.getLaserActive() {
                 ship.deactiveLaser(laser)
@@ -1603,28 +1501,14 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         //        rock.removeFromParent()
     }
     
-    func endGame() {
+    func endGame(winner:Bool) {
         
-        /* high score stuff */
-        
-        var score:[Int] = [minutes/60, seconds]
-        var scoreAsNSArray = NSArray(array: score)
-        
-        // get the current high score
-        var currentHighScore = NSUserDefaults.standardUserDefaults().objectForKey("HighScore") as NSArray
-        
-        var newScore = score[0] * 60 + score[1]
-        var oldScore = Int(currentHighScore[0] as NSNumber) * 60 + Int(currentHighScore[1] as NSNumber)
-        
+        println("inside end game")
         /* switch to game over scene */
         
         // Check if the ending score is higher than the high score, if it is update it
-        if ( newScore > oldScore ) {
-            // Save high score
-            // Score must be typcasted as an NSArray to work with UserDefaults
-            // Gotcha: you can't save in arrays, only Ints, typecasting to as NSArray does not work
-            NSUserDefaults.standardUserDefaults().setObject(scoreAsNSArray, forKey:"HighScore")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        if ( winner ) {
+         
             
             // switch to win screen
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
@@ -1632,7 +1516,8 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 won: true,
                 seconds:self.seconds,
                 minutes:self.minutes,
-                shipTexture:shipTexture)
+                shipTexture:shipTexture,
+            multiplayer: true)
             self.view?.presentScene(gameOverScene, transition: reveal)
         } else {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
@@ -1640,27 +1525,35 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
                 won: false,
                 seconds:self.seconds,
                 minutes:self.minutes,
-                shipTexture:shipTexture)
+                shipTexture:shipTexture,
+            multiplayer: true)
             self.view?.presentScene(gameOverScene, transition: reveal)
-            
         }
-        
-        
         
     }
     
     
     /****************/
     
-    func matchEnded() {}
+    func matchEnded() {
+        println("Ending the match")
+        let transition = SKTransition.fadeWithDuration(1)
+        let scene = ShipSelectionScene(size: self.scene!.size, multiplayer: true)
+        self.view?.presentScene(scene, transition: transition)
+
+    }
     func setCurrentPlayerIndex(index : Int) {
         println("huehue")
         self.beginRace()
     }
     
     func movePlayerAtIndex(index : Int) {}
-    func gameOver(player1Won : Bool) {}
-    func movePlayerTo(x: UInt32, distance: Int) {
+    func gameOver(player1Won : Bool) {
+        println("calling end game from game over")
+        playState = 0
+        endGame(false)
+    }
+    func movePlayerTo(x: UInt32, distance: Int, accel: Double) {
         if (enemyShip == nil) {
             return
         }
@@ -1668,6 +1561,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
         
         //let difference = distance - ship.distTraveled
         let difference = distance - ship.forwardSpeed
+        enemyAccel = accel
         //enemyShip.position.y = ship.position.y + CGFloat(difference)
         enemyShip.physicsBody?.velocity = CGVectorMake(0.0, CGFloat(difference) )
         if(enemyShip.position.y > viewSize.height) {
@@ -1733,6 +1627,10 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
     
     func setWait(wait: Bool) {
         self.wait = wait
+    }
+    
+    func setShipType(shipType: String) {
+        enemyShipTexture = shipType
     }
     
     /****************/

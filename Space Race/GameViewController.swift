@@ -25,14 +25,15 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         let scene = MainMenu(size: view.bounds.size)
 //        let scene = GameScene(size: view.bounds.size)
 //        let scene = OptionsScene(size: view.bounds.size)
+//        let scene = GameOverScene(size: view.bounds.size, won: true, seconds: 10, minutes: 0, shipTexture: "Ship1", multiplayer: true)
         
         let skView = self.view as SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
+//        skView.showsFPS = true
+//        skView.showsNodeCount = true
         
         // new
-        skView.showsDrawCount = true
-        skView.showsPhysics = true
+//        skView.showsDrawCount = true
+//        skView.showsPhysics = true
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
@@ -47,7 +48,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     
     override func awakeFromNib() {
         // go to multiplayer
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goToMultiplayer", name: "GoToMultiplayer", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goToMultiplayer:", name: "GoToMultiplayer", object: nil)
         
         // nib for switching into authing leaderboard
         //NSNotificationCenter.defaultCenter().addObserver(self, selector: "authenticatePlayer", name: "GoToLeaderboard", object: nil)
@@ -95,11 +96,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func goToMultiplayer() {
+    func goToMultiplayer(notification:NSNotification) {
+        let userInfo:Dictionary<String,String!> = notification.userInfo as Dictionary<String,String!>
+        
         println("going to multiplayer")
         
         if(localPlayer.authenticated) {
-            playerAuthenticated()
+            playerAuthenticated(userInfo["shipType"]!)
         } else {
             println("trying to auth again")
             
@@ -127,11 +130,12 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         self.presentViewController(gameKitHelper.authenticationViewController!, animated: true, completion: nil)
     }
     
-    func playerAuthenticated() {
+    func playerAuthenticated(shipType:String) {
         println("authed")
     
         // Prepare the multiplayer scene
         let gameScene = MultiplayerStaging(size: self.view.bounds.size)
+        gameScene.shipTexture = shipType
         
         // Connect the scene to the networking engine
         let networkingEngine = MultiplayerNetworking()
