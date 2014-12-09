@@ -20,29 +20,79 @@ class MainMenu: SKScene {
     let _leaderButton: SKSpriteNode = SKSpriteNode(imageNamed: "Leaderboard")
     let _optionsButton: SKSpriteNode = SKSpriteNode(imageNamed: "Options")
     
-//    var backgroundMusicPlayer: AVAudioPlayer!
-//    
-//    func playBackgroundMusic(filename: String) {
-//        let url = NSBundle.mainBundle().URLForResource(
-//            filename, withExtension: nil)
-//        if (url == nil) {
-//            println("Could not find file: \(filename)")
-//            return
-//        }
-//        
-//        var error: NSError? = nil
-//        backgroundMusicPlayer =
-//            AVAudioPlayer(contentsOfURL: url, error: &error)
-//        if backgroundMusicPlayer == nil {
-//            println("Could not create audio player: \(error!)")
-//            return
-//        }
-//        
-//        backgroundMusicPlayer.numberOfLoops = -1
-//        backgroundMusicPlayer.prepareToPlay()
-//        //backgroundMusicPlayer.volume = 0
-//        backgroundMusicPlayer.play()
-//    }
+    /**************** Star Scroller ****************/
+
+    var mystars:NSMutableArray = []
+    var mycentisecondsPerStar = 0
+    var mystarSpanTime = 0.0
+    var mystarsOnScreen = 160.0
+    var mystarsPerSecond = 0.0
+    var mystarsPerCentisecond = 0.0
+    var mystarCounter = 0
+    var mystarSpeed = 100
+    
+    func myinitStars() {
+//        stars = []
+//        starCounter = 0
+//        centisecondsPerStar = 999999
+//        starSpanTime = 0.0
+//        starsOnScreen = 120.0
+//        starsPerSecond = 0.0
+//        starsPerCentisecond = 0.0
+//        starSpeed = 300
+        mypregenStars()
+        
+        var mytimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("mytimerUpdate"), userInfo: nil, repeats: true)
+        
+    }
+    
+    func mypregenStars() {
+        var myplacement:CGFloat = 0.0
+        for (var i = 0; i < Int(mystarsOnScreen); i++ ) {
+            println(mystarsOnScreen)
+            myplacement += (self.size.height / CGFloat(mystarsOnScreen))
+            myaddStar(myplacement)
+        }
+    }
+    
+    func mytimerUpdate() {
+        mystarCounter++
+        if mystarCounter > mycentisecondsPerStar {
+            mystarCounter = 0
+            myaddStar(self.size.height * 1.1)
+        }
+        
+        mystarSpanTime = 520.0 / (Double(mystarSpeed)/3.0)
+        mystarsPerSecond = mystarsOnScreen / mystarSpanTime
+        mystarsPerCentisecond = mystarsPerSecond/100.0
+        mycentisecondsPerStar = Int(1.0/mystarsPerCentisecond)
+        
+        for star in mystars {
+            var myhalfSpeed = Double(mystarSpeed) / 3.0
+            (star as Star).updateVelocity(myhalfSpeed)
+            if star.position.y < self.size.height * -0.1 {
+                mystars.removeObject(star)
+                star.removeFromParent()
+            }
+        }
+    }
+    
+    func myaddStar(starPosition:CGFloat) {
+        // Create sprite
+        let texture = SKTexture(imageNamed: "staru")
+        ("staru")
+        let star = Star(texture: texture, color: SKColor.redColor(), size: texture.size())
+        star.mystarSetup(starPosition)
+        
+        let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
+        star.position.x = self.size.width * randomX
+        star.zPosition = -10
+        
+        mystars.addObject(star)
+        self.addChild(star)
+    }
+    
+    /**************** Star Scroller ****************/
     
     override func didMoveToView(view: SKView) {
         // initialize high score for first run
@@ -55,9 +105,10 @@ class MainMenu: SKScene {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
+        myinitStars()
+        
         if currentTrack != "Keep Running.wav" {
             playBackgroundMusic("Keep Running.wav")
-//            setCurrentTrack("Keep Running.wav")
         }
         
         //        background.anchorPoint = CGPoint(x: 0, y: 0)

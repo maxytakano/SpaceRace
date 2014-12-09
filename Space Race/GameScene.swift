@@ -580,7 +580,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
             
-            if beltCounter > 700 {
+            if beltCounter > 1500 {
                 beltCounter = 0
                 addAsteroidBelt()
             }
@@ -995,8 +995,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // how long the belt is
 //        var layerLimit = Int(getRandom(min: 15.0, 25.0))
-//        var layerLimit = 40
-        var layerLimit = 1
+        var layerLimit = 40
+//        var layerLimit = 1
         
         // Constant change for uniform zig zags
         let change = getRandom(min: 0, 1.0)
@@ -1381,10 +1381,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 shipTexture:shipTexture,
             multiplayer: false)
             self.view?.presentScene(gameOverScene, transition: reveal)
-            
         }
-        
-        
         
     }
 

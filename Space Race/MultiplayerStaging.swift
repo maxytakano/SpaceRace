@@ -649,7 +649,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             if energyCounter > 500 {
                 energyCounter = 0
-                addEnergy()
+//                addEnergy()
             }
             
 //            if asteroidCounter > centisecondsPerAsteroid {
@@ -680,12 +680,12 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             if pelletCounter > 600 {
                 pelletCounter = 0
-                addPelletPowerup()
+//                addPelletPowerup()
             }
             
             if laserCounter > 700 {
                 laserCounter = 0
-                addLaserPowerup()
+//                addLaserPowerup()
             }
             
             
@@ -699,7 +699,7 @@ class MultiplayerStaging: SKScene, SKPhysicsContactDelegate, MultiplayerNetworki
             
             if beltCounter > 700 {
                 beltCounter = 0
-                addAsteroidBelt()
+//                addAsteroidBelt()
             }
             
             if centiseconds % 100 == 0 {

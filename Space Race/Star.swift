@@ -54,6 +54,36 @@ class Star:SKSpriteNode {
         self.physicsBody?.collisionBitMask = Contact.Star
     }
     
+    func mystarSetup(position: CGFloat) {
+        self.setScale(CGFloat(0.15))
+        
+        // Texture Properties
+        self.texture?.filteringMode = SKTextureFilteringMode.Nearest
+        
+        // Position
+        let randomX = getRandom(min: CGFloat(0.0), CGFloat(1.0))
+        //        self.position = CGPoint(x: viewSize.width * randomX, y:viewSize.height * 1.1)
+        self.position = CGPoint(x: self.size.width * randomX, y:position)
+        
+        
+        self.zRotation = getRandom(min: CGFloat(0.0), CGFloat(6.28))
+        self.zPosition = GameLayer.Stars
+        
+        // Other Properites
+        self.name = nameStar
+        
+        // Physics
+        self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
+        self.physicsBody?.dynamic = true
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.linearDamping = 1.0
+        self.physicsBody?.angularDamping = 1.0
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.categoryBitMask = Contact.Star
+        
+        self.physicsBody?.collisionBitMask = Contact.Star
+    }
+    
     func updateVelocity(newVelocity: Double) {
         self.physicsBody?.velocity = CGVectorMake(0.0, -1.0 * CGFloat(newVelocity) )
     }
