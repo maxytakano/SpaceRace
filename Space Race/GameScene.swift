@@ -459,6 +459,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var asteroidCounter = 0
 //    var secondCounter = 0
     var deciSecondCounter = 0
+    var beltCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
@@ -469,6 +470,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             asteroidCounter++
             
             deciSecondCounter++
+            beltCounter++
         
 //            secondCounter++
             
@@ -488,6 +490,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 for asteroid in asteroids {
                     (asteroid as Asteroid).rotateAsteroid()
                 }
+            }
+            
+            if beltCounter > 700 {
+                beltCounter = 0
+                addAsteroidBelt()
             }
 
             if centiseconds % 100 == 0 {
@@ -620,57 +627,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 accel = data.acceleration.x * Double(ship.turnSpeed)
                 ship.physicsBody!.applyForce(CGVectorMake(CGFloat(accel), 0))
             }
-        
-            
-            // !! Dont delete old method of animation
-//            if averageCounter < averageAmount {
-//                averageTilt += data.acceleration.x
-//                averageCounter += 1
-//            } else {
-//                averageCounter = 0.0
-//                average = averageTilt / averageAmount
-//                averageTilt = 0.0
-//                
-//                println(average)
-//                if(average < -0.085) {
-//                    ship.texture = SKTexture(imageNamed: "Ship1TiltLeft2")
-//                    currentTexture = SKTexture(imageNamed: "Ship1TiltLeft2")
-//                    
-//                } else if (average < -0.04) {
-//                    ship.texture = SKTexture(imageNamed: "Ship1TiltLeft1")
-//                    currentTexture = SKTexture(imageNamed: "Ship1TiltLeft1")
-//                } else if(average > 0.085) {
-//                    ship.texture = SKTexture(imageNamed: "Ship1TiltRight2")
-//                    currentTexture = SKTexture(imageNamed: "Ship1TiltRight2")
-//                } else if(average > 0.04) {
-//                    ship.texture = SKTexture(imageNamed: "Ship1TiltRight1")
-//                    currentTexture = SKTexture(imageNamed: "Ship1TiltRight1")
-//                } else {
-//                    ship.texture = SKTexture(imageNamed: "Ship1")
-//                    currentTexture = SKTexture(imageNamed: "Ship1")
-//                }
-//
-//            }
-            
             
             var closest = getClosest(data.acceleration.x)
             if closest != -42.0 {
-//                if closest == animationList[0] {
-//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
-//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft2")
-//                } else if closest == animationList[1] {
-//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
-//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltLeft1")
-//                } else if closest == animationList[2] {
-//                    ship.texture = SKTexture(imageNamed: shipTexture)
-//                    currentTexture = SKTexture(imageNamed: shipTexture)
-//                } else if closest == animationList[3] {
-//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight1")
-//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight1")
-//                } else if closest == animationList[4] {
-//                    ship.texture = SKTexture(imageNamed: shipTexture + "TiltRight2")
-//                    currentTexture = SKTexture(imageNamed: shipTexture + "TiltRight2")
-//                }
                 
                 if closest == animationList[0] {
                     ship.texture = SKTexture(imageNamed: shipTexture + "TiltLeft3")
@@ -835,10 +794,124 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let texture = SKTexture(imageNamed: "Asteroid1")
         let asteroid = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
         
+        // setup Regular asteroid
+        asteroid.asteroidSetup()
         
         // send up mini rock
         asteroids.addObject(asteroid)
         self.addChild(asteroid)
+    }
+    
+    func addAsteroidBelt() {
+        let scalePic = CGFloat(0.7)
+        // Create sprite
+        let texture = SKTexture(imageNamed: "basicRock")
+        
+        // rand = the gaps size percentage
+        //let rand = getRandom(min: 0.5, 0.7)
+        let rand = CGFloat(0.5)
+        
+        let beltWidth = viewSize.width * rand
+        let beltWidthRock = beltWidth/(texture.size().width * scalePic)
+        let beltNumber = viewSize.width/(texture.size().width * scalePic)
+        
+        //        println("# rock \(beltNumber)  size of whole: \(beltWidthRock)")
+        
+        let holePercent = getRandom(min: 0.0, ((beltNumber-beltWidthRock)/beltNumber))
+        
+        var startHole = Int(holePercent*beltNumber)
+        //        println("\(startHole)")
+        
+        var coord = -1
+        var scale = CGFloat(1.1)
+        var layer = 0
+        
+        // how long the belt is
+//        var layerLimit = Int(getRandom(min: 15.0, 25.0))
+        var layerLimit = 40
+        
+        // Constant change for uniform zig zags
+        let change = getRandom(min: 0, 1.0)
+        var directionGoing = "right"
+        
+        while layer < layerLimit {
+            while coord < Int(beltNumber) {
+                let asteroidAdd = Asteroid(texture: texture, color: SKColor.redColor(), size: texture.size())
+                asteroidAdd.setScale(scalePic)
+                if(startHole == coord){
+                    coord = coord + Int(beltWidthRock)
+                }else{
+                    coord++
+                }
+//                asteroidAdd.asteroidBeltSetup(viewSize.width*((CGFloat(coord)+getRandom(min: 0.0, 1.0))/beltNumber), scale: scale)
+                asteroidAdd.asteroidBeltSetup(viewSize.width*((CGFloat(coord))/beltNumber), scale: scale)
+                asteroids.addObject(asteroidAdd)
+                self.addChild(asteroidAdd)
+            }
+            
+//            scale = scale + getRandom(min: 0.01, 0.05)
+//            layer++
+//            coord = -1
+//            let change = getRandom(min: 0, 1.0)
+//            if change < 0.20 {
+//                if((startHole+1)+Int(beltWidthRock) <= Int(beltNumber)){
+//                    startHole++
+//                }else{
+//                    startHole--
+//                }
+//                
+//            } else if change > 0.80 {
+//                if((startHole-1)-Int(beltWidthRock) >= 0 ){
+//                    startHole--
+//                }else{
+//                    startHole++
+//                }
+//            }
+            println("adding a layer")
+            
+            // Zig zag generation
+//            scale = scale + getRandom(min: 0.01, 0.05)
+            println(texture.size().height)
+            scale = scale + ((texture.size().height/1.5) / viewSize.height)
+            layer++
+            coord = -1
+            
+            let zigzagDifficulty = 3
+            
+            if layer % zigzagDifficulty == 0 {
+                if directionGoing == "right" {
+                    if((startHole)+Int(beltWidthRock) <= Int(beltNumber)){
+                        startHole++
+                    } else {
+                        directionGoing = "left"
+                    }
+                } else if directionGoing == "left" {
+                    if(startHole >= 0 ){
+                        startHole--
+                    } else {
+                        directionGoing = "right"
+                    }
+                }
+            }
+            
+            
+                
+            
+//            if change <= 0.50 {
+//                if((startHole+1)+Int(beltWidthRock) <= Int(beltNumber)){
+//                    startHole++
+//                } else {
+//                    startHole--
+//                }
+//                
+//            } else {
+//                if((startHole-1)-Int(beltWidthRock) >= 0 ){
+//                    startHole--
+//                }else{
+//                    startHole++
+//                }
+//            }
+        }
     }
     
     //Bullets Helpers

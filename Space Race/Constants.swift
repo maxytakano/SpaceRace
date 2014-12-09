@@ -30,4 +30,10 @@ class Contact {
     class var Energy:UInt32             { return 1 << 4 }
     class var ShipBullet:UInt32         { return 1 << 5 }
     class var EnemyBullet:UInt32        { return 1 << 6 }
+    
+    class var EnemyShip:UInt32          { return 1 << 7 }
+    class var PelletGunPowerup:UInt32   { return 1 << 8 }
+    class var InvinciblePowerup:UInt32  { return 1 << 9 }
+    class var LaserPowerup:UInt32       { return 1 << 10}
+    class var Laser:UInt32              { return 1 << 11}
 }
