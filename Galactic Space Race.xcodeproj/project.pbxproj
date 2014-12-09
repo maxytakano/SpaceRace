@@ -10,6 +10,9 @@
 		F2014D361A30DA9F00DA8A0F /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2014D351A30DA9F00DA8A0F /* Buttons.swift */; };
 		F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D251A251B4700510B15 /* CollisionManager.swift */; };
 		F20D3D281A251B4700510B15 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D3D261A251B4700510B15 /* Energy.swift */; };
+		F2143A3E1A36822500926E06 /* EnergyUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2143A3D1A36822500926E06 /* EnergyUp@2x.png */; };
+		F2143A401A36827F00926E06 /* PelletGunPowerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2143A3F1A36827F00926E06 /* PelletGunPowerup.swift */; };
+		F2143A421A3685BE00926E06 /* Laser2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2143A411A3685BE00926E06 /* Laser2@2x.png */; };
 		F216DE001A2E5D9A0014A7FA /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */; };
 		F216DE021A2E608A0014A7FA /* MultiplayerStaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */; };
 		F21E81AB1A365DA300F5895A /* CreditsPage2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */; };
@@ -146,6 +149,9 @@
 		F2014D351A30DA9F00DA8A0F /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		F20D3D251A251B4700510B15 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		F20D3D261A251B4700510B15 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
+		F2143A3D1A36822500926E06 /* EnergyUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EnergyUp@2x.png"; sourceTree = "<group>"; };
+		F2143A3F1A36827F00926E06 /* PelletGunPowerup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PelletGunPowerup.swift; sourceTree = "<group>"; };
+		F2143A411A3685BE00926E06 /* Laser2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Laser2@2x.png"; sourceTree = "<group>"; };
 		F216DDFF1A2E5D9A0014A7FA /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F216DE011A2E608A0014A7FA /* MultiplayerStaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerStaging.swift; sourceTree = "<group>"; };
 		F21E81AA1A365DA300F5895A /* CreditsPage2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CreditsPage2@2x.png"; sourceTree = "<group>"; };
@@ -298,6 +304,15 @@
 				F2014D351A30DA9F00DA8A0F /* Buttons.swift */,
 			);
 			name = HUD;
+			sourceTree = "<group>";
+		};
+		F2143A3C1A36822500926E06 /* powerups */ = {
+			isa = PBXGroup;
+			children = (
+				F2143A3D1A36822500926E06 /* EnergyUp@2x.png */,
+				F2143A411A3685BE00926E06 /* Laser2@2x.png */,
+			);
+			path = powerups;
 			sourceTree = "<group>";
 		};
 		F21E81AC1A3665A400F5895A /* ship4 */ = {
@@ -465,6 +480,7 @@
 				F2639A3C1A1529A6003DD8CC /* SpaceShip.swift */,
 				F2639A3E1A1529B8003DD8CC /* Star.swift */,
 				F2639A401A1529C1003DD8CC /* Asteroid.swift */,
+				F2143A3F1A36827F00926E06 /* PelletGunPowerup.swift */,
 				F20D3D261A251B4700510B15 /* Energy.swift */,
 				F2BD0EF11A2E574E00AAB205 /* ShipBullet.swift */,
 			);
@@ -474,6 +490,7 @@
 		F2705D5D1A3527D900AB6D92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F2143A3C1A36822500926E06 /* powerups */,
 				F27BE4631A357FFC00E404A2 /* newMenuStuff */,
 				F2FB78511A365A330061738F /* creditsandTutorial */,
 				F2F8A18A1A353B7F00E129BA /* MenuButtons */,
@@ -819,6 +836,7 @@
 				F21E81ED1A36681000F5895A /* Ship2TiltLeft3@2x.png in Resources */,
 				F2705D7A1A3527D900AB6D92 /* background2@2x.png in Resources */,
 				F21E82001A36681000F5895A /* Ship6TiltLeft1@2x.png in Resources */,
+				F2143A3E1A36822500926E06 /* EnergyUp@2x.png in Resources */,
 				F2D570991A35964800FFB0CC /* MultiPlayer@2x.png in Resources */,
 				F21E81B71A3665A400F5895A /* Ship4TiltLeft3@2x.png in Resources */,
 				F2D570951A35964800FFB0CC /* Back@2x.png in Resources */,
@@ -837,6 +855,7 @@
 				F2D570AB1A35A69100FFB0CC /* Keep Running.wav in Resources */,
 				F25BFFCE1A153D430015106D /* artwork.atlas in Resources */,
 				F2C3E3B61A0BE82F004A16D5 /* Images.xcassets in Resources */,
+				F2143A421A3685BE00926E06 /* Laser2@2x.png in Resources */,
 				F21E81E81A36681000F5895A /* Ship1TiltRight2@2x.png in Resources */,
 				F2705D8F1A3527D900AB6D92 /* Ship@2x.png in Resources */,
 				F2D570AF1A35A7E100FFB0CC /* Space Battle.wav in Resources */,
@@ -896,6 +915,7 @@
 				F2A6DF2F1A33BABA00284B81 /* OptionsScene.swift in Sources */,
 				F20D3D271A251B4700510B15 /* CollisionManager.swift in Sources */,
 				F2BD0EF61A2E5A2D00AAB205 /* GameKitHelper.swift in Sources */,
+				F2143A401A36827F00926E06 /* PelletGunPowerup.swift in Sources */,
 				F2639A3D1A1529A6003DD8CC /* SpaceShip.swift in Sources */,
 				F2C3E3D71A0BF201004A16D5 /* ParticleSystems.swift in Sources */,
 				F2BD0EF21A2E574E00AAB205 /* ShipBullet.swift in Sources */,

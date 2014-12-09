@@ -1,5 +1,5 @@
 //
-//  Energy.swift
+//  PelletGunPowerup.swift
 //  Space Race
 //
 //  Created by Tim K on 11/23/14.
@@ -9,21 +9,22 @@
 import Foundation
 import SpriteKit
 
-class Energy:SKSpriteNode {
+class PelletGunPowerup:SKSpriteNode {
     //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
-    let nameEnergy = "Energy"
+    let namePowerup = "PelletGunPowerup"
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
         
-        self.energySetup()
+        self.pelletGunPowerupSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func energySetup() {
+    
+    func pelletGunPowerupSetup() {
         // Texture Properties
         self.texture?.filteringMode = SKTextureFilteringMode.Nearest
         
@@ -34,7 +35,7 @@ class Energy:SKSpriteNode {
         self.zPosition = GameLayer.Game
         
         // Other Properites
-        self.name = nameEnergy
+        self.name = namePowerup
         
         // Physics
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.size.height / 2)
@@ -43,7 +44,7 @@ class Energy:SKSpriteNode {
         self.physicsBody?.linearDamping = 1.0
         self.physicsBody?.angularDamping = 1.0
         self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.categoryBitMask = Contact.Energy
+        self.physicsBody?.categoryBitMask = Contact.PelletGunPowerup
         
         self.physicsBody?.collisionBitMask = Contact.Ship
         self.physicsBody?.contactTestBitMask = Contact.Ship

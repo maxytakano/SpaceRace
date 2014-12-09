@@ -45,6 +45,11 @@ class SpaceShip:SKSpriteNode {
         shipState = states.NORMAL
     }
     
+    // pellet gun stuff
+    func pelletGun(){
+        shipState = states.PELLETGUN
+    }
+    
     
     func shipSetup() {
         // Texture Properties
@@ -71,7 +76,7 @@ class SpaceShip:SKSpriteNode {
         self.physicsBody?.categoryBitMask = Contact.Ship
         
         self.physicsBody?.collisionBitMask = Contact.Frame
-        self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.Energy
+        self.physicsBody?.contactTestBitMask = Contact.Asteroid | Contact.PelletGunPowerup | Contact.Energy
     }
  
 }

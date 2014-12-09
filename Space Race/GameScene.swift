@@ -22,6 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shipTexture:String
     var stars:NSMutableArray
     var energies:NSMutableArray
+    var pelletGunPowerups:NSMutableArray
     var asteroids:NSMutableArray
     var contactQueue = Array<SKPhysicsContact>()
     
@@ -81,6 +82,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     ////// Texture Stuff //////
     var currentTexture = SKTexture()
     
+    // Powerup timers
+    var pelletGunTimer: Int
+    //var invincibleTimer: Int
+    //var laserTimer: Int
+    //var laser: LaserBullet!
+    
     /* -------- Initialization --------  */
     
     func setShipTexture(name:String) {
@@ -92,6 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stars = []
         energies = []
         asteroids = []
+        pelletGunPowerups = []
         centiseconds = 0
         centisecondsPerStar = 999999
         starSpanTime = 0.0
@@ -106,6 +114,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         asteroidsPerCentisecond = 0.0
         shipTexture = "Ship1"
         currentTexture = SKTexture(imageNamed: "Ship1")
+        
+        // powerup timer inits
+        pelletGunTimer = 0
         
         super.init(size: size)
     }
@@ -348,13 +359,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (ship.shipState == SpaceShip.states.PELLETGUN) {
             // bullet
             if (theNode.name != "boostButtonNode" && theNode.name != "brakeButtonNode"){
-                if let touch : AnyObject = touches.anyObject() {
-                    if (touch.tapCount == 1) {
-                        
-                        // add a tap to the queue
-                        self.tapQueue.append(1)
-                    }
-                }
+//                if let touch : AnyObject = touches.anyObject() {
+//                    if (touch.tapCount == 1) {
+//                        
+//                         add a tap to the queue
+//                        self.tapQueue.append(1)
+//    
+//                    }
+//                }
+                fireShipBullets()
             }
         }
         
@@ -368,8 +381,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let touch = theTouch as UITouch
             let touchLocation = touch.locationInNode(self)
             var theNode = self.nodeAtPoint(touchLocation)
-            if theNode.name == nil || theNode.name == "Asteroid" || theNode.name == "Energy" {
+            if theNode.name == nil || theNode.name == "Asteroid" || theNode.name == "Energy" || theNode.name == "PelletGunPowerup" || theNode.name == "InvinciblePowerup" || theNode.name == "LaserPowerup" {
                 thingsTouched.addObject("shield")
+//                if ship.shipState == SpaceShip.states.SHIELDING {
+//                    thingsTouched.addObject("shield")
+//                }
+//                else if ship.shipState == SpaceShip.states.PELLETGUN {
+//                    thingsTouched.addObject("pelletMode")
+//                }
+                
             } else {
                 thingsTouched.addObject(theNode.name!)
             }
@@ -396,15 +416,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             braking = true
         }
         
+//        if ship.shipState == SpaceShip.states.NORMAL {
         if thingsTouched.containsObject("shield") == false {
             if ship.shipState == SpaceShip.states.SHIELDING {
                 updatePlayerState(3)
             }
         } else {
-            if ship.shipState != SpaceShip.states.SHIELDING {
-                updatePlayerState(1)
+            
+            if ship.shipState == SpaceShip.states.PELLETGUN {
+                updatePlayerState(2)
+            } else if ship.shipState != SpaceShip.states.SHIELDING {
+                
             }
+            
+//            if ship.shipState != SpaceShip.states.SHIELDING {
+//                updatePlayerState(1)
+//            }
         }
+//        }
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
@@ -440,19 +469,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if thingsTouched.containsObject("shield") == false {
             if ship.shipState == SpaceShip.states.SHIELDING {
                 updatePlayerState(3)
+            } // !! why do we have to goto pellet
+            else if ship.shipState == SpaceShip.states.PELLETGUN {
+                updatePlayerState(2)
             }
         }
         
     }
     
-    func processUserTapsForUpdate(currentTime: CFTimeInterval) {
-        for tapCount in self.tapQueue {
-            if tapCount == 1 {
-                self.fireShipBullets()
-            }
-            self.tapQueue.removeAtIndex(0)
-        }
-    }
+//    func processUserTapsForUpdate(currentTime: CFTimeInterval) {
+//        for tapCount in self.tapQueue {
+//            if tapCount == 1 {
+//                self.fireShipBullets()
+//            }
+//            self.tapQueue.removeAtIndex(0)
+//        }
+//    }
     
     /* -------- Updates -------- */
     var starCounter = 0
@@ -460,6 +492,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    var secondCounter = 0
     var deciSecondCounter = 0
     var beltCounter = 0
+    var energyCounter = 0
+    var pelletCounter = 0
     
     func timerUpdate() {
         if playState == 0 {
@@ -471,12 +505,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             deciSecondCounter++
             beltCounter++
+            energyCounter++
+            pelletCounter++
         
 //            secondCounter++
             
             if starCounter > centisecondsPerStar {
                 starCounter = 0
-//                addStar()
+                addStar()
+            }
+            
+            if energyCounter > 300 {
+                energyCounter = 0
+                addEnergy()
+            }
+            
+            if pelletCounter > 300 {
+                pelletCounter = 0
+                addPelletPowerup()
             }
             
             if asteroidCounter > centisecondsPerAsteroid {
@@ -555,7 +601,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //spawnRate = starsOnScreen / spanTime
             //speed = CGFloat(spawnRate)
             
-            processUserTapsForUpdate(currentTime)
+//            processUserTapsForUpdate(currentTime)
             updateGameObjects()
             processContactsForUpdate(currentTime)
             
@@ -678,6 +724,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        for powerup in pelletGunPowerups {
+            (powerup as PelletGunPowerup).updateVelocity(ship.forwardSpeed)
+            if powerup.position.y < viewSize.height * -0.1 {
+                pelletGunPowerups.removeObject(powerup)
+                powerup.removeFromParent()
+            }
+        }
+        
         for asteroid in asteroids {
             (asteroid as Asteroid).updateVelocity(ship.forwardSpeed)
             if asteroid.position.y < viewSize.height * -0.1 {
@@ -715,8 +769,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                runAction(drainAction, withKey: "drainAction1")
             }
 
-        }
-        else if (currentState == 3) {
+        } else if currentState == 2 {
+            if(self.minutes - pelletGunTimer >= 10){
+                ship.unShield()
+            }
+        } else if (currentState == 3) {
             // sound stuff
             //            fadingOut = true
             //            fadingIn = false
@@ -779,7 +836,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addEnergy() {
         // Create sprite
-        let texture = SKTexture(imageNamed: "Ship")
+        let texture = SKTexture(imageNamed: "EnergyUp")
         let energy = Energy(texture: texture, color: SKColor.redColor(), size: texture.size())
         
         
@@ -799,6 +856,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // send up mini rock
         asteroids.addObject(asteroid)
         self.addChild(asteroid)
+    }
+    
+    func addPelletPowerup() {
+        // Create sprite
+        let texture = SKTexture(imageNamed: "Laser2")
+        let powerup = PelletGunPowerup(texture: texture, color: SKColor.redColor(), size: texture.size())
+        
+        // send up mini rock
+        pelletGunPowerups.addObject(powerup)
+        self.addChild(powerup)
     }
     
     func addAsteroidBelt() {
@@ -929,18 +996,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let bulletSize = CGSizeMake(4, 8)
     func fireShipBullets() {
         
-        let existingBullet = self.childNodeWithName(nameShipBullet)
+//        let existingBullet = self.childNodeWithName(nameShipBullet)
+//        
+//        if existingBullet == nil {
+//            if let ship = self.childNodeWithName(nameShip) {
+//                let texture = SKTexture(imageNamed: "Asteroid1")
+//                let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
+//                    size: texture.size())
+//                bullet.position =
+//                    CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2)
+//                let bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2)
+//                self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "ShipBullet.wav")
+//            }
+//        }
         
-        if existingBullet == nil {
-            if let ship = self.childNodeWithName(nameShip) {
-                let texture = SKTexture(imageNamed: "Asteroid1")
-                let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
-                    size: texture.size())
-                bullet.position =
-                    CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2)
-                let bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2)
-                self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "ShipBullet.wav")
-            }
+        if let ship = self.childNodeWithName(nameShip) {
+            let texture = SKTexture(imageNamed: "Asteroid1")
+            let bullet = ShipBullet(texture: texture, color: SKColor.redColor(),
+                size: texture.size())
+            bullet.position =
+                CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2)
+            let bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2)
+            self.fireBullet(bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "ShipBullet.wav")
         }
     }
     
@@ -988,8 +1065,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func collisionManager(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
         shipBulletAsteroidCollision(firstBody, secondBody: secondBody)
+        pelletGunPowerupCollision(firstBody, secondBody: secondBody)
         energyCollision(firstBody, secondBody: secondBody)
         asteroidCollision(firstBody, secondBody: secondBody)
+        
     }
     
     func energyCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
@@ -1001,6 +1080,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                secondBody.node?.removeFromParent()
                 
                 secondBody.node!.position.y = viewSize.height * -0.1
+                
+                shipEnergy += 40
+                var ratio = CGFloat(shipEnergy / maxEnergy)
+                if (self.shipEnergy > 100) {
+                    ratio = CGFloat(100.0)
+                }
+                staminaBar.size.height = maxStaminaBarHeight * CGFloat(ratio)
+                
+        }
+    }
+    
+    func pelletGunPowerupCollision(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody){
+        if ((firstBody.categoryBitMask & Contact.Ship != 0)
+            && (secondBody.categoryBitMask & Contact.PelletGunPowerup != 0)) {
+                
+                //done to make sure removed from array too
+                //                energies.removeObject(secondBody.node!)
+                //                secondBody.node?.removeFromParent()
+                
+                if(ship.shipState == SpaceShip.states.SHIELDING){
+                    updatePlayerState(3)
+                }
+                ship.pelletGun()
+                pelletGunTimer = self.minutes
+                secondBody.node!.position.y = viewSize.height * -0.1
+                //                println("energy")
         }
     }
     
