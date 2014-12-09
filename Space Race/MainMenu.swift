@@ -124,11 +124,12 @@ class MainMenu: SKScene {
             }
             if CGRectContainsPoint(_multiPlayerButton.frame, touch.locationInNode(self)) {
                 // tell the view controller to switch to the multiplayer view.
-//                NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)
+                NSNotificationCenter.defaultCenter().postNotificationName("GoToMultiplayer", object: self)
+                // !!!! pass in a bool to ship selection for multi or not
                 
-                let transition = SKTransition.fadeWithDuration(1)
-                let scene = ShipSelectionScene(size: self.scene!.size)
-                self.view?.presentScene(scene, transition: transition)
+//                let transition = SKTransition.fadeWithDuration(1)
+//                let scene = ShipSelectionScene(size: self.scene!.size)
+//                self.view?.presentScene(scene, transition: transition)
             }
             if CGRectContainsPoint(_leaderButton.frame, touch.locationInNode(self)) {
                 // Show the score scene

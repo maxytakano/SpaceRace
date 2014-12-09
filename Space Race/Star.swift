@@ -11,7 +11,7 @@ import SpriteKit
 class Star:SKSpriteNode {
 //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
     let nameStar = "Pretty Star"
-    
+    var index : Int?
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)

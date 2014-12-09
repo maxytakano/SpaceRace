@@ -12,6 +12,7 @@ import SpriteKit
 class Asteroid:SKSpriteNode {
     //    let startPosition = CGPoint(x: viewSize.width * 0.5, y: viewSize.height * 0.2)
     let nameAsteroid = "Asteroid"
+    var index : Int?
     let nameAsteroidBelt = "AsteroidBelt"
     var rotationSpeed:CGFloat
     

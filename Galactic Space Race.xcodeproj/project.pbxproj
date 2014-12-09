@@ -64,6 +64,7 @@
 		F21E82031A36681000F5895A /* Ship6TiltRight1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81E01A36681000F5895A /* Ship6TiltRight1@2x.png */; };
 		F21E82041A36681000F5895A /* Ship6TiltRight2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81E11A36681000F5895A /* Ship6TiltRight2@2x.png */; };
 		F21E82051A36681000F5895A /* Ship6TiltRight3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F21E81E21A36681000F5895A /* Ship6TiltRight3@2x.png */; };
+		F2320E481A36C2950034E795 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2320E471A36C2950034E795 /* Queue.swift */; };
 		F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */; };
 		F252C0A51A32C305006C6B83 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F252C0A41A32C305006C6B83 /* Crashlytics.framework */; };
 		F252C0A71A32E0F6006C6B83 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */; };
@@ -200,6 +201,7 @@
 		F21E81E01A36681000F5895A /* Ship6TiltRight1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ship6TiltRight1@2x.png"; sourceTree = "<group>"; };
 		F21E81E11A36681000F5895A /* Ship6TiltRight2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ship6TiltRight2@2x.png"; sourceTree = "<group>"; };
 		F21E81E21A36681000F5895A /* Ship6TiltRight3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ship6TiltRight3@2x.png"; sourceTree = "<group>"; };
+		F2320E471A36C2950034E795 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F24CDEFA1A15322A00E9B5F0 /* MotionUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionUtility.swift; sourceTree = "<group>"; };
 		F252C0A41A32C305006C6B83 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F252C0A61A32E0F6006C6B83 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			children = (
 				F2BD0EF41A2E5A2D00AAB205 /* GameKitHelper.swift */,
 				F2BD0EF51A2E5A2D00AAB205 /* MultiplayerNetworking.swift */,
+				F2320E471A36C2950034E795 /* Queue.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -913,6 +916,7 @@
 				F252C0A71A32E0F6006C6B83 /* GameOverScene.swift in Sources */,
 				F24CDEFB1A15322A00E9B5F0 /* MotionUtility.swift in Sources */,
 				F25BFFC21A1535C80015106D /* Constants.swift in Sources */,
+				F2320E481A36C2950034E795 /* Queue.swift in Sources */,
 				F2705D5C1A351F3700AB6D92 /* ShipSelectionScene.swift in Sources */,
 				F2639A411A1529C1003DD8CC /* Asteroid.swift in Sources */,
 				F2FB78501A3659B20061738F /* CreditsScene.swift in Sources */,
